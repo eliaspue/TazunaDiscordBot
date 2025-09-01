@@ -1,0 +1,45 @@
+[
+    {   "id": "Goldship - Costume 1",
+        "event_name": "The Red of the Protagonist!",
+        "type": "Costume",
+        "character_name": "Gold Ship (Original)",
+        "options": [
+            {
+                "optionstext": "",
+                "rewards": [
+                    "Wisdom +20"
+                ]
+            },
+            {
+                "optionstext": "",
+                "rewards": [
+                    "Guts +20"
+                ]
+            }
+        ],
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["goldship red protagonist", "golshi"]
+    },
+
+    {   "id": "Generic - Victory G1",
+        "event_name": "Victory! (G1)",
+        "type": "Race",
+        "character_name": "Any",
+        "options": [
+            {
+                "optionstext": "",
+                "rewards": [
+                    "Wisdom +20"
+                ]
+            },
+            {
+                "optionstext": "",
+                "rewards": "Guts +20"
+            }
+        ],
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["goldship red protagonist", "golshi"]
+    },
+
+
+]
