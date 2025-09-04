@@ -1,92 +1,192 @@
 [
     {   "id": "106158814788583424",
-        "name": "Inusame"
+        "name": "Inusame",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "217274197553053696",
-        "name": "Vivi"
+        "name": "Vivi",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "1298380569897472035",
-        "name": "Nidhogg"
+        "name": "Nidhogg",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "355642968150900737",
-        "name": "Moot"
+        "name": "Moot",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "811499544524619807",
-        "name": "Banana"
+        "name": "Banana",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "899207840143646740",
-        "name": "Mullerin"
+        "name": "Mullerin",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "265291353615761410",
-        "name": "zzz"
+        "name": "zzz",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "167102753989066752",
-        "name": "rice"
-    },
-    {   "id": "535237314943909888",
-        "name": "Shiva"
+        "name": "rice",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "296147291566374914",
-        "name": "Flac"
+        "name": "Flac",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "77781522408538112",
-        "name": "Nightfish"
+        "name": "Nightfish",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "306827300073373707",
-        "name": "luuuc"
+        "name": "luuuc",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "409587819661492224",
-        "name": "D'1ne"
+        "name": "D'1ne",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "335829406146625547",
-        "name": "Rudder"
+        "name": "Rudder",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "174017194013753346",
-        "name": "Chyai"
+        "name": "Chyai",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "641965253038440448",
-        "name": "BennySigmaboy"
+        "name": "BennySigmaboy",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "215062981250121731",
-        "name": "Allxtend"
+        "name": "Allxtend",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "967921401577242705",
-        "name": "pInk"
+        "name": "pInk",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "327458365053861897",
-        "name": "Paganist"
+        "name": "Paganist",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "346257862915260418",
-        "name": "Trid"
-    },
-    {   "id": "000000000000000000",
-        "name": "Lysrid"
+        "name": "Trid",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "141593372040232960",
-        "name": "IcyShadow"
+        "name": "IcyShadow",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "134421068709363714",
-        "name": "Caladerbo"
+        "name": "Caladerbo",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "322776542826594314",
-        "name": "SirPsycho"
-    },
-    {   "id": "000000000000000000",
-        "name": "Syst"
+        "name": "SirPsycho",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "220047711137824769",
-        "name": "MasajMacaulk"
+        "name": "MasajMacaulk",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "694195078633357313",
-        "name": "NoRest"
+        "name": "NoRest",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "229279100513157120",
-        "name": "Ryukaze"
+        "name": "Ryukaze",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "242247483684552706",
-        "name": "Babu"
+        "name": "Babu",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     },
     {   "id": "301224730122387456",
-        "name": "Noa"
+        "name": "Noa",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
+    },
+    {
+        "id": "108335779918385152",
+        "name": "Lost",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
+    },
+    {
+        "id": "140757170521112576",
+        "name": "Halfwrong",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
+    },
+    {
+        "id": "109515996351430656",
+        "name": "Flashwire",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
+    },
+    {
+        "id": "236889503615156226",
+        "name": "Parzival",
+        "fans_total":"",
+        "fans_monthly": "",
+        "color": ""
     }
 ]

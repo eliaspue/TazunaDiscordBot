@@ -59,7 +59,7 @@ const SKILL_COMMAND = {
 };
 
 const UMA_COMMAND = {
-  name: 'character',
+  name: 'uma',
   description: 'Lookup a horse',
   options: [
     {
@@ -123,13 +123,13 @@ const USER_COMMAND = {
 };
 
 const LEADERBOARD_COMMAND = {
-  name: 'trainer',
+  name: 'leaderboard',
   description: 'See the current rankings of the month',
   options: [
     {
       type: 4,
       name: 'sort',
-      description: 'Leave blank to see sorted by total. \'Growth\' to see monthly growth and \'Daily\' to see monthly growth averaged by days.',
+      description: 'Check the monthkly leaderboard',
       required: false
     },
   ],

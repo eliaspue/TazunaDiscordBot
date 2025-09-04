@@ -688,6 +688,35 @@
         "category": "speed",
         "aliases": ["king halo", "first rate plan"]
     },
+    {   "id": "20021 Kiryuin Aoi",
+        "card_name": "Trainer’s Teamwork",
+        "character_name": "Aoi Kiryuin",
+        "unique": "Decreases the probability of failure when training together (10%)\nDecreases Energy consumed when training together (5%)",
+        "effects": [
+            "Training Effectiveness – 0/0/0/0/5%",
+            "Initial Wit – 0/10/15/20/20",
+            "Initial Friendship Gauge – 20/21/22/23/25",
+            "Event Recovery – 40/42/45/47/50%",
+            "Event Effectiveness – 25/26/27/28/30%",
+            "Failure Protection – 20/21/22/23/25%",
+            "Energy Cost Reduction – 15/16/17/18/20%"
+        ],
+        "support_skills": [
+        ],
+        "event_skills": [
+            "Subdued Front Runners",
+            "Hesitant End Closers",
+            "Maverick",
+            "Shake It Out",
+            "Lay Low"
+        ],
+        "url": "https://gametora.com/umamusume/supports/20021-aoi-kiryuin",
+        "thumbnail": "https://gametora.com/images/umamusume/supports/support_card_s_20021.png",
+        "rarity": "sr",
+        "category": "pal",
+        "aliases": ["kiryuin aoi", "trainers teamwork"]
+    },
+
 
     {   "id": "20023 Sweep Tosho",
         "card_name": "Lamplit Training of a Witch-to-Be",

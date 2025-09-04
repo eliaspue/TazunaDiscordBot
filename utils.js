@@ -31,12 +31,25 @@ const skillCategoryEmotes = {
   accelnegative: '<:SkillAccelNegative:1410390629085769731>',
   accelspecial: '<:SkillAccel:1410383762990039040>', // new one needed
   goldenaccelspecial: '<:SkillGoldenAccel:14103906061462246500>', // new one neede
-  flow: '<:SkillFlow:1409365210937082122>',
+  flow: '<:SkillFlow:1412668553236185180>',
+  goldenflow: '<:SkillGoldenFlow:1412668565416575118>',
   wisdom: '<:SkillWisdom:1409317127567052925>',
-  velocity: '<:SkillVelocity:1409375756429037608>',
   unique: '🌟', // unique skills if needed
   default: '✨' // fallback
 };
+
+const rankCategoryEmotes = {
+  A: '<:RankA:1412694937203511336>',
+  B: '<:RankB:1412694961358372894>',
+  C: '<:RankC:1412694982363578450>',
+  D: '<:RankD:1412695001825284198>',
+  E: '<:RankE:1412695032137257040>',
+  F: '<:RankF:1412695050969681982>',
+  G: '<:RankG:1412695075271475212>',
+  S: '<:RankS:1412695122784551033>',
+  default: '❓' // fallback
+}
+
 
 export async function DiscordRequest(endpoint, options) {
   // append endpoint to root API URL
@@ -104,6 +117,22 @@ function getCardTypeImageLink(str) {
   {
     return 'https://gametora.com/images/umamusume/icons/utx_ico_obtain_00.png';
   }
+  if (str === 'stamina')
+  {
+    return 'https://gametora.com/images/umamusume/icons/utx_ico_obtain_01.png';
+  }
+  if (str === 'power')
+  {
+    return 'https://gametora.com/images/umamusume/icons/utx_ico_obtain_02.png';
+  }
+  if (str === 'guts')
+  {
+    return 'https://gametora.com/images/umamusume/icons/utx_ico_obtain_03.png';
+  }
+  if (str === 'wit')
+  {
+    return 'https://gametora.com/images/umamusume/icons/utx_ico_obtain_04.png';
+  }
 }
 
 // Emoji for the Card Type Dropdown
@@ -136,6 +165,39 @@ export function getCustomEmoji(str) {
   {
     return { "id": "1409344925103030315", "name": "Group" };
   }
+}
+
+// Emoji for the Skill Type Dropdown
+export function getSkillEmoji(str) {
+   if (!str) return skillCategoryEmotes.default;
+
+  // normalize: lowercase & strip spaces
+  const key = str.toLowerCase().replace(/\s+/g, "");
+
+  return skillCategoryEmotes[key] || skillCategoryEmotes.default;
+}
+
+export function parseEmojiForDropdown(emojiStr) {
+   if (!emojiStr) return { name: "❔" }; // fallback
+
+  const customMatch = emojiStr.match(/^<:(\w+):(\d+)>$/);
+  if (customMatch) {
+    // Custom emoji
+    return { id: customMatch[2], name: customMatch[1] };
+  }
+
+  // Assume Unicode emoji
+  return { name: emojiStr };
+}
+
+
+export function getRankEmoji(str) {
+   if (!str) return rankCategoryEmotes.default;
+
+  // normalize: lowercase & strip spaces
+  const key = str;
+
+  return rankCategoryEmotes[key] || rankCategoryEmotes.default;
 }
 
 function getColor(str) {
@@ -543,7 +605,8 @@ export function buildSkillComponents(skill, includeDropdown = false, supporters)
           placeholder: "Lookup an available card",
           options: supporters.map(s => ({
             label: `${s.character_name} - ${s.card_name} (${s.rarity.toUpperCase()})`,
-            value: s.card_name
+            value: s.card_name,
+            emoji: getCustomEmoji(s.category)
           }))
         }
       ]
@@ -575,6 +638,148 @@ export function buildSkillComponents(skill, includeDropdown = false, supporters)
           style: 1,
           label: `Downgrade → ${skill.downgrade}`,
           custom_id: `downgrade_${skill.downgrade}`
+        }
+      ]
+    });
+  }
+
+  return rows;
+}
+
+export function buildEventEmbed(event, eventList) {
+  const fields = [
+      { name: "Type", value: `${event.type} (${event.subtype})` +'\n \u200B', inline: true },
+      { name: "Source", value: event.source_name +'\n \u200B' || "—" + '\n \u200B', inline: true },
+      {
+        name: "__Options__",
+        value: event.options.map((opt, i) =>
+          `**Option ${i+1}:** ${opt.optionstext || "(no text)"}\n` +
+          opt.rewards.map(r => `- ${r}`).join("\n")
+        ).join("\n\n")
+      }
+    ]
+
+  return {
+    title: event.event_name,
+    description: event.conditions +'\n \u200B',
+    thumbnail: { url: event.thumbnail},
+    fields: fields
+  }
+}
+
+export function buildUmaEmbed(uma, skills) {
+  return {
+    title: `${uma.character_name} (${uma.type})`,
+    fields: [
+      { name: "Rarity", value: uma.rarity + '\n \u200B', inline: true },
+      {
+        name: "Stat Bonuses",
+        value: Object.entries(uma.stat_bonuses[0])
+          .filter(([_, v]) => v) // only show non-empty
+          .map(([k, v]) => {
+            const emoji = getCustomEmoji(k);
+            return emoji ? `<:${emoji.name}:${emoji.id}> ${v}` : `${k}: ${v}`;
+          })
+          .join(" ") + '\n \u200B' || "— + '\n \u200B'",
+        inline: true
+      },
+      {
+        name: "Aptitudes",
+        value: uma.aptitudes
+          .map(group =>
+            Object.entries(group)
+              .map(([k, v]) => `${k}: ${getRankEmoji(v)}`)
+              .join(" | ")  
+          )
+          .join("\n") + '\n \u200B',  // ← put each aptitude group on a new line
+        inline: false
+      },
+      { name: "Unique Skill", value: `${formatCardSkill(uma.unique, skills)}` + '\n' + uma.unique_explanation + '\n \u200B', inline: false },
+      {
+        name: "Skills",
+        value: uma.skills?.length ? uma.skills.map(e => formatCardSkill(e, skills)).join("\n ") : "—",
+        inline: true
+      },
+      {
+        name: "Potential",
+        value: uma.potential?.length ? uma.potential.map(e => formatCardSkill(e, skills)).join("\n ") : "—",
+        inline: true
+      },
+      {
+        name: "Event Skills",
+        value: uma.event_skills?.length ? uma.event_skills.map(e => formatCardSkill(e, skills)).join("\n ") : "—",
+        inline: true
+      },
+      ...(uma.secrets?.length
+        ? [
+            {
+              name: "Secrets",
+              value: uma.secrets
+                .map(s => `*${s.conditions}* \n${s.rewards}`)
+                .join("\n\n") + '\n \u200B',
+              inline: false
+            }
+          ]
+        : []),
+      {
+        name: "Review",
+        value: uma.review?.length ? uma.review: "—",
+        inline: false
+      },
+    ],
+    thumbnail: { url: uma.thumbnail },
+    url: uma.url
+  };
+}
+
+export function buildUmaComponents(uma, includeDropdown = false, charactersJSON) {
+  const rows = [];
+
+  // 🔎 Find variants by character_name
+  const variants = charactersJSON.filter(u => u.character_name === uma.character_name);
+
+  // Variant dropdown (if more than one)
+  if (variants.length > 1) {
+    rows.push({
+      type: 1,
+      components: [
+        {
+          type: 3, // SELECT_MENU
+          custom_id: "uma_variant_select",
+          placeholder: `Select a ${uma.character_name} variant`,
+          options: variants.map(v => ({
+            label: `${v.type} (${v.rarity})`, // e.g. "Original (⭐⭐⭐)"
+            value: v.id                    // unique identifier
+          }))
+        }
+      ]
+    });
+  }
+
+  // Collect all skills
+  const allSkills = [
+    ...(uma.unique ? [uma.unique] : []),
+    ...(uma.skills || []),
+    ...(uma.potential || []),
+    ...(uma.event_skills || [])
+  ];
+
+  // Deduplicate skills
+  const dupelessSkills = [...new Set(allSkills)];
+
+  // Skill dropdown (if any skills exist)
+  if (dupelessSkills.length > 0) {
+    rows.push({
+      type: 1,
+      components: [
+        {
+          type: 3, // SELECT_MENU
+          custom_id: "uma_skill_select",
+          placeholder: "Select a skill",
+          options: dupelessSkills.map(s => ({
+            label: s,
+            value: `${uma.id}::${s}`
+          }))
         }
       ]
     });

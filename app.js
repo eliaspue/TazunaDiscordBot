@@ -8,10 +8,12 @@ import {
   MessageComponentTypes,
   verifyKeyMiddleware,
 } from 'discord-interactions';
-import { buildSupporterEmbed, buildSkillEmbed, buildSkillComponents, getRarityImageLink, getCustomEmoji, getSkillColor, getCardColor, getSkillThumbnail, formatCardSkill } from './utils.js';
+import { buildSupporterEmbed, buildSkillEmbed, buildSkillComponents, getSkillEmoji, getCustomEmoji, parseEmojiForDropdown, buildEventEmbed, buildUmaEmbed, buildUmaComponents } from './utils.js';
 import { logPending } from "./sheets.js";
 import supporters from './assets/supporter.json' with { type: "json" };
 import skills from './assets/skill.json' with { type: "json" };
+import events from './assets/event.json' with { type: "json" };
+import characters from './assets/character.json' with { type: "json" };
 
 // Create an express app
 const app = express();
@@ -24,7 +26,7 @@ const PORT = process.env.PORT || 3000;
  */
 app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async function (req, res) {
   // Interaction id, type and data
-  const { id, type, data } = req.body;
+  const { id, type, data, message } = req.body;
 
   /**
    * Handle verification requests
@@ -121,6 +123,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
       // If only 1 result
       if (matches.length === 1)
       {
+
         // Lookup supporters with this skill
         const supporterMatches = supporters.filter(s =>
           s.support_skills?.some(sk => sk.toLowerCase() === matches[0].skill_name.toLowerCase()) ||
@@ -143,6 +146,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         }
         });
       }
+      
 
       // If multiple matches → return a dropdown menu
       return res.send({
@@ -157,12 +161,135 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
                   type: 3, // String Select
                   custom_id: "skill_select",
                   placeholder: "Choose a Skill",
-                  options: matches.map(s => ({
+                  options: matches.slice(0, 25).map(s => ({
                     label:  s.skill_name , // must be <=100 chars
-                    value: s.skill_name, // send the supporter title back on select
-                    description: s.description.length > 100 
-                      ? s.description.slice(0, 97) + "..." 
-                      : s.description
+                    value: s.skill_name, // send the skill title back on select
+                    description: s.description.length > 80 
+                      ? s.description.slice(0, 77) + "..." 
+                      : s.description,
+                  }))
+                }
+              ]
+            }
+          ]
+        }
+      });
+    }
+
+    // "event" command
+    if (name === 'event') {
+      const eventQuery = data.options?.find(opt => opt.name === 'name')?.value?.toLowerCase();
+      const query = eventQuery.toLowerCase().split(/\s+/); 
+
+      // Find the skills that match
+      const matches = events.filter(s => {
+        return query.every(q =>
+          s.event_name.toLowerCase().includes(q) ||
+          s.source_name?.toLowerCase().includes(q) ||
+          s.aliases?.some(a => a.toLowerCase().includes(q))
+        );
+      });
+
+      if (matches.length === 0) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: `❌ Event ${eventQuery} not found` }
+        });
+      }
+
+      // If only 1 result
+      if (matches.length === 1)
+      {
+        return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: { 
+          embeds: [buildEventEmbed(matches[0], events)],
+        }
+        });
+      }
+
+      // If multiple matches → return a dropdown menu
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: `🔎 Found ${matches.length} matches. Pick one:`,
+          components: [
+            {
+              type: 1, // Action row
+              components: [
+                {
+                  type: 3, // String Select
+                  custom_id: "event_select",
+                  placeholder: "Choose an Event",
+                  options: matches.map(s => ({
+                    label:  s.event_name.length > 100 
+                      ? s.event_name.slice(0, 97) + "..." 
+                      : s.event_name,// must be <=100 chars
+                    value: s.id, // send the source back
+                     description: s.source_name?.length 
+                      ? (s.source_name.length > 100 
+                        ? s.source_name.slice(0, 97) + "..." 
+                        : s.source_name)
+                      : "No source"
+                  }))
+                }
+              ]
+            }
+          ]
+        }
+      });
+    }
+
+    if (name === 'uma') {
+      const umaQuery = data.options?.find(opt => opt.name === 'name')?.value?.toLowerCase();
+      const query = umaQuery.toLowerCase().split(/\s+/); 
+
+      // Find matches
+      const matches = characters.filter(c => {
+        return query.every(q =>
+          c.character_name.toLowerCase().includes(q) ||
+          c.aliases?.some(a => a.toLowerCase().includes(q))
+        );
+      });
+
+      // No matches
+      if (matches.length === 0) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: `❌ Uma "${umaQuery}" not found.` }
+        });
+      }
+
+      // One match → embed
+      if (matches.length === 1) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { 
+            embeds: [buildUmaEmbed(matches[0], skills)],
+            components: buildUmaComponents(matches[0], true, characters)
+          }
+        });
+      }
+
+      // Multiple matches → dropdown
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: `🔎 Found ${matches.length} matches. Pick one:`,
+          components: [
+            {
+              type: 1, // Action row
+              components: [
+                {
+                  type: 3, // String Select
+                  custom_id: "uma_select",
+                  placeholder: "Choose a Character",
+                  options: matches.map(c => ({
+                    label: c.character_name.length > 100 
+                      ? c.character_name.slice(0, 97) + "..." 
+                      : c.character_name,
+                    value: c.id,
+                    description: c.type + " " + c.rarity
                   }))
                 }
               ]
@@ -196,8 +323,23 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
             ]
           },
         });
-      }
+    }
 
+        // "skill" command
+    if (name === 'leaderboard') {
+      return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            flags: InteractionResponseFlags.IS_COMPONENTS_V2,
+            components: [
+              {
+                type: MessageComponentTypes.TEXT_DISPLAY,
+                content: "Not Ready Yet."
+              }
+            ]
+          },
+        });
+    }
 
     console.error(`unknown command: ${name}`);
     return res.status(400).json({ error: 'unknown command' });
@@ -327,6 +469,84 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         data: {
           embeds: [buildSkillEmbed(downgradedSkill, supporterList)],
           components: buildSkillComponents(downgradedSkill, supporterMatches.length, supporterMatches)
+        }
+      });
+    }
+
+    if (custom_id === "uma_select") {
+      const selectedTitle = values[0];
+      const uma = characters.find(c =>
+        c.id === selectedTitle
+      );
+
+      return res.send({
+        type: InteractionResponseType.UPDATE_MESSAGE,
+        data: {
+          content: `✅ You selected **${uma.character_name} (${uma.type})**`,
+          embeds: [buildUmaEmbed(uma, skills)],
+          components: buildUmaComponents(uma, true, characters)
+        }
+      });
+    }
+
+    if (custom_id === "uma_variant_select") {
+      const selectedVariantId = values[0];
+      const variant = characters.find(c => c.id === selectedVariantId);
+
+      if (!variant) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: `❌ Variant not found.` }
+        });
+      }
+
+      return res.send({
+        type: InteractionResponseType.UPDATE_MESSAGE, // update the same message
+        data: {
+          embeds: [buildUmaEmbed(variant, skills)],
+          components: buildUmaComponents(variant, true, characters)
+        }
+      });
+    }
+
+    // Handling selecting a skill from Uma's skill dropdown
+    if (custom_id === "uma_skill_select") {
+      const [umaId, selectedTitle] = values[0].split("::");
+
+      const uma = characters.find(c => c.id === umaId);
+
+      const skill = skills.find(s =>
+        s.skill_name.toLowerCase() === selectedTitle.toLowerCase()
+      );
+
+      if (!skill) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: `❌ Skill "${values[0]}" not found.` }
+        });
+      }
+
+      // Lookup supporters with this skill
+      const supporterMatches = supporters.filter(s =>
+        s.support_skills?.some(sk => sk.toLowerCase() === skill.skill_name.toLowerCase()) ||
+        s.event_skills?.some(sk => sk.toLowerCase() === skill.skill_name.toLowerCase())
+      );
+
+      let supporterList = supporterMatches.length
+        ? supporterMatches.map(s =>
+            `• ${s.character_name} - ${s.card_name} (${s.rarity.toUpperCase()})`
+          ).join('\n')
+        : 'None';
+
+      return res.send({
+        type: InteractionResponseType.UPDATE_MESSAGE,
+        data: {
+          content: `✅ You selected **${skill.skill_name}**`,
+          embeds: [buildUmaEmbed(uma, skills), buildSkillEmbed(skill, supporterList)],
+          components: [
+            ...buildUmaComponents(uma, true, characters),
+            ...buildSkillComponents(skill, supporterMatches.length, supporterMatches)
+          ]
         }
       });
     }

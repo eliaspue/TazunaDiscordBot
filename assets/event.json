@@ -1,8 +1,9 @@
 [
-    {   "id": "Goldship - Costume 1",
+    {   "id": "UMA Goldship - Costume 1",
         "event_name": "The Red of the Protagonist!",
-        "type": "Costume",
-        "character_name": "Gold Ship (Original)",
+        "type": "Character",
+        "subtype": "Costume",
+        "source_name": "Gold Ship (Original)",
         "options": [
             {
                 "optionstext": "",
@@ -17,29 +18,173 @@
                 ]
             }
         ],
+        "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
         "aliases": ["goldship red protagonist", "golshi"]
     },
 
-    {   "id": "Generic - Victory G1",
-        "event_name": "Victory! (G1)",
-        "type": "Race",
-        "character_name": "Any",
+    {   "id": "UMA Oguri - Eating",
+        "event_name": "Bottomless Pit",
+        "type": "Character",
+        "subtype": "",
+        "source_name": "Oguri Cap (Original)",
         "options": [
             {
-                "optionstext": "",
+                "optionstext": "Everything in moderation.",
                 "rewards": [
                     "Wisdom +20"
                 ]
             },
             {
-                "optionstext": "",
-                "rewards": "Guts +20"
+                "optionstext": "You need food for energy!",
+                "rewards": [
+                    "Guts +20"
+                ]
             }
         ],
+        "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
         "aliases": ["goldship red protagonist", "golshi"]
     },
 
+    {   "id": "CARD Special Week - Chain 1",
+        "event_name": "Dance in Cleats",
+        "type": "Card",
+        "subtype": "Chain",
+        "source_name": "Special Week (The Brightest Star in Japan!)",
+        "options": [
+            {
+                "optionstext": "",
+                "rewards": [
+                    "Speed +5",
+                    "Stamina +5"    
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/supports/support_card_s_30001.png",
+        "aliases": ["spe"]
+    },
 
+    {   "id": "Generic - Victory G1",
+        "event_name": "Victory! (G1)",
+        "type": "Generic",
+        "subtype": "Race",
+        "source_name": "",
+        "options": [
+            {
+                "optionstext": "Text changes based on horse.",
+                "rewards": [
+                    "Energy -15",
+                    "1 random stat +10",
+                    "Skill points +45",
+                    "(random) Hint for a skill related to the race"
+                ]
+            },
+            {
+                "optionstext": "Text changes based on horse.",
+                "rewards": [
+                    "Energy -5/-20",
+                    "1 random stat +10",
+                    "Skill points +45",
+                    "(random) Hint for a skill related to the race"
+                ]
+            }
+        ],
+        "conditions": "Win a G1 race.",
+        "thumbnail": "",
+        "aliases": ["g1 victory"]
+    },
+
+    {   "id": "Generic - Acupuncturist",
+        "event_name": "Acupuncture (Just an Acupuncturist, No Worries! ☆)",
+        "type": "Generic",
+        "subtype": "Acupuncturist",
+        "source_name": "",
+        "options": [
+            {
+                "optionstext": "",
+                "rewards": [
+                    "Randomly either (~30%)",
+                    "All stats +20",
+                    "or (~70%)",
+                    "Mood -2",
+                    "All stats -15",
+                    "Get Night Owl status"
+                ]
+            },
+            {
+                "optionstext": "",
+                "rewards": [
+                    "Randomly either (~45%)",
+                    "Obtain Corner Recovery",
+                    "Obtain Straightaway Recovery",
+                    "or (~55%)",
+                    "Energy -20",
+                    "Mood -2"
+                ]
+            },
+            {
+                "optionstext": "",
+                "rewards": [
+                    "Randomly either (~70%)",
+                    "Maximum Energy +12",
+                    "Energy +40",
+                    "Heal all negative status effects",
+                    "or (~30%)",
+                    "Energy -20",
+                    "Mood -2",
+                    "Get Practice Poor status"
+                ]
+            },
+            {
+                "optionstext": "",
+                "rewards": [
+                    "Randomly either (~85%)",
+                    "Energy +20",
+                    "Mood +1",
+                    "Get Charming ○ status",
+                    "or (~15%)",
+                    "Energy -10/-20",
+                    "Mood -1",
+                    "(random) Get Practice Poor status"
+                ]
+            },
+            {
+                "optionstext": "",
+                "rewards": [
+                    "Energy +10"
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "",
+        "aliases": ["acupuncture", "acupuncturist"]
+    },
+
+    {   "id": "Scenario - Reporter What a Scoop",
+        "event_name": "Exhilarating! What a Scoop!",
+        "type": "Scenario",
+        "subtype": "URA Finale",
+        "source_name": "",
+        "options": [
+            {
+                "optionstext": "I respect her a lot",
+                "rewards": [
+                    "Stamina +10",
+                    "Etsuko Otonashi bond +5"
+                ]
+            },
+            {
+                "optionstext": "She can get out of hand sometimes.",
+                "rewards": [
+                    "Guts +10",
+                    "Etsuko Otonashi bond +5"
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/scenarios/bnr_ico_001.png",
+        "aliases": ["what a scoop", "etsuko otonashi", "reporter ura"]
+    }
 ]
