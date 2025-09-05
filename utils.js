@@ -605,7 +605,7 @@ export function buildSkillComponents(skill, includeDropdown = false, supporters)
           placeholder: "Lookup an available card",
           options: supporters.map(s => ({
             label: `${s.character_name} - ${s.card_name} (${s.rarity.toUpperCase()})`,
-            value: s.card_name,
+            value: s.id,
             emoji: getCustomEmoji(s.category)
           }))
         }
@@ -648,23 +648,34 @@ export function buildSkillComponents(skill, includeDropdown = false, supporters)
 
 export function buildEventEmbed(event, eventList) {
   const fields = [
-      { name: "Type", value: `${event.type} (${event.subtype})` +'\n \u200B', inline: true },
-      { name: "Source", value: event.source_name +'\n \u200B' || "—" + '\n \u200B', inline: true },
-      {
-        name: "__Options__",
-        value: event.options.map((opt, i) =>
-          `**Option ${i+1}:** ${opt.optionstext || "(no text)"}\n` +
-          opt.rewards.map(r => `- ${r}`).join("\n")
-        ).join("\n\n")
-      }
-    ]
+    { 
+      name: "Type", 
+      value: `${event.type} (${event.subtype})\n \u200B`, 
+      inline: true 
+    },
+    { 
+      name: "Source", 
+      value: event.source_name ? event.source_name + '\n \u200B' : "—\n \u200B", 
+      inline: true 
+    },
+    {
+      name: "Options",
+      value: event.options.map((opt, i) => {
+        const outcomesText = opt.outcomes.map(o => {
+          const effectsText = o.effects.map(e => `🔸 ${e}`).join("\n");
+          return o.chance === 100 ? effectsText : `*Chance ${o.chance}%:*\n${effectsText}`;
+        }).join("\n");
+        return `__Option ${i + 1}:__ ${opt.option_text}\n${outcomesText}`;
+      }).join("\n\n")
+    }
+  ];
 
   return {
-    title: event.event_name,
-    description: event.conditions +'\n \u200B',
-    thumbnail: { url: event.thumbnail},
+    title: event.event_name,  
+    description: (event.conditions || "") + '\n \u200B',
+    thumbnail: { url: event.thumbnail || "" },
     fields: fields
-  }
+  };
 }
 
 export function buildUmaEmbed(uma, skills) {
@@ -786,4 +797,47 @@ export function buildUmaComponents(uma, includeDropdown = false, charactersJSON)
   }
 
   return rows;
+}
+
+export function buildUmaParsedEmbed(parsed) {
+  return {
+    title: parsed.name || "Unknown Uma",
+    description: parsed.epithet || "",
+    fields: [
+      {
+        name: "Stats",
+        value: Object.entries(parsed.stats)
+          .map(([k, v]) => `${k}: ${v.rank || ""} ${v.value}`)
+          .join("\n"),
+        inline: true
+      },
+      {
+        name: "Track",
+        value: Object.entries(parsed.track)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join("\n"),
+        inline: true
+      },
+      {
+        name: "Distance",
+        value: Object.entries(parsed.distance)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join("\n"),
+        inline: true
+      },
+      {
+        name: "Style",
+        value: Object.entries(parsed.style)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join("\n"),
+        inline: true
+      },
+      {
+        name: "Skills",
+        value: parsed.skills.length > 0
+          ? parsed.skills.map(s => `• ${s}`).join("\n")
+          : "—"
+      }
+    ]
+  };
 }

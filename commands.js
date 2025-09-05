@@ -129,8 +129,24 @@ const LEADERBOARD_COMMAND = {
     {
       type: 4,
       name: 'sort',
-      description: 'Check the monthkly leaderboard',
+      description: 'Check the monthly leaderboard',
       required: false
+    },
+  ],
+  type: 1,
+  integration_types: [0, 1],
+  contexts: [0, 1, 2],
+};
+
+const PARSE_COMMAND = {
+  name: 'parse',
+  description: 'Scan an uma image and extract the values into a usable format for Umalator',
+  options: [
+    {
+      type: 11,
+      name: 'image',
+      description: 'Upload a screenshot of your uma',
+      required: true
     },
   ],
   type: 1,
@@ -140,6 +156,6 @@ const LEADERBOARD_COMMAND = {
 
 
 
-const ALL_COMMANDS = [SUPPORTER_COMMAND, SKILL_COMMAND, UMA_COMMAND, EVENT_COMMAND, LOG_COMMAND, USER_COMMAND, LEADERBOARD_COMMAND];
+const ALL_COMMANDS = [SUPPORTER_COMMAND, SKILL_COMMAND, UMA_COMMAND, EVENT_COMMAND, LOG_COMMAND, USER_COMMAND, LEADERBOARD_COMMAND, PARSE_COMMAND];
 
 InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);

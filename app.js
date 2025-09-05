@@ -14,6 +14,9 @@ import supporters from './assets/supporter.json' with { type: "json" };
 import skills from './assets/skill.json' with { type: "json" };
 import events from './assets/event.json' with { type: "json" };
 import characters from './assets/character.json' with { type: "json" };
+import { createWorker } from 'tesseract.js';
+import sharp from 'sharp';
+import { parseWithOcrSpace, parseUmaProfile } from './parser.js';
 
 // Create an express app
 const app = express();
@@ -26,7 +29,7 @@ const PORT = process.env.PORT || 3000;
  */
 app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async function (req, res) {
   // Interaction id, type and data
-  const { id, type, data, message } = req.body;
+  const { id, type, data, message, token } = req.body;
 
   /**
    * Handle verification requests
@@ -88,7 +91,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
                   placeholder: "Choose a supporter",
                   options: matches.map(s => ({
                     label:  s.card_name + ' (' + s.rarity.toUpperCase() +')' , // must be <=100 chars
-                    value: s.card_name, // send the supporter title back on select
+                    value: s.id, // send the supporter id back on select
                     description: s.character_name,
                     emoji: getCustomEmoji(s.category)
                   }))
@@ -325,7 +328,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         });
     }
 
-        // "skill" command
+    // "skill" command
     if (name === 'leaderboard') {
       return res.send({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -341,6 +344,45 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         });
     }
 
+    // "parse" command
+    if (name === "parse") {
+      const attachmentId = data.options?.find(opt => opt.name === "image")?.value;
+      const attachment = data.resolved?.attachments?.[attachmentId];
+
+      if (!attachment) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: "❌ Please upload an image to scan." }
+        });
+      }
+
+      // Step 1: Defer right away
+      res.send({
+        type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
+      });
+
+      (async () => {
+        try {
+          // Step 2: Run OCR
+          const ocrText = await parseWithOcrSpace(attachment.url);
+          console.log("OCR completed, raw text:", ocrText);
+
+          // Step 3: Parse Uma profile
+          const parsed = parseUmaProfile(ocrText);
+
+          // Step 4: Send follow-up
+          await sendFollowup(token, {
+            content: `✅ Parsed Uma data for **${parsed.name || "Unknown"}**`
+          });
+        } catch (err) {
+          console.error("OCR Error:", err);
+          await sendFollowup(token, { content: "❌ Error processing image with OCR.space" });
+        }
+      })();
+
+      return; // <- important to prevent falling through to unknown command handler
+    }
+
     console.error(`unknown command: ${name}`);
     return res.status(400).json({ error: 'unknown command' });
   }
@@ -349,10 +391,8 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
     const { custom_id, values } = data;
 
     if (custom_id === "supporter_select") {
-      const selectedTitle = values[0].toLowerCase();
-      const supporter = supporters.find(s =>
-        s.card_name.toLowerCase() === selectedTitle
-      );
+      const selectedId = values[0]; // exact match
+      const supporter = supporters.find(s => s.id === selectedId);
 
       return res.send({
         type: InteractionResponseType.UPDATE_MESSAGE,
@@ -394,8 +434,8 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
 
     // Handling selecting a supporter card from skills
     if (custom_id === "supporter_lookup_select") {
-      const cardName = values[0];
-      const supporter = supporters.find(s => s.card_name === cardName);
+      const cardID = values[0];
+      const supporter = supporters.find(s => s.id === cardID);
       
       return res.send({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -552,9 +592,29 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
     }
   }
 
-  console.error('unknown interaction type', type);
-  return res.status(400).json({ error: 'unknown interaction type' });
+console.error('unknown interaction type', type);
+return res.status(400).json({ error: 'unknown interaction type' });
 });
+
+async function sendFollowup(token, payload) {
+  const response = await fetch(
+    `https://discord.com/api/v10/webhooks/${process.env.APP_ID}/${token}`, 
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }
+  );
+
+  if (!response.ok) {
+    const errText = await response.text();
+    console.error("Follow-up failed:", response.status, errText);
+  } else {
+    console.log("Follow-up sent successfully");
+  }
+
+  return response;
+}
 
 app.listen(PORT, () => {
   console.log('Listening on port', PORT);
