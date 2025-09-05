@@ -14,7 +14,6 @@ import supporters from './assets/supporter.json' with { type: "json" };
 import skills from './assets/skill.json' with { type: "json" };
 import events from './assets/event.json' with { type: "json" };
 import characters from './assets/character.json' with { type: "json" };
-import { createWorker } from 'tesseract.js';
 import sharp from 'sharp';
 import { parseWithOcrSpace, parseUmaProfile } from './parser.js';
 
