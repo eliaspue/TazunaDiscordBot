@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import fs from 'fs';
 import {
   ButtonStyleTypes,
   InteractionResponseFlags,
@@ -8,14 +9,16 @@ import {
   MessageComponentTypes,
   verifyKeyMiddleware,
 } from 'discord-interactions';
-import { buildSupporterEmbed, buildSkillEmbed, buildSkillComponents, getSkillEmoji, getCustomEmoji, parseEmojiForDropdown, buildEventEmbed, buildUmaEmbed, buildUmaComponents } from './utils.js';
-import { logPending } from "./sheets.js";
+import { buildSupporterEmbed, buildSkillEmbed, buildSkillComponents, getColor, getCustomEmoji, parseEmojiForDropdown, buildEventEmbed, buildUmaEmbed, buildUmaComponents, buildRaceEmbed, buildCMEmbed } from './utils.js';
+import { logPending, syncUsers } from "./sheets.js";
 import supporters from './assets/supporter.json' with { type: "json" };
 import skills from './assets/skill.json' with { type: "json" };
 import events from './assets/event.json' with { type: "json" };
 import characters from './assets/character.json' with { type: "json" };
-import sharp from 'sharp';
-import { parseWithOcrSpace, parseUmaProfile } from './parser.js';
+import users from './assets/users.json' with { type: "json" };
+import races from './assets/races.json' with { type: "json" };
+import champsmeets from './assets/champsmeet.json' with { type: "json" };
+import { parseWithOcrSpace, parseUmaProfile, buildUmaParsedEmbed, buildUmaLatorHash } from './parser.js';
 
 // Create an express app
 const app = express();
@@ -54,6 +57,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         return query.every(q =>
           s.card_name.toLowerCase().includes(q) ||
           s.character_name.toLowerCase().includes(q) ||
+          s.rarity.toLowerCase().includes(q) ||
           s.aliases?.some(a => a.toLowerCase().includes(q))
         );
       });
@@ -88,7 +92,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
                   type: 3, // String Select
                   custom_id: "supporter_select",
                   placeholder: "Choose a supporter",
-                  options: matches.map(s => ({
+                  options: matches.slice(0, 25).map(s => ({
                     label:  s.card_name + ' (' + s.rarity.toUpperCase() +')' , // must be <=100 chars
                     value: s.id, // send the supporter id back on select
                     description: s.character_name,
@@ -228,11 +232,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
                       ? s.event_name.slice(0, 97) + "..." 
                       : s.event_name,// must be <=100 chars
                     value: s.id, // send the source back
-                     description: s.source_name?.length 
-                      ? (s.source_name.length > 100 
-                        ? s.source_name.slice(0, 97) + "..." 
-                        : s.source_name)
-                      : "No source"
+                     description: s.source_name + " - " + s.subtype
                   }))
                 }
               ]
@@ -286,12 +286,140 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
                   type: 3, // String Select
                   custom_id: "uma_select",
                   placeholder: "Choose a Character",
-                  options: matches.map(c => ({
+                  options: matches.slice(0, 25).map(c => ({
                     label: c.character_name.length > 100 
                       ? c.character_name.slice(0, 97) + "..." 
                       : c.character_name,
                     value: c.id,
                     description: c.type + " " + c.rarity
+                  }))
+                }
+              ]
+            }
+          ]
+        }
+      });
+    }
+
+    if (name === "race") {
+    const raceQuery = data.options?.find(opt => opt.name === "name")?.value?.toLowerCase();
+    const gradeFilter = data.options?.find(opt => opt.name === "grade")?.value;
+    const yearFilter = data.options?.find(opt => opt.name === "year")?.value;
+    const query = raceQuery ? raceQuery.split(/\s+/) : [];
+
+    // Find matches
+    const matches = races.filter(r => {
+      let ok = true;
+
+      // Text query
+      if (query.length > 0) {
+        ok = ok && query.every(q =>
+          r.race_name.toLowerCase().includes(q) ||
+          r.aliases?.some(a => a.toLowerCase().includes(q))
+        );
+      }
+
+      // Grade filter
+      if (gradeFilter) {
+        ok = ok && r.grade === gradeFilter;
+      }
+
+      // Year filter
+      if (yearFilter) {
+        ok = ok && r.date?.toLowerCase().includes(yearFilter.toLowerCase());
+      }
+
+      return ok;
+    });
+
+    // No matches
+    if (matches.length === 0) {
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: { content: `❌ Race not found.` }
+      });
+    }
+
+    // One match → embed
+    if (matches.length === 1) {
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: { embeds: [buildRaceEmbed(matches[0], characters)] }
+      });
+    }
+
+      // Multiple matches → dropdown
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: `🔎 Found ${matches.length} matches. Pick one:`,
+          components: [
+            {
+              type: 1, // Action row
+              components: [
+                {
+                  type: 3, // String Select
+                  custom_id: "race_select",
+                  placeholder: "Choose a Race",
+                  options: matches.slice(0, 25).map(r => ({
+                    label: r.race_name.length > 100
+                      ? r.race_name.slice(0, 97) + "..."
+                      : r.race_name,
+                    value: r.id,
+                    description: `${r.grade} • ${r.distance_meters} • ${r.racetrack} • ${r.date}`
+                  }))
+                }
+              ]
+            }
+          ]
+        }
+      });
+    }
+
+    // "cm" command
+    if (name === 'cm') {
+      const cupQuery = data.options?.find(opt => opt.name === "name")?.value?.toLowerCase();
+
+      // Find matches
+      const matches = champsmeets.filter(c =>
+        !cupQuery || c.name.toLowerCase().includes(cupQuery)
+      );
+
+      // No matches
+      if (matches.length === 0) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: `❌ Champion's Meeting "${cupQuery}" not found.` }
+        });
+      }
+
+      // One match → embed
+      if (matches.length === 1) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: buildCMEmbed(matches[0])
+          
+        });
+      }
+
+      // Multiple matches → dropdown
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: `🔎 Found ${matches.length} matches. Pick one:`,
+          components: [
+            {
+              type: 1, // Action row
+              components: [
+                {
+                  type: 3, // String Select
+                  custom_id: "cm_select",
+                  placeholder: "Choose a CM",
+                  options: matches.slice(0, 25).map(c => ({
+                    label: c.name.length > 100 
+                      ? c.name.slice(0, 97) + "..." 
+                      : c.name,
+                    value: c.name
                   }))
                 }
               ]
@@ -327,20 +455,200 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         });
     }
 
-    // "skill" command
+    // "leaderboard" command
     if (name === 'leaderboard') {
+      const mode = options?.find(opt => opt.name === "mode")?.value || "monthly"; // default = monthly
+
+      // Always sync first to make sure data is fresh
+      const userList = await syncUsers();
+
+      // Exclude pseudo-user "Stats"
+      const realUsers = userList.filter(u => u.name.toLowerCase() !== "stats");
+
+      // Sort depending on mode
+      let sorted;
+      if (mode === "total") {
+        sorted = [...realUsers].sort((a, b) => Number(a.rank_total) - Number(b.rank_total));
+      } else {
+        sorted = [...realUsers].sort((a, b) => Number(a.rank_monthly) - Number(b.rank_monthly));
+      }
+
+      // Take top 10
+      const top10 = sorted.slice(0, 10);
+
+      // Build leaderboard text
+      let description = top10.map((u, i) => {
+        const rank = mode === "total" ? u.rank_total : u.rank_monthly;
+        const fans = mode === "total" ? u.fans_total : u.fans_monthly;
+        return `**#${rank}** ${u.name} — ⭐ ${Number(fans).toLocaleString()}`;
+      }).join("\n");
+
+      const stats = users.find(u => u.name === "Stats");
+
+      // Build embed
+      const embed = {
+        title: `🏆 Leaderboard (${mode === "total" ? "Total Fans" : "Monthly Fans"})`,
+        description: description || "No data available.",
+        color: 0xf1c40f,
+        footer: {
+          text: `Median Fans: ${Number(stats.fans_median).toLocaleString()}  •  Total Fans: ${Number(stats.fans_guild_total).toLocaleString()}  •  Daily Avg: ${Number(stats.daily_average).toLocaleString()}`
+        }
+      };
+
       return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          embeds: [embed]
+        }
+      });
+    }
+
+    // "trainer" command
+    if (name === 'trainer') {
+      // Find trainer name option (optional)
+      const trainerQuery = data.options?.find(opt => opt.name === "name")?.value;
+
+      // User ID is in user field for DMs, and member for servers
+      const userId = req.body.context === 0 ? req.body.member.user.id : req.body.user.id;
+
+      const users = await syncUsers();
+
+      // Lookup logic
+      let user;
+      if (trainerQuery) {
+        // Search by trainer name (case-insensitive)
+        const query = trainerQuery.toLowerCase();
+        user = users.find(u => u.name.toLowerCase() === query);
+      } else {
+        // Default: lookup by Discord ID
+        user = users.find(u => u.id === userId);
+      }
+
+      if (!user) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: `❌ Trainer not found.` }
+        });
+      }
+
+      // Build embed
+      const embed = {
+        title: `Trainer Profile: ${user.name}`,
+        color: getColor(user.color),
+        description: "You have mined **" + Number(user.fans_monthly).toLocaleString() + "** fans this month for the guild. \n\u200B",
+        fields: [
+          {
+            name: "👥 Total Fans \u200B\u200B\u200B\u200B",
+            value: Number(user.fans_total).toLocaleString(),
+            inline: true,
+          },
+          {
+            name: "📈 Daily Gains (Avg)",
+            value: Number(user.daily_average).toLocaleString() + "\n\u200B",
+            inline: true,
+          },
+          {
+            name: "\u200B",
+            value: "",
+            inline: true,
+          },
+          {
+            name: "⭐ Current Rank \u200B\u200B\u200B\u200B",
+            value: '# ' + Number(user.rank_total).toLocaleString(),
+            inline: true,
+          },
+          {
+            name: "〽️ Monthly Rank",
+            value: '# ' + Number(user.rank_monthly).toLocaleString(),
+            inline: true,
+          },
+          {
+            name: "\u200B",
+            value: "",
+            inline: true,
+          }
+        ]
+      };
+
+      const buttons = user.save_data
+      .filter(s => s.url)
+      .map((s, i) => ({
+        type: 2,
+        style: 5, // LINK button
+        label: s.label || `Slot ${i + 1}`,
+        url: s.url,
+      }));
+
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          embeds: [embed],
+          components: buttons.length ? [{ type: 1, components: buttons }] : []
+        },
+      });
+    }
+
+    // "banana" command
+    if (name === "banana") {
+
+      // Always sync first to make sure data is fresh
+      const userList = await syncUsers();
+
+      // Find the Banana user's threshold
+      const bananaUser = userList.find(u => u.name.toLowerCase() === "banana");
+      if (!bananaUser) {
+        return res.send({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
-            flags: InteractionResponseFlags.IS_COMPONENTS_V2,
-            components: [
-              {
-                type: MessageComponentTypes.TEXT_DISPLAY,
-                content: "Not Ready Yet."
-              }
-            ]
+            content: "❌ Could not find banana in the users data.",
           },
         });
+      }
+
+      const BANANA_THRESHOLD = Number(bananaUser.daily_average);
+
+      // Filter users below Banana's threshold (keep original order)
+      const bananaUsers = userList.filter(
+        u => Number(u.daily_average) < BANANA_THRESHOLD
+      );
+
+      if (bananaUsers.length === 0) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: "🍌 Nobody is below Banana’s threshold right now. Keep it up!",
+          },
+        });
+      }
+
+      // Find the max length of the number strings
+      const maxLen = Math.max(
+        ...bananaUsers.map(u => Number(u.daily_average).toLocaleString().length)
+      );
+
+      // Build leaderboard string
+      const desc = "```\n" + bananaUsers
+      .map(
+        (u, i) =>
+          `${String(i + 1).padStart(2, " ")}. ${u.name.padEnd(15, " ")} ${Number(u.daily_average).toLocaleString().padStart(maxLen, " ")}`
+      )
+      .join("\n") + "\n```";
+
+      const embed = {
+        title: "🍌 Banana Line (Daily Average)",
+        description: desc,
+        color: 0xFF0000,
+        footer: {
+          text: `Banana’s threshold: ${BANANA_THRESHOLD.toLocaleString()} fans/day`,
+        },
+      };
+
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          embeds: [embed],
+        },
+      });
     }
 
     // "parse" command
@@ -357,29 +665,86 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
 
       // Step 1: Defer right away
       res.send({
-        type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
+        type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
+        data: { content: "Tazuna is scrutinizing your uma." }
       });
 
       (async () => {
         try {
           // Step 2: Run OCR
-          const ocrText = await parseWithOcrSpace(attachment.url);
-          console.log("OCR completed, raw text:", ocrText);
+          const ocrResult = await parseWithOcrSpace(attachment.url);
+          console.log("OCR completed, raw text:", ocrResult.text);
+
+          const requiredWords = ["Turf", "Dirt", "Sprint", "Mile", "Medium", "Long", "Front", "Pace", "Late", "End"];
+          const missingWords = requiredWords.filter(word => !ocrResult.text.includes(word));
+          if (missingWords.length > 0) {
+            return await sendFollowup(token, {
+              content: `❌ OCR failed: the image is missing these required fields`
+            });
+          }
 
           // Step 3: Parse Uma profile
-          const parsed = parseUmaProfile(ocrText);
+          const parsed = await parseUmaProfile(
+            ocrResult.text, 
+            ocrResult.overlayLines, 
+            attachment.url,
+            ocrResult.rawData,
+            ocrResult.info);
+          const umalatorUrl = buildUmaLatorHash(parsed);
+          console.log("UmaLator URL:", umalatorUrl);
 
           // Step 4: Send follow-up
           await sendFollowup(token, {
-            content: `✅ Parsed Uma data for **${parsed.name || "Unknown"}**`
+            content: `✅ Parsed Uma data for **${parsed.name || "Unknown"}**`,
+            embeds: [buildUmaParsedEmbed(parsed)]
           });
         } catch (err) {
           console.error("OCR Error:", err);
-          await sendFollowup(token, { content: "❌ Error processing image with OCR.space" });
+          await sendFollowup(token, { content: "❌ Error processing image with OCR.space. " + err });
         }
       })();
 
       return; // <- important to prevent falling through to unknown command handler
+    }
+
+    if (name === "register") {
+      const slot = data.options.find(o => o.name === "slot").value;
+      const name = data.options.find(o => o.name === "name").value;
+      const url = data.options.find(o => o.name === "url").value;
+
+      if (slot < 1 || slot > 5) {
+        return res.send({
+          type: 4,
+          data: { content: "❌ Slot must be between 1 and 5." }
+        });
+      }
+
+      const userId = req.body.context === 0 ? req.body.member.user.id : req.body.user.id;
+      let user = users.find(u => u.id === userId);
+      
+
+      if (!user) {
+        return res.send({
+          type: 4,
+          data: { content: "❌ User not found." }
+        });
+      }
+
+      // Ensure save_data array exists
+      if (!user.save_data) {
+        user.save_data = Array(5).fill({ label: "", url: "" });
+      }
+
+      // Update slot (1–5 → index 0–4)
+      user.save_data[slot - 1] = { label: name, url };
+
+      // Save JSON
+      fs.writeFileSync("./users.json", JSON.stringify(users, null, 2));
+
+      return res.send({
+        type: 4,
+        data: { content: `✅ Saved **${name}** in slot ${slot}.` }
+      });
     }
 
     console.error(`unknown command: ${name}`);
@@ -589,6 +954,40 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         }
       });
     }
+
+    if (custom_id === "event_select") {
+      const selectedId = values[0]; // exact match
+      const event = events.find(s => s.id === selectedId);
+
+      return res.send({
+        type: InteractionResponseType.UPDATE_MESSAGE,
+        data: {
+          content: `✅ You selected **${event.event_name}**`,
+          embeds: [buildEventEmbed(event, events)] // remove the dropdown after selection
+        }
+      });
+    }
+
+    if (custom_id === "race_select") {
+      const selectedId = values[0];
+      const race = races.find(r => r.id === selectedId);
+
+      if (!race) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: `❌ Race not found.` }
+        });
+      }
+
+      return res.send({
+        type: InteractionResponseType.UPDATE_MESSAGE,
+        data: {
+          content: `✅ You selected **${race.race_name}**`,
+          embeds: [buildRaceEmbed(race, characters)],
+          components: [] // remove the dropdown after selection
+        }
+      });
+    }
   }
 
 console.error('unknown interaction type', type);
@@ -614,6 +1013,7 @@ async function sendFollowup(token, payload) {
 
   return response;
 }
+
 
 app.listen(PORT, () => {
   console.log('Listening on port', PORT);

@@ -50,6 +50,11 @@
             "Tokyo Racecourse",
             "Nakayama Racecourse"
         ],
+        "races": [
+            "Hakodate Junior Stakes july 2 year 1",
+            "Kokura Junior Stakes september 1 year 1",
+            "Hopeful Stakes december 2 year 1"
+        ],
         "aliases": ["spechan", "spe", "special dreamer"],
         "url": "https://gametora.com/umamusume/characters/100101-special-week",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1001_100101.png",
@@ -161,7 +166,7 @@
         "event_skills": [
             "Prepared to Pass"
         ],
-        "aliases": ["teio", "top of joyful"],
+        "aliases": ["tokai teio original", "top of joyful"],
         "url": "https://gametora.com/umamusume/characters/100301-tokai-teio",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1003_100301.png",
         "review": "Just an okay medium horse and a so-so long horse. Lacks golden recovery skills. Unique skill maybe useful for inheritance. She will get buffed later on making her a pretty strong uma for CM.",
@@ -439,7 +444,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "F",
+            "Sprint": "F",
             "Mile": "A",
             "Medium": "A",
             "Long": "F"
@@ -502,7 +507,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "F",
+            "Sprint": "F",
             "Mile": "A",
             "Medium": "A",
             "Long": "B"
@@ -565,7 +570,7 @@
             "Dirt": "B"
             },
             {
-            "Short": "A",
+            "Sprint": "A",
             "Mile": "A",
             "Medium": "E",
             "Long": "G"
@@ -623,7 +628,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "G",
+            "Sprint": "G",
             "Mile": "A",
             "Medium": "B",
             "Long": "A"
@@ -651,7 +656,7 @@
         "event_skills": [
             "Competitive Spirit"
         ],
-        "aliases": ["grass wonder", "rock piercing blue"],
+        "aliases": ["grass wonder original", "rock piercing blue"],
         "url": "https://gametora.com/umamusume/characters/101101-grass-wonder",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1011_101101.png",
         "review": "A decent uma for CM, where she shines as a hybrid debuffer and gambler. She can win with enough luck with On Your Left! and other acceleration skills while debuffing the others."
@@ -675,7 +680,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "G",
+            "Sprint": "G",
             "Mile": "A",
             "Medium": "B",
             "Long": "A"
@@ -728,7 +733,7 @@
             "Dirt": "E"
             },
             {
-            "Short": "D",
+            "Sprint": "D",
             "Mile": "A",
             "Medium": "A",
             "Long": "B"
@@ -787,7 +792,7 @@
             "Dirt": "E"
             },
             {
-            "Short": "G",
+            "Sprint": "G",
             "Mile": "F",
             "Medium": "A",
             "Long": "A"
@@ -815,7 +820,7 @@
         "event_skills": [
             "Early Lead"
         ],
-        "aliases": ["mejiro mcqueen", "elegance line"],
+        "aliases": ["mejiro mcqueen original", "elegance line"],
         "url": "https://gametora.com/umamusume/characters/101301-mejiro-mcqueen",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1013_101301.png",
         "review": "Decent horse for Team Trials and gets a buff later on to be somewhat decent in Champion's Meet. Has a strategy with Urara for specific Champion's Meet maps but otherwise so-so.",
@@ -845,7 +850,7 @@
             "Dirt": "E"
             },
             {
-            "Short": "G",
+            "Sprint": "G",
             "Mile": "F",
             "Medium": "A",
             "Long": "A"
@@ -905,7 +910,7 @@
             "Dirt": "B"
             },
             {
-            "Short": "F",
+            "Sprint": "F",
             "Mile": "A",
             "Medium": "A",
             "Long": "B"
@@ -934,7 +939,7 @@
             "Soft Step",
             "Wet Conditions"
         ],
-        "aliases": ["el condor pasa", "el numero uno"],
+        "aliases": ["el condor pasa original", "el numero uno"],
         "url": "https://gametora.com/umamusume/characters/101401-el-condor-pasa",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1014_101401.png",
         "review": "As a runner, she is pretty flexible in Team Trials, filling in Dirt, Mile, Medium and even Long with Pace or Late style. Her skills however aren't suited for Dirt/Mile and her unique only works consistently on Fronts. Decent as a Front parent."
@@ -958,7 +963,7 @@
             "Dirt": "B"
             },
             {
-            "Short": "F",
+            "Sprint": "F",
             "Mile": "A",
             "Medium": "A",
             "Long": "B"
@@ -1013,7 +1018,7 @@
             "Dirt": "E"
             },
             {
-            "Short": "G",
+            "Sprint": "G",
             "Mile": "E",
             "Medium": "A",
             "Long": "A"
@@ -1071,7 +1076,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "F",
+            "Sprint": "F",
             "Mile": "B",
             "Medium": "A",
             "Long": "A"
@@ -1137,7 +1142,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "E",
+            "Sprint": "E",
             "Mile": "C",
             "Medium": "A",
             "Long": "A"
@@ -1199,7 +1204,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "C",
+            "Sprint": "C",
             "Mile": "B",
             "Medium": "A",
             "Long": "E"
@@ -1227,7 +1232,7 @@
         "event_skills": [
             "Homestretch Haste"
         ],
-        "aliases": ["air groove", "empress road"],
+        "aliases": ["air groove original", "empress road"],
         "url": "https://gametora.com/umamusume/characters/101801-air-groove",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1018_101801.png",
         "review": "Her aptitude makes her a Pace Chaser uma but her unique skill is hard to trigger as a Pace. She can flex into Sprint, if you're lacking umas for Team Trials but she doesn't really have much going for her. Cheap End Closer debuff for Champion's Meet if needed.",
@@ -1257,7 +1262,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "C",
+            "Sprint": "C",
             "Mile": "B",
             "Medium": "A",
             "Long": "E"
@@ -1317,7 +1322,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "G",
+            "Sprint": "G",
             "Mile": "C",
             "Medium": "A",
             "Long": "A"
@@ -1352,7 +1357,7 @@
             "Hesitant Late Surgers",
             "Fast-Paced"
         ],
-        "aliases": ["seiun sky", "blue cloud thumbing"],
+        "aliases": ["seiun sky original", "reeling in the big one", "blue cloud thumbing"],
         "url": "https://gametora.com/umamusume/characters/102001-seiun-sky",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1020_102001.png",
         "review": "Meta parent for Front Runners. Her unique is good on Medium and Mile tracks and is desired for all Front Runners and Pace Chasers (during a no front track). She herself is not that good of a runner.",
@@ -1382,7 +1387,7 @@
             "Dirt": "F"
             },
             {
-            "Short": "F",
+            "Sprint": "F",
             "Mile": "C",
             "Medium": "A",
             "Long": "A"
@@ -1441,7 +1446,7 @@
             "Dirt": "E"
             },
             {
-            "Short": "D",
+            "Sprint": "D",
             "Mile": "D",
             "Medium": "A",
             "Long": "A"
@@ -1469,7 +1474,7 @@
         "event_skills": [
             "Straightaway Adept"
         ],
-        "aliases": ["mayano top gun", "scramble zone"],
+        "aliases": ["mayano top gun original", "scramble zone"],
         "url": "https://gametora.com/umamusume/characters/102401-mayano-top-gun",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1024_102401.png",
         "review": "A very flexible uma that can run in any style, and with a bit of work, any length (even dirt races). She is an ideal investment option for F2P players as she is usable in almost all content. After buffs, her golden skills will also be much more useful and she will also unlock additional accelerations for all her styles. Is a good uma."
@@ -1493,7 +1498,7 @@
             "Dirt": "E"
             },
             {
-            "Short": "D",
+            "Sprint": "D",
             "Mile": "D",
             "Medium": "A",
             "Long": "A"
@@ -1547,7 +1552,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "C",
+            "Sprint": "C",
             "Mile": "B",
             "Medium": "A",
             "Long": "B"
@@ -1610,7 +1615,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "E",
+            "Sprint": "E",
             "Mile": "C",
             "Medium": "A",
             "Long": "B"
@@ -1662,7 +1667,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "E",
+            "Sprint": "E",
             "Mile": "C",
             "Medium": "A",
             "Long": "A"
@@ -1714,7 +1719,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "G",
+            "Sprint": "G",
             "Mile": "D",
             "Medium": "A",
             "Long": "B"
@@ -1772,7 +1777,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "G",
+            "Sprint": "G",
             "Mile": "F",
             "Medium": "A",
             "Long": "B"
@@ -1826,7 +1831,7 @@
             "Dirt": "F"
             },
             {
-            "Short": "A",
+            "Sprint": "A",
             "Mile": "D",
             "Medium": "G",
             "Long": "G"
@@ -1889,7 +1894,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "A",
+            "Sprint": "A",
             "Mile": "B",
             "Medium": "G",
             "Long": "G"
@@ -1948,7 +1953,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "G",
+            "Sprint": "G",
             "Mile": "G",
             "Medium": "A",
             "Long": "A"
@@ -2014,7 +2019,7 @@
             "Dirt": "A"
             },
             {
-            "Short": "B",
+            "Sprint": "B",
             "Mile": "A",
             "Medium": "A",
             "Long": "E"
@@ -2081,7 +2086,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "F",
+            "Sprint": "F",
             "Mile": "D",
             "Medium": "A",
             "Long": "A"
@@ -2139,7 +2144,7 @@
             "Dirt": "A"
             },
             {
-            "Short": "A",
+            "Sprint": "A",
             "Mile": "B",
             "Medium": "G",
             "Long": "G"
@@ -2197,7 +2202,7 @@
             "Dirt": "F"
             },
             {
-            "Short": "F",
+            "Sprint": "F",
             "Mile": "C",
             "Medium": "A",
             "Long": "A"
@@ -2249,7 +2254,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "G",
+            "Sprint": "G",
             "Mile": "C",
             "Medium": "A",
             "Long": "A"
@@ -2327,7 +2332,7 @@
             "Dirt": "G"
             },
             {
-            "Short": "A",
+            "Sprint": "A",
             "Mile": "B",
             "Medium": "B",
             "Long": "C"

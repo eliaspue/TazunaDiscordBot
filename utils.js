@@ -34,7 +34,15 @@ const skillCategoryEmotes = {
   flow: '<:SkillFlow:1412668553236185180>',
   goldenflow: '<:SkillGoldenFlow:1412668565416575118>',
   wisdom: '<:SkillWisdom:1409317127567052925>',
-  unique: '🌟', // unique skills if needed
+  velocitydebuff: '<:SkillDebuff:1416217031040045197>',
+  goldenvelocitydebuff: '<:SkillGoldenDebuff:1416217043023302656>',
+  acceldebuff: '<:SkillDebuff:1416217031040045197>',
+  goldenacceldebuff: '<:SkillGoldenDebuff:1416217043023302656>',
+  recoverydebuff: '<:SkillDebuff:1416217031040045197>',
+  goldenrecoverydebuff: '<:SkillGoldenDebuff:1416217043023302656>',
+  visiondebuff: '<:SkillDebuff:1416217031040045197>',
+  goldenvisiondebuff: '<:SkillGoldenDebuff:1416217043023302656>',
+  frenzy: '<:SkillDebuff:1416217031040045197>',
   default: '✨' // fallback
 };
 
@@ -48,7 +56,15 @@ const rankCategoryEmotes = {
   G: '<:RankG:1412695075271475212>',
   S: '<:RankS:1412695122784551033>',
   default: '❓' // fallback
-}
+};
+
+const raceGradeIcons = {
+  G1: 'https://gametora.com/images/umamusume/race_ribbons/utx_txt_grade_ribbon_05.png',
+  G2: 'https://gametora.com/images/umamusume/race_ribbons/utx_txt_grade_ribbon_04.png',
+  G3: 'https://gametora.com/images/umamusume/race_ribbons/utx_txt_grade_ribbon_03.png',
+  EX: 'https://gametora.com/images/umamusume/race_ribbons/utx_txt_grade_ribbon_07.png',
+  default: '' // fallback
+};
 
 
 export async function DiscordRequest(endpoint, options) {
@@ -200,7 +216,16 @@ export function getRankEmoji(str) {
   return rankCategoryEmotes[key] || rankCategoryEmotes.default;
 }
 
-function getColor(str) {
+function getRaceGradeIcons(str) {
+   if (!str) return raceGradeIcons.default;
+
+  // normalize: lowercase & strip spaces
+  const key = str;
+
+  return raceGradeIcons[key] || raceGradeIcons.default;
+}
+
+export function getColor(str) {
   if (str === 'red')
   {
     return 16734029;
@@ -209,7 +234,7 @@ function getColor(str) {
   {
     return 3915519;
   }
-  else if (str === 'green' || str === 'skillspeed')
+  else if (str === 'green')
   {
     return 5939528;
   }
@@ -228,6 +253,9 @@ function getColor(str) {
   else if (str === 'greener')
   {
     return 1733686;
+  }
+  else if (str === 'purple') {
+    return 10181046;
   }
 }
 
@@ -837,6 +865,69 @@ export function buildUmaParsedEmbed(parsed) {
         value: parsed.skills.length > 0
           ? parsed.skills.map(s => `• ${s}`).join("\n")
           : "—"
+      }
+    ]
+  };
+}
+
+export function buildRaceEmbed(race, charactersJSON) {
+  // find all horses that must run this race
+  const participants = charactersJSON
+    .filter(c => c.races?.includes(race.id))
+    .map(c => c.character_name);
+
+  return {
+    title: race.race_name,
+    thumbnail: { url: race.thumbnail },
+    image: { url: race.image },
+    fields: [
+      { name: "Grade", value: race.grade || "—", inline: true },
+      { name: "Track", value: race.racetrack || "—", inline: true },
+      { name: "Distance", value: `${race.distance_type} (${race.distance_meters})`, inline: true },
+      { name: "Terrain", value: race.terrain || "—", inline: true },
+      { name: "Direction", value: race.direction || "—", inline: true },
+      { name: "Season", value: race.season || "—", inline: true },
+      { name: "Time", value: race.time || "—", inline: true },
+      { name: "Sparks", value: race.sparks || "—", inline: true },
+      participants.length > 0
+        ? { name: "Umas (Objective Races)", value: participants.join(", ") }
+        : { name: "Umas (Objective Races)", value: "None" }
+    ],
+    author: {
+      name: race.date,
+      icon_url: getRaceGradeIcons(race.grade)
+    },
+    url: race.url
+  };
+}
+
+export function buildCMEmbed(cm) {
+  return {
+    embeds: [
+      {
+        title: cm.name,
+        description: `Starting on \n📅 ${cm.date}`,
+        fields: [
+          { name: "Racetrack", value: cm.track.racetrack, inline: true },  
+          { name: "Distance", value: `${cm.track.distance_type} (${cm.track.distance_meters})`, inline: true },
+          { name: "Terrain", value: cm.track.terrain, inline: true },  
+          { name: "Conditions", value: `${cm.track.season}  •  ${cm.track.ground}  •  ${cm.track.direction}  •  ${cm.track.weather}`, inline: false },
+          { name: "Similar to", value: cm.track.similar ?? "—" }
+        ],
+        image: { url: cm.image },
+      }
+    ],
+    components: [
+      {
+        type: 1, // Action row
+        components: [
+          {
+            type: 2, // Button
+            style: 5, // Link
+            label: "To Umalator",
+            url: cm.umalator
+          }
+        ]
       }
     ]
   };

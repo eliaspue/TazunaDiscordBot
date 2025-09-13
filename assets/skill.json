@@ -1470,7 +1470,7 @@
         "review": "Lane movement speed is not very impactful currently.",
         "rarity": "normal",
         "category": "flow",
-        "aliases": ["dodging danger"],
+        "aliases": ["sixth sense"],
         "upgrade": "Sixth Sense"
     },
     {   "skill_name": "Leader's Pride",
