@@ -41,7 +41,7 @@ After your credentials are added, go ahead and run the app:
 npm run start
 ```
 
-### 6. Set up interactivity
+### 6a. Set up interactivity
 
 The project needs a public endpoint where Discord can send requests. To develop and test locally, you can use something like [`ngrok`](https://ngrok.com/) to tunnel HTTP traffic.
 
@@ -68,5 +68,12 @@ Copy the forwarding address that starts with `https`, in this case `https://1234
 On the **General Information** tab, there will be an **Interactions Endpoint URL**. Paste your ngrok address there, and append `/interactions` to it (`https://1234-someurl.ngrok.io/interactions` in the example).
 
 Click **Save Changes**, and your app should be ready to run 🚀
-![Setting up the discord endpoint url with ngrok](./assets/readmeimg/tutorial01.png)
+![Setting up the discord endpoint url with ngrok](./assets/readmeimg/tutorial02.png)
 
+### 6b. Using free hosting
+Sign up on a free web app hosting service such as pella.app and select Web App. Select the Express JS type and upload the current folder as a zip. In this case, do not upload the .env file and instead copy down the .env keys into the settings panel of your web app. Save and press start.  
+![Setting up the discord endpoint url with a free public hosting like pella](./assets/readmeimg/tutorial03.png)
+
+Go to the Manage tab and copy the domain given here. On the **General Information** tab, there will be an **Interactions Endpoint URL**. Paste your address there, and append `/interactions` to it (`https://someweirdname.onpella.app/interactions`).
+
+Click **Save Changes**, and your app should be ready to run 🚀
