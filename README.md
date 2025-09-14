@@ -15,8 +15,8 @@ Before you start, you'll need to install [NodeJS](https://nodejs.org/en/download
 ### 2. Clone the repository
 ```
 git clone https://github.com/JustWastingTime/TazunaDiscordBot.git
-cd TazunaDiscordBot  
-npm install  
+cd TazunaDiscordBot
+npm install
 ```
 
 ### 3. Create your credentials file
