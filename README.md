@@ -77,3 +77,9 @@ Sign up on a free web app hosting service such as pella.app and select Web App. 
 Go to the Manage tab and copy the domain given here. On the **General Information** tab, there will be an **Interactions Endpoint URL**. Paste your address there, and append `/interactions` to it (`https://someweirdname.onpella.app/interactions`).
 
 Click **Save Changes**, and your app should be ready to run 🚀
+
+
+## ⭐ Commands
+Here are the features of the bot. Some of them are still a Work in Progress.  
+`/cm` - Looks up information on a specific Champion's Meeting
+![Accepts name as a parameter](./assets/readmeimg/tutorial04.png)
