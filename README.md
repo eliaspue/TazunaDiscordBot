@@ -82,41 +82,41 @@ Click **Save Changes**, and your app should be ready to run 🚀
 ## ⭐ Commands
 Here are the features of the bot. Some of them are still a Work in Progress.  
 
-`/uma` - Looks up information on a specific uma. Shows their unique skill, aptitudes and skills. Able to accept some common aliases as input. Also able to lookup variants such as McQueen Anime.
+`/uma` - Looks up information on a specific uma. Shows their unique skill, aptitudes and skills. Able to accept some common aliases as input. Also able to lookup variants such as McQueen Anime.  
 ![Accepts name as a parameter. Can also accept nickname + type](./assets/readmeimg/tutorial05.png)
 
-`/skill` - Looks up information on a specific skill and explained in a more detailed explanation than the vague descriptions in game.
+`/skill` - Looks up information on a specific skill and explained in a more detailed explanation than the vague descriptions in game.  
 ![Accepts name as a parameter](./assets/readmeimg/tutorial06.png)
 
-`/supporter` - Looks up information on a specific Supporter Card. Able to accept rarity as input; if you're looking for Kitasan Black SSR, you can type /supporter Kitasan SSR and it will work. Also able to limit the result to a specific Limit Break.
+`/supporter` - Looks up information on a specific Supporter Card. Able to accept rarity as input; if you're looking for Kitasan Black SSR, you can type /supporter Kitasan SSR and it will work. Also able to limit the result to a specific Limit Break.  
 ![Accepts name and limit break as a parameter](./assets/readmeimg/tutorial07.png)
 
-`/event` - Looks up information on a specific supporter event, uma event or generic event. (This is slowly getting updated, is a WIP)
+`/event` - Looks up information on a specific supporter event, uma event or generic event. (This is slowly getting updated, is a WIP)  
 ![Accepts event name or uma name as a parameter](./assets/readmeimg/tutorial08.png)
 
-`/race` - Looks up information on a specific race. Can filter by year and grade
+`/race` - Looks up information on a specific race. Can filter by year and grade  
 ![Accepts name, year and grade as a parameter](./assets/readmeimg/tutorial09.png)
 
-`/cm` - Looks up information on a specific Champion's Meeting
+`/cm` - Looks up information on a specific Champion's Meeting  
 ![Accepts name as a parameter](./assets/readmeimg/tutorial04.png)
 
-`/parse` - Parses an image of your uma's final result page and tries to generate an umalator link (This is a WIP and is not functional yet)
+`/parse` - Parses an image of your uma's final result page and tries to generate an umalator link (This is a WIP and is not functional yet)  
 ![Accepts am image as a parameter](./assets/readmeimg/tutorial10.png)
 
-`/trainer` - Looks up information on a specific trainer in your club. Leaving it blank shows your profile. [REQUIRES SHEET SETUP]
+`/trainer` - Looks up information on a specific trainer in your club. Leaving it blank shows your profile. [REQUIRES SHEET SETUP]  
 ![Accepts name as a parameter](./assets/readmeimg/tutorial11.png)
 
-`/leaderboard` - Looks up the current club members' rankings. Can change mode between monthly and total. Default is monthly. [REQUIRES SHEET SETUP]
+`/leaderboard` - Looks up the current club members' rankings. Can change mode between monthly and total. Default is monthly. [REQUIRES SHEET SETUP]  
 ![Accepts name as a parameter](./assets/readmeimg/tutorial12.png)
 
-`/log` - Allows users to upload their fancount into the google sheets. [REQUIRES SHEET SETUP]
+`/log` - Allows users to upload their fancount into the google sheets. [REQUIRES SHEET SETUP]  
 ![Accepts name as a parameter](./assets/readmeimg/tutorial13.png)
 
-`/register` - Saves an umalator link into your trainer profile for easy access and comparison with club mates. Only 5 save slots. [REQUIRES SHEET SETUP]
+`/register` - Saves an umalator link into your trainer profile for easy access and comparison with club mates. Only 5 save slots. [REQUIRES SHEET SETUP]  
 ![Accepts label, slot and a url as a parameter](./assets/readmeimg/tutorial14.png)
 
-`/apply` - Allows new users to apply to your guild and setup a profile. Needs their uma name, uma id and total fan count as input. [REQUIRES SHEET SETUP]
+`/apply` - Allows new users to apply to your guild and setup a profile. Needs their uma name, uma id and total fan count as input. [REQUIRES SHEET SETUP]  
 ![Accepts name, id and fan count as a parameter](./assets/readmeimg/tutorial15.png)
 
-`/setchannel` - Sets the channel in which new member applicants will appear in. A user (ideally an admin/moderator only channel) will approve this applicant before the trainer profile is added to the sheets and bot. (Work in Progress) [REQUIRES SHEET SETUP]
+`/setchannel` - Sets the channel in which new member applicants will appear in. A user (ideally an admin/moderator only channel) will approve this applicant before the trainer profile is added to the sheets and bot. (Work in Progress) [REQUIRES SHEET SETUP]  
 ![Accepts name as a parameter](./assets/readmeimg/tutorial16.png)
