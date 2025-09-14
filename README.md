@@ -21,7 +21,7 @@ npm install
 ### 3. Create your credentials file
 Rename .env.sample to just .env.
 Head to the discord app you just created and copy the application id (`APP_ID`) and public key (`PUBLIC_KEY`) into the .env file. Then head into the Bot page and generate a Bot Token and save it as (`DISCORD_TOKEN`) in the .env.
-![Alt text](./assets/readmeimg/tutorial01.png)
+![Finding the secrets](./assets/readmeimg/tutorial01.png)
 
 
 ### 4. Install slash commands
@@ -40,7 +40,7 @@ After your credentials are added, go ahead and run the app:
 npm run start
 ```
 
-### Set up interactivity
+### 6. Set up interactivity
 
 The project needs a public endpoint where Discord can send requests. To develop and test locally, you can use something like [`ngrok`](https://ngrok.com/) to tunnel HTTP traffic.
 
@@ -67,9 +67,5 @@ Copy the forwarding address that starts with `https`, in this case `https://1234
 On the **General Information** tab, there will be an **Interactions Endpoint URL**. Paste your ngrok address there, and append `/interactions` to it (`https://1234-someurl.ngrok.io/interactions` in the example).
 
 Click **Save Changes**, and your app should be ready to run 🚀
+![Setting up the discord endpoint url with ngrok](./assets/readmeimg/tutorial01.png)
 
-## Other resources
-- Read **[the documentation](https://discord.com/developers/docs/intro)** for in-depth information about API features.
-- Browse the `examples/` folder in this project for smaller, feature-specific code examples
-- Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other devs.
-- Check out **[community resources](https://discord.com/developers/docs/topics/community-resources#community-resources)** for language-specific tools maintained by community members.
