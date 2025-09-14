@@ -81,5 +81,24 @@ Click **Save Changes**, and your app should be ready to run 🚀
 
 ## ⭐ Commands
 Here are the features of the bot. Some of them are still a Work in Progress.  
+
+`/uma` - Looks up information on a specific uma. Shows their unique skill, aptitudes and skills. Able to accept some common aliases as input. Also able to lookup variants such as McQueen Anime.
+![Accepts name as a parameter. Can also accept nickname + type](./assets/readmeimg/tutorial05.png)
+
+`/skill` - Looks up information on a specific skill and explained in a more detailed explanation than the vague descriptions in game.
+![Accepts name as a parameter](./assets/readmeimg/tutorial06.png)
+
+`/supporter` - Looks up information on a specific Supporter Card. Able to accept rarity as input; if you're looking for Kitasan Black SSR, you can type /supporter Kitasan SSR and it will work. Also able to limit the result to a specific Limit Break.
+![Accepts name and limit break as a parameter](./assets/readmeimg/tutorial07.png)
+
+`/event` - Looks up information on a specific supporter event, uma event or generic event. (This is slowly getting updated, is a WIP)
+![Accepts event name or uma name as a parameter](./assets/readmeimg/tutorial08.png)
+
+`/race` - Looks up information on a specific race. Can filter by year and grade
+![Accepts name, year and grade as a parameter](./assets/readmeimg/tutorial09.png)
+
 `/cm` - Looks up information on a specific Champion's Meeting
 ![Accepts name as a parameter](./assets/readmeimg/tutorial04.png)
+
+`/parse` - Parses an image of your uma's final result page and tries to generate an umalator link (This is a WIP and is not functional yet)
+![Accepts am image as a parameter](./assets/readmeimg/tutorial10.png)
