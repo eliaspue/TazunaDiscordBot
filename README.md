@@ -102,3 +102,21 @@ Here are the features of the bot. Some of them are still a Work in Progress.
 
 `/parse` - Parses an image of your uma's final result page and tries to generate an umalator link (This is a WIP and is not functional yet)
 ![Accepts am image as a parameter](./assets/readmeimg/tutorial10.png)
+
+`/trainer` - Looks up information on a specific trainer in your club. Leaving it blank shows your profile. [REQUIRES SHEET SETUP]
+![Accepts name as a parameter](./assets/readmeimg/tutorial11.png)
+
+`/leaderboard` - Looks up the current club members' rankings. Can change mode between monthly and total. Default is monthly. [REQUIRES SHEET SETUP]
+![Accepts name as a parameter](./assets/readmeimg/tutorial12.png)
+
+`/log` - Allows users to upload their fancount into the google sheets. [REQUIRES SHEET SETUP]
+![Accepts name as a parameter](./assets/readmeimg/tutorial13.png)
+
+`/register` - Saves an umalator link into your trainer profile for easy access and comparison with club mates. Only 5 save slots. [REQUIRES SHEET SETUP]
+![Accepts label, slot and a url as a parameter](./assets/readmeimg/tutorial14.png)
+
+`/apply` - Allows new users to apply to your guild and setup a profile. Needs their uma name, uma id and total fan count as input. [REQUIRES SHEET SETUP]
+![Accepts name, id and fan count as a parameter](./assets/readmeimg/tutorial15.png)
+
+`/setchannel` - Sets the channel in which new member applicants will appear in. A user (ideally an admin/moderator only channel) will approve this applicant before the trainer profile is added to the sheets and bot. (Work in Progress) [REQUIRES SHEET SETUP]
+![Accepts name as a parameter](./assets/readmeimg/tutorial16.png)
