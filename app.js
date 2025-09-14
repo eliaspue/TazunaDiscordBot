@@ -504,89 +504,61 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
       });
     }
 
-    // "trainer" command
+    // "trainer" command to lookup yourself or other trainers
     if (name === 'trainer') {
-      // Find trainer name option (optional)
-      const trainerQuery = data.options?.find(opt => opt.name === "name")?.value;
+      // Defer response immediately (gives you more time)
+      res.send({
+        type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
+      });
 
-      // User ID is in user field for DMs, and member for servers
-      const userId = req.body.context === 0 ? req.body.member.user.id : req.body.user.id;
+      try {
+        const trainerQuery = data.options?.find(opt => opt.name === "name")?.value;
+        const userId = req.body.context === 0 ? req.body.member.user.id : req.body.user.id;
+        const usersList = await syncUsers();
 
-      const users = await syncUsers();
+        let user;
+        if (trainerQuery) {
+          user = usersList.find(u => u.name.toLowerCase() === trainerQuery.toLowerCase());
+        } else {
+          user = usersList.find(u => u.id === userId);
+        }
 
-      // Lookup logic
-      let user;
-      if (trainerQuery) {
-        // Search by trainer name (case-insensitive)
-        const query = trainerQuery.toLowerCase();
-        user = users.find(u => u.name.toLowerCase() === query);
-      } else {
-        // Default: lookup by Discord ID
-        user = users.find(u => u.id === userId);
-      }
+        if (!user) {
+          // Only use sendFollowup, no res.send here
+          await sendFollowup(token, { content: "❌ Trainer not found." });
+          return; // stop execution
+        }
 
-      if (!user) {
-        return res.send({
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: { content: `❌ Trainer not found.` }
-        });
-      }
+        const embed = {
+          title: `Trainer Profile: ${user.name}`,
+          color: getColor(user.color),
+          description: `You have mined **${Number(user.fans_monthly).toLocaleString()}** fans this month for the guild.\n\u200B`,
+          fields: [
+            { name: "👥 Total Fans", value: Number(user.fans_total).toLocaleString(), inline: true },
+            { name: "📈 Daily Gains (Avg)", value: Number(user.daily_average).toLocaleString() + "\n\u200B", inline: true },
+            { name: "⭐ Current Rank", value: '# ' + Number(user.rank_total).toLocaleString(), inline: true },
+            { name: "〽️ Monthly Rank", value: '# ' + Number(user.rank_monthly).toLocaleString(), inline: true },
+          ]
+        };
 
-      // Build embed
-      const embed = {
-        title: `Trainer Profile: ${user.name}`,
-        color: getColor(user.color),
-        description: "You have mined **" + Number(user.fans_monthly).toLocaleString() + "** fans this month for the guild. \n\u200B",
-        fields: [
-          {
-            name: "👥 Total Fans \u200B\u200B\u200B\u200B",
-            value: Number(user.fans_total).toLocaleString(),
-            inline: true,
-          },
-          {
-            name: "📈 Daily Gains (Avg)",
-            value: Number(user.daily_average).toLocaleString() + "\n\u200B",
-            inline: true,
-          },
-          {
-            name: "\u200B",
-            value: "",
-            inline: true,
-          },
-          {
-            name: "⭐ Current Rank \u200B\u200B\u200B\u200B",
-            value: '# ' + Number(user.rank_total).toLocaleString(),
-            inline: true,
-          },
-          {
-            name: "〽️ Monthly Rank",
-            value: '# ' + Number(user.rank_monthly).toLocaleString(),
-            inline: true,
-          },
-          {
-            name: "\u200B",
-            value: "",
-            inline: true,
-          }
-        ]
-      };
+        const buttons = (user.save_data || [])
+          .filter(s => {
+            try { return ['http:', 'https:', 'discord:'].includes(new URL(s.url).protocol); }
+            catch { return false; }
+          })
+          .map((s, i) => ({ type: 2, style: 5, label: s.label || `Slot ${i + 1}`, url: s.url }));
 
-      const buttons = user.save_data
-      .filter(s => s.url)
-      .map((s, i) => ({
-        type: 2,
-        style: 5, // LINK button
-        label: s.label || `Slot ${i + 1}`,
-        url: s.url,
-      }));
-
-      return res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
+        await sendFollowup(token, {
           embeds: [embed],
           components: buttons.length ? [{ type: 1, components: buttons }] : []
-        },
-      });
+        });
+
+      } catch (err) {
+        console.error(err);
+        await sendFollowup(token, { content: "❌ Error fetching trainer data." });
+      }
+
+      return;
     }
 
     // "banana" command
@@ -740,7 +712,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
       user.save_data[slot - 1] = { label: name, url };
 
       // Save JSON
-      fs.writeFileSync("./users.json", JSON.stringify(users, null, 2));
+      fs.writeFileSync("./assets/users.json", JSON.stringify(users, null, 2));
 
       return res.send({
         type: 4,

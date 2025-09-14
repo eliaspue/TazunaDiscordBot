@@ -65,16 +65,16 @@ export async function logPending(discordId, value) {
 // Sync Google Sheet values into users.json
 export async function syncUsers() {
   try {
-    //1. Get player data
+    // 1. Get player data (rows 2 to 31)
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: `${SHEET_NAME}!A2:J`, // adjust based on layout
+      range: `${SHEET_NAME}!A2:J31`,
     });
 
-    const rows = res.data.values;
-    if (!rows || rows.length === 0) {
-      console.log("No data found.");
-      return;
+    const rows = res.data.values || [];
+    if (rows.length === 0) {
+      console.log("No data found in sheet.");
+      return [];
     }
 
     // 2. Get thresholds (M21:P21)
@@ -82,44 +82,49 @@ export async function syncUsers() {
       spreadsheetId: SPREADSHEET_ID,
       range: `${SHEET_NAME}!M21:P21`,
     });
+    const thresholds = (threshRes.data.values?.[0] || []).map(v => cleanNumber(v));
 
-    const thresholds = (threshRes.data.values?.[0] || []).map(v => cleanNumber(v)); 
-
-    // Example: assume columns:
-    // Col B = Name, Col E = Total Fans, Col F = Monthly Fans
+    // Update users
     for (const row of rows) {
-      const username = row[1]; // Column B
-      const totalFans = cleanNumber(row[4]); // Column E
-      const monthlyFans = cleanNumber(row[5]); // Column F
-      const rankTotal = cleanNumber(row[7]); // Column H
-      const rankMonthly = cleanNumber(row[8]); // Column I
-      const growthDailyAvg = cleanNumber(row[6]); // Column G
+      if (!row || row.length < 9) continue; // skip empty or incomplete rows
 
-      const user = userData.find(u => u.name.trim().toLowerCase() === username.trim().toLowerCase());
-      if (user) {
-        user.fans_total = totalFans.toString();
-        user.fans_monthly = monthlyFans.toString();
-        user.rank_total = rankTotal.toString();
-        user.rank_monthly = rankMonthly.toString();
-        user.daily_average = growthDailyAvg.toString();
+      const username = row[1];
+      if (!username) continue; // skip if no username
 
-        // Assign color based on thresholds
-        let color = "red";
-        if (thresholds.length > 0) {
-          if (monthlyFans >= thresholds[0]) color = "purple";
-          else if (monthlyFans >= thresholds[1]) color = "blue";
-          else if (monthlyFans >= thresholds[2]) color = "green";
-          else if (monthlyFans >= thresholds[3]) color = "yellow";
-        }
-        user.color = color;
-      }
+      const totalFans = cleanNumber(row[4]);
+      const monthlyFans = cleanNumber(row[5]);
+      const rankTotal = cleanNumber(row[7]);
+      const rankMonthly = cleanNumber(row[8]);
+      const growthDailyAvg = cleanNumber(row[6]);
+
+      const user = userData.find(
+        u => u.name && u.name.trim().toLowerCase() === username.trim().toLowerCase()
+      );
+
       if (!user) {
         console.log("No match for:", username);
         continue;
       }
+
+      // Update user data
+      user.fans_total = totalFans.toString();
+      user.fans_monthly = monthlyFans.toString();
+      user.rank_total = rankTotal.toString();
+      user.rank_monthly = rankMonthly.toString();
+      user.daily_average = growthDailyAvg.toString();
+
+      // Assign color based on thresholds
+      let color = "red";
+      if (thresholds.length > 0) {
+        if (monthlyFans >= thresholds[0]) color = "purple";
+        else if (monthlyFans >= thresholds[1]) color = "blue";
+        else if (monthlyFans >= thresholds[2]) color = "green";
+        else if (monthlyFans >= thresholds[3]) color = "yellow";
+      }
+      user.color = color;
     }
 
-    // 3. Get median + total fans (M4 + N4)
+    // 3. Get median + total fans (M4 + N4 + daily average M8)
     const statsRes = await sheets.spreadsheets.values.batchGet({
       spreadsheetId: SPREADSHEET_ID,
       ranges: [`${SHEET_NAME}!M4:N4`, `${SHEET_NAME}!M8`],
@@ -128,13 +133,12 @@ export async function syncUsers() {
     const stats1 = statsRes.data.valueRanges[0]?.values?.[0] || [];
     const stats2 = statsRes.data.valueRanges[1]?.values?.[0] || [];
 
-    const medianFans = cleanNumber(stats1[0]);   // M4
-    const totalFans = cleanNumber(stats1[1]);    // N4
-    const dailyAvgMedian = cleanNumber(stats2[0]); // M8
+    const medianFans = cleanNumber(stats1[0]);
+    const totalFans = cleanNumber(stats1[1]);
+    const dailyAvgMedian = cleanNumber(stats2[0]);
 
-    // Update the "Stats" pseudo-user
     const statsUser = userData.find(
-      u => u.name.trim().toLowerCase() === "stats"
+      u => u.name && u.name.trim().toLowerCase() === "stats"
     );
     if (statsUser) {
       statsUser.fans_median = medianFans.toString();
@@ -142,9 +146,9 @@ export async function syncUsers() {
       statsUser.daily_average = dailyAvgMedian.toString();
     }
 
-    // Save back to JSON
+    // Save to JSON
     fs.writeFileSync("./assets/users.json", JSON.stringify(userData, null, 4));
-    
+
     return userData;
 
   } catch (err) {
