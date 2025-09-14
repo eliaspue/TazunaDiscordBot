@@ -36,6 +36,14 @@ const SUPPORTER_COMMAND = {
       description: 'Name of the card or character',
       required: true
     },
+    {
+      type: 4, // INTEGER
+      name: "limitbreak",
+      description: "Limit Break Level (0–4)",
+      required: false,
+      min_value: 0,
+      max_value: 4,
+    }
   ],
   type: 1,
   integration_types: [0, 1],
@@ -249,8 +257,51 @@ const REGISTER_COMMAND = {
   contexts: [0, 1, 2],
 };
 
+const SETCHANNEL_COMMAND = {
+  name: "setchannel",
+  description: "Set a channel for the bot to send applications to",
+  default_member_permissions: "8", // Admin only
+  options: [
+    {
+      type: 7, // CHANNEL
+      name: "channel",
+      description: "Pick a channel (mod only channel if available)",
+      required: true,
+    },
+  ],
+  type: 1,
+  integration_types: [0],
+  contexts: [0],
+};
 
+const APPLY_COMMAND = {
+  name: "apply",
+  description: "Apply to this club with your uma game name, id and current fan count",
+  options: [
+    {
+      type: 3, // STRING
+      name: "name",
+      description: "Your trainer name",
+      required: true,
+    },
+    {
+      type: 3, // STRING
+      name: "id",
+      description: "Your trainer ID",
+      required: true,
+    },
+    {
+      type: 4, // INTEGER
+      name: "fancount",
+      description: "Your total fan count",
+      required: true,
+    },
+  ],
+  type: 1,
+  integration_types: [0], // server only
+  contexts: [0],
+};
 
-const ALL_COMMANDS = [SUPPORTER_COMMAND, SKILL_COMMAND, UMA_COMMAND, EVENT_COMMAND, RACE_COMMAND, CM_COMMAND, LOG_COMMAND, TRAINER_COMMAND, LEADERBOARD_COMMAND, BANANA_COMMAND, PARSE_COMMAND, REGISTER_COMMAND];
+const ALL_COMMANDS = [SUPPORTER_COMMAND, SKILL_COMMAND, UMA_COMMAND, EVENT_COMMAND, RACE_COMMAND, CM_COMMAND, LOG_COMMAND, TRAINER_COMMAND, LEADERBOARD_COMMAND, BANANA_COMMAND, PARSE_COMMAND, REGISTER_COMMAND, SETCHANNEL_COMMAND, APPLY_COMMAND];
 
 InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);

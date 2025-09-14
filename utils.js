@@ -528,14 +528,32 @@ export function formatCardSkill(skillName, skillsJSON)
   return `${emote} ${skillName}`;
 }
 
-export function buildSupporterEmbed(supporter, skills) {
+export function buildSupporterEmbed(supporter, skills, level) {
+  const effects = supporter.effects.map(e => {
+    if (level !== undefined) {
+      // Example: "Friendship Bonus – 20/21/23/25/25%"
+      const [label, values] = e.split(/–|-/).map(s => s.trim());
+      if (values) {
+        const match = values.match(/^([\d/.\s]+)(.*)$/); 
+        if (match) {
+          const parts = match[1].split("/").map(v => v.trim());
+          const suffix = match[2].trim(); // capture things like "%", "pt"
+          if (parts[level] !== undefined) {
+            return `✨ ${label} – ${parts[level]}${suffix}`;
+          }
+        }
+      }
+    }
+    return `✨ ${e}`;
+  });
+
   return {
     title: supporter.card_name + ' (' + supporter.rarity.toUpperCase() +')',
     description:
       '__Unique__ \n' +
       supporter.unique +
       '\n\n' +
-      supporter.effects.map(e => `✨ ${e}`).join('\n') +
+      effects.join('\n') +
       '\n \u200B',
     color: getCardColor(supporter.category),
     thumbnail: { url: supporter.thumbnail },
@@ -559,7 +577,10 @@ export function buildSupporterEmbed(supporter, skills) {
       name: supporter.character_name,
       icon_url: getCardTypeImageLink(supporter.category)
     },
-    url: supporter.url
+    url: supporter.url,
+    footer: typeof level === "number"
+    ? { text: `Showing data for LB ${level}` }
+    : undefined
   };
 }
 

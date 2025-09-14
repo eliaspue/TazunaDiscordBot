@@ -50,9 +50,10 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
     // "supporter" command
     if (name === 'supporter') {
       const supporterQuery = data.options?.find(opt => opt.name === 'name')?.value?.toLowerCase();
+      const levelOpt = data.options?.find(opt => opt.name === 'limitbreak')?.value; // may be undefined
       const query = supporterQuery.toLowerCase().split(/\s+/); 
 
-
+      const level = levelOpt !== undefined ? Number(levelOpt) : undefined;
       const matches = supporters.filter(s => {
         return query.every(q =>
           s.card_name.toLowerCase().includes(q) ||
@@ -74,7 +75,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: { 
-          embeds: [buildSupporterEmbed(matches[0], skills)]
+          embeds: [buildSupporterEmbed(matches[0], skills, level)]
           }
         });
       }
@@ -94,7 +95,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
                   placeholder: "Choose a supporter",
                   options: matches.slice(0, 25).map(s => ({
                     label:  s.card_name + ' (' + s.rarity.toUpperCase() +')' , // must be <=100 chars
-                    value: s.id, // send the supporter id back on select
+                    value: `${s.id}|${level}`, // send the supporter id back on select
                     description: s.character_name,
                     emoji: getCustomEmoji(s.category)
                   }))
@@ -747,6 +748,135 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
       });
     }
 
+    // "setchannel" command to set an admin channel for application purposes
+    if (name === "setchannel") {
+      const member = req.body.member;
+
+      // Convert permissions to BigInt (safe for large bitfields)
+      const perms = BigInt(member.permissions || "0");
+      const ADMIN = 0x00000008n; // Administrator bit
+
+      const isAdmin = (perms & ADMIN) === ADMIN;
+      if (!isAdmin) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { 
+            content: "❌ You must be an admin to use this command.", 
+            flags: 64 // ephemeral
+          }
+        });
+      }
+
+      const channelId = options.find(o => o.name === "channel").value;
+
+      // Save channelId to config.json
+      let config = {};
+      try {
+        config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
+      } catch {
+        config = {};
+      }
+      config.applicationChannel = channelId;
+      fs.writeFileSync("./config.json", JSON.stringify(config, null, 2));
+
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: { content: `✅ Saved channel <#${channelId}>` }
+      });
+    }
+
+    // "apply" command
+    if (name === "apply") {
+      const trainerName = options.find(o => o.name === "name")?.value;
+      const trainerId = options.find(o => o.name === "id")?.value;
+      const fanCount = options.find(o => o.name === "fancount")?.value;
+
+      // Get Discord ID
+      const discordId = req.body.context === 0 
+        ? req.body.member.user.id 
+        : req.body.user.id;
+
+      // Validation
+      if (!trainerName || !trainerId || !fanCount) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: "❌ You must provide a name, ID, and fan count to apply.",
+            flags: 64 // ephemeral
+          },
+        });
+      }
+
+      // Load saved channelId
+      let config = {};
+      try {
+        config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
+      } catch {
+        config = {};
+      }
+      const appChannelId = config.applicationChannel;
+      if (!appChannelId) {
+        return res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: "❌ Application channel not set. Please ask an admin to run `/setchannel` first.",
+            flags: 64
+          },
+        });
+      }
+
+      // Build embed
+      const embed = {
+        title: "📨 New Application",
+        description: "A new trainer has applied!",
+        color: 0x3498db,
+        fields: [
+          { name: "Trainer Name", value: trainerName, inline: true },
+          { name: "Trainer ID", value: trainerId, inline: true },
+          { name: "Fans", value: Number(fanCount).toLocaleString(), inline: true },
+          { name: "Discord ID", value: discordId, inline: false },
+        ],
+        footer: { text: "Application submitted via /apply" }
+      };
+
+      // Approve button
+      const components = [
+        {
+          type: 1, // action row
+          components: [
+            {
+              type: 2, // button
+              style: 3, // green
+              label: "✅ Approve Application",
+              custom_id: `approve_${discordId}_${trainerId}`,
+            },
+          ],
+        },
+      ];
+
+      // Send application into saved channel
+      await fetch(`https://discord.com/api/v10/channels/${appChannelId}/messages`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bot ${process.env.DISCORD_TOKEN}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          embeds: [embed],
+          components,
+        }),
+      });
+
+      // Confirm to the applicant
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: "✅ Your application has been submitted!",
+          flags: 64 // ephemeral
+        },
+      });
+    }
+
     console.error(`unknown command: ${name}`);
     return res.status(400).json({ error: 'unknown command' });
   }
@@ -755,14 +885,15 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
     const { custom_id, values } = data;
 
     if (custom_id === "supporter_select") {
-      const selectedId = values[0]; // exact match
+      const [selectedId, levelStr] = values[0].split("|");
       const supporter = supporters.find(s => s.id === selectedId);
+      const level = levelStr ? Number(levelStr) : undefined;
 
       return res.send({
         type: InteractionResponseType.UPDATE_MESSAGE,
         data: {
           content: `✅ You selected **${supporter.card_name}**`,
-          embeds: [buildSupporterEmbed(supporter, skills)],
+          embeds: [buildSupporterEmbed(supporter, skills, level)],
           components: [] // remove the dropdown after selection
         }
       });
