@@ -11,14 +11,16 @@ import {
 } from 'discord-interactions';
 import { buildSupporterEmbed, buildSkillEmbed, buildSkillComponents, getColor, getCustomEmoji, parseEmojiForDropdown, buildEventEmbed, buildUmaEmbed, buildUmaComponents, buildRaceEmbed, buildCMEmbed } from './utils.js';
 import { logPending, syncUsers } from "./sheets.js";
-import supporters from './assets/supporter.json' with { type: "json" };
-import skills from './assets/skill.json' with { type: "json" };
-import events from './assets/event.json' with { type: "json" };
-import characters from './assets/character.json' with { type: "json" };
+import cache from './githubCache.js';
 import users from './assets/users.json' with { type: "json" };
-import races from './assets/races.json' with { type: "json" };
-import champsmeets from './assets/champsmeet.json' with { type: "json" };
 import { parseWithOcrSpace, parseUmaProfile, buildUmaParsedEmbed, buildUmaLatorHash } from './parser.js';
+
+const characters = cache.characters;
+const supporters = cache.supporters;
+const events = cache.events;
+const skills = cache.skills;
+const races = cache.races;
+const champsmeets = cache.champsmeets;
 
 // Create an express app
 const app = express();

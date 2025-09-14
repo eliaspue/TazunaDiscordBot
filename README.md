@@ -1,19 +1,16 @@
 # TazunaBot
 
-A Discord bot for managing your umamusume club and other nifty uma commands.
-
+A Discord bot for managing your umamusume club and other nifty uma commands. 
+Any questions? Join the discord https://discord.gg/5BW4gSUVSz
 ---
 
 ## 🚀 Getting Started
-
 Follow these steps to run the bot locally.
 
 
 
 ### 1. Install dependencies
 Before you start, you'll need to install [NodeJS](https://nodejs.org/en/download/) and [create a Discord app](https://discord.com/developers/applications) with the proper permissions:
-- `applications.commands`
-- `bot` (with Send Messages enabled)
 
 ### 2. Clone the repository
 git clone https://github.com/JustWastingTime/TazunaDiscordBot.git
