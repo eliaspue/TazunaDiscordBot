@@ -13,10 +13,11 @@ Follow these steps to run the bot locally. You can also host this bot on a free 
 Before you start, you'll need to install [NodeJS](https://nodejs.org/en/download/) and [create a Discord app](https://discord.com/developers/applications). Feel free to name the bot anything you want and upload a nice icon.
 
 ### 2. Clone the repository
+```
 git clone https://github.com/JustWastingTime/TazunaDiscordBot.git
-cd TazunaBot  
+cd TazunaDiscordBot  
 npm install  
-
+```
 
 ### 3. Create your credentials file
 Rename .env.sample to just .env.  
