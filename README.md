@@ -5,12 +5,12 @@ Any questions? Join the discord https://discord.gg/5BW4gSUVSz
 ---
 
 ## 🚀 Getting Started
-Follow these steps to run the bot locally.
+Follow these steps to run the bot locally. You can also host this bot on a free server like pella.
 
 
 
 ### 1. Install dependencies
-Before you start, you'll need to install [NodeJS](https://nodejs.org/en/download/) and [create a Discord app](https://discord.com/developers/applications) with the proper permissions:
+Before you start, you'll need to install [NodeJS](https://nodejs.org/en/download/) and [create a Discord app](https://discord.com/developers/applications). Feel free to name the bot anything you want and upload a nice icon.
 
 ### 2. Clone the repository
 git clone https://github.com/JustWastingTime/TazunaDiscordBot.git
@@ -18,33 +18,27 @@ cd TazunaBot
 npm install
 
 
-### Get app credentials
+### 3. Create your credentials file
+Rename .env.sample to just .env.
+Head to the discord app you just created and copy the application id (`APP_ID`) and public key (`PUBLIC_KEY`) into the .env file. Then head into the Bot page and generate a Bot Token and save it as (`DISCORD_TOKEN`) in the .env.
+![Alt text](./assets/readmeimg/tutorial01.png)
 
-Fetch the credentials from your app's settings and add them to a `.env` file (see `.env.sample` for an example). You'll need your app ID (`APP_ID`), bot token (`DISCORD_TOKEN`), and public key (`PUBLIC_KEY`).
 
-Fetching credentials is covered in detail in the [getting started guide](https://discord.com/developers/docs/getting-started).
+### 4. Install slash commands
 
-> 🔑 Environment variables can be added to the `.env` file in Glitch or when developing locally, and in the Secrets tab in Replit (the lock icon on the left).
-
-### Install slash commands
-
-The commands for the example app are set up in `commands.js`. All of the commands in the `ALL_COMMANDS` array at the bottom of `commands.js` will be installed when you run the `register` command configured in `package.json`:
+The commands are set up in `commands.js` (more on the commands later). All of the commands in the `ALL_COMMANDS` array at the bottom of `commands.js` will be installed when you run the `register` command configured in `package.json`:
 
 ```
 npm run register
 ```
 
-### Run the app
+### 5. Run the app
 
 After your credentials are added, go ahead and run the app:
 
 ```
-node app.js
+npm run start
 ```
-
-> ⚙️ A package [like `nodemon`](https://github.com/remy/nodemon), which watches for local changes and restarts your app, may be helpful while locally developing.
-
-If you aren't following the [getting started guide](https://discord.com/developers/docs/getting-started), you can move the contents of `examples/app.js` (the finished `app.js` file) to the top-level `app.js`.
 
 ### Set up interactivity
 
