@@ -14,12 +14,12 @@ Before you start, you'll need to install [NodeJS](https://nodejs.org/en/download
 
 ### 2. Clone the repository
 git clone https://github.com/JustWastingTime/TazunaDiscordBot.git
-cd TazunaBot
-npm install
+cd TazunaBot  
+npm install  
 
 
 ### 3. Create your credentials file
-Rename .env.sample to just .env.
+Rename .env.sample to just .env.  
 Head to the discord app you just created and copy the application id (`APP_ID`) and public key (`PUBLIC_KEY`) into the .env file. Then head into the Bot page and generate a Bot Token and save it as (`DISCORD_TOKEN`) in the .env.
 ![Finding the secrets](./assets/readmeimg/tutorial01.png)
 
