@@ -1,3 +1,4 @@
 .env
 assets/credentials.json
+assets/users.json
 node_modules/

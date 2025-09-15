@@ -120,3 +120,12 @@ Here are the features of the bot. Some of them are still a Work in Progress.
 
 `/setchannel` - Sets the channel in which new member applicants will appear in. A user (ideally an admin/moderator only channel) will approve this applicant before the trainer profile is added to the sheets and bot. (Work in Progress) [REQUIRES SHEET SETUP]  
 ![Accepts name as a parameter](./assets/readmeimg/tutorial16.png)
+
+## ⭐ Setting up the sheets
+Work in Progress.  
+
+## ⭐ Changing the emojis
+Work in Progress.  
+
+## ⭐ Parsing images
+Work in Progress.  
