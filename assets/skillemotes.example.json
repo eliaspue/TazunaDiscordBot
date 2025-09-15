@@ -31,7 +31,11 @@
   "goldenaccelspecial": "<:SkillGoldenAccel:14103906061462246500>",
   "flow": "<:SkillFlow:1412668553236185180>",
   "goldenflow": "<:SkillGoldenFlow:1412668565416575118>",
-  "wisdom": "<:SkillWisdom:1409317127567052925>",
+  "vision": "<:SkillVision:1417170851912220814>",
+  "goldenvision": "<:SkillGoldenVision:1417170862993313892>",
+  "focus": "<:SkillFocus:1417173616386248815>",
+  "goldenfocus": "<:SkillGoldenFocus:1417173625869566055>",
+  "focusnegative": "<:SkillFocusNegative:1417173989025120366>",
   "velocitydebuff": "<:SkillVelocityDebuff:1416969483469328528>",
   "goldenvelocitydebuff": "<:SkillGoldenVelocityDebuff:1416969495813034085>",
   "acceldebuff": "<:SkillAccelDebuff:1417167678472196146>",
@@ -40,6 +44,6 @@
   "goldenrecoverydebuff": "<:SkillGoldenDebuff:1416217043023302656>",
   "visiondebuff": "<:SkillVisionDebuff:1417168906845687889>",
   "goldenvisiondebuff": "<:SkillGoldenVisionDebuff:1417169105668018247>",
-  "frenzy": "<:SkillDebuff:1416217031040045197>",
+  "frenzy": "<:SkillFrenzy:1417171850412425238>",
   "default": "✨"
 }
