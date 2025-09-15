@@ -34,12 +34,12 @@
   "wisdom": "<:SkillWisdom:1409317127567052925>",
   "velocitydebuff": "<:SkillVelocityDebuff:1416969483469328528>",
   "goldenvelocitydebuff": "<:SkillGoldenVelocityDebuff:1416969495813034085>",
-  "acceldebuff": "<:SkillDebuff:1416217031040045197>",
-  "goldenacceldebuff": "<:SkillGoldenDebuff:1416217043023302656>",
+  "acceldebuff": "<:SkillAccelDebuff:1417167678472196146>",
+  "goldenacceldebuff": "<:SkillGoldenAccelDebuff:1417167897293488278>",
   "recoverydebuff": "<:SkillDebuff:1416217031040045197>",
   "goldenrecoverydebuff": "<:SkillGoldenDebuff:1416217043023302656>",
-  "visiondebuff": "<:SkillDebuff:1416217031040045197>",
-  "goldenvisiondebuff": "<:SkillGoldenDebuff:1416217043023302656>",
+  "visiondebuff": "<:SkillVisionDebuff:1417168906845687889>",
+  "goldenvisiondebuff": "<:SkillGoldenVisionDebuff:1417169105668018247>",
   "frenzy": "<:SkillDebuff:1416217031040045197>",
   "default": "✨"
 }

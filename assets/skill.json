@@ -2970,8 +2970,8 @@
         "team_trials": "❌",
         "champs_meet": "❌",
         "review": "Relying on being in bracket 7 and a coin flip is a very bad gamble.",
-        "rarity": "normal",
-        "category": "super7",
+        "rarity": "rare",
+        "category": "goldensuper7",
         "aliases": ["super lucky 7", "super lucky seven"],
         "downgrade": "Lucky Seven"
     },
