@@ -2,16 +2,16 @@
   "name": "tazuna",
   "private": true,
   "version": "1.0.0",
-  "description": "Discord example app",
-  "main": "app.js",
+  "description": "TazunaBot for managing your uma club needs",
+  "main": "scripts/app.js",
   "type": "module",
   "engines": {
     "node": ">=18.x"
   },
   "scripts": {
-    "start": "node app.js",
-    "register": "node commands.js",
-    "dev": "nodemon app.js"
+    "start": "node scripts/app.js",
+    "register": "node scripts/commands.js",
+    "dev": "nodemon scripts/app.js"
   },
   "author": "vivi",
   "license": "MIT",

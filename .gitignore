@@ -2,3 +2,6 @@
 assets/credentials.json
 assets/users.json
 node_modules/
+
+# local overrides
+skillemotes.json
