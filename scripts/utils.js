@@ -1,9 +1,15 @@
 import 'dotenv/config';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let skillCategoryEmotes = {};
 try {
-  skillCategoryEmotes = JSON.parse(fs.readFileSync('../assets/skillemotes.json'));
+  const filePath = path.join(__dirname, '..', 'assets', 'skillemotes.json');
+  skillCategoryEmotes = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 } catch (err) {
   console.warn("No skillemotes.json found, using default fallback.");
   skillCategoryEmotes = {
