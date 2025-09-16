@@ -1,4 +1,687 @@
 [   
+    {   "id": "Uma - Gold Ship Costume The Red of the Protagonist",
+        "event_name": "The Red of the Protagonist!",
+        "type": "Uma",
+        "subtype": "Costume",
+        "source_name": "Gold Ship (Original)",
+        "options": [
+            {
+                "option_text": "Red can mean many things.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +20"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Hold strong to your beliefs!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +20"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "red of the protagonist costume"]
+    },
+    {   "id": "Uma - Gold Ship Costume A Date Golshi Style",
+        "event_name": "A Date, Golshi Style",
+        "type": "Uma",
+        "subtype": "Costume",
+        "source_name": "Gold Ship (Original)",
+        "options": [
+            {
+                "option_text": "I'll go buy us some drinks.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +20"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Overtime! I won't quit until I win!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +20"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship original", "golshi", "a date golshi style costume"]
+    },
+    {   "id": "Uma - Gold Ship Costume A Sudden Episode from Golshi's Past",
+        "event_name": "A Sudden Episode from Golshi's Past!",
+        "type": "Uma",
+        "subtype": "Costume",
+        "source_name": "Gold Ship (Original)",
+        "options": [
+            {
+                "option_text": "Why not try recreating her soup?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10",
+                            "Wit +10",
+                            "(random) Get Fast Learner Status"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "How about going back to where you met?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +20",
+                            "(random) Get Fast Learner Status"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship original", "golshi", "A Sudden Episode from Golshi's Past! costume"]
+    },
+    {   "id": "Uma - Gold Ship Random Pair Discount Repeat Offender",
+        "event_name": "Pair Discount Repeat Offender",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "Shape Up, Ebisu High.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "JAM: The Last Cartridge.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "pair discount repeat offender"]
+    },
+    {   "id": "Uma - Gold Ship Random Which Did You Lose",
+        "event_name": "Which Did You Lose?",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "The super heavy fake jumbo shrimp.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy -10",
+                            "Power +20"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "The ultra-fast 7G smart phone.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "which did you lose"]
+    },
+    {   "id": "Uma - Gold Ship Random My Part-Time Job Is Crazy",
+        "event_name": "My Part-Time Job Is... Crazy?",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "Go with the physical labor!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10",
+                            "Skill points +15"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let's make some yakisoba!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Hanshin Racecourse hint +1"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "my part time job is crazy"]
+    },
+    {   "id": "Uma - Gold Ship Random The Day After Voices Hoarse",
+        "event_name": "The Day After, Voices Hoarse",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "Get a drink and rally!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Remember all your training!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "the day after voices hoarse"]
+    },
+    {   "id": "Uma - Gold Ship Random This One's For Keeps",
+        "event_name": "This One's For Keeps!",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "Wait, I'll play on your behalf.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "You've got this!",
+                "outcomes": [
+                    {
+                        "chance": "??",
+                        "effects": [
+                            "Skill points +60",
+                            "Non-Standard Distance hint +1"
+                        ]
+                    },
+                    {
+                        "chance": "??",
+                        "effects": [
+                            "Skill points +15",
+                            "Get Slacker status"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "this ones for keeps"]
+    },
+    {   "id": "Uma - Gold Ship Killer Appetite",
+        "event_name": "Killer Appetite!",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "Just the special is enough!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy +10",
+                            "Skill points +5"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Right behind you!",
+                "outcomes": [
+                    {
+                        "chance": 90,
+                        "effects": [
+                            "Energy +30",
+                            "Skill points +10"
+                        ]
+                    },
+                    {
+                        "chance": 10,
+                        "effects": [
+                            "Energy +30",
+                            "Skill points +10",
+                            "Speed -5",
+                            "Power +5",
+                            "Get Slow Metabolism status"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "killer apetite"]
+    },
+    {   "id": "Uma - Gold Ship Date Legend of the Left Pinky",
+        "event_name": "Legend of the Left Pinky",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "I think it's better if we let them find her.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "When hiding a tree, one must make for the forest!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "legend of the left pinky date"]
+    },
+    {   "id": "Uma - Gold Ship Date Hello From About 1.5 Billion Years Ago",
+        "event_name": "Hello From About 1.5 Billion Years Ago",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "Bwahaha! I'll devour you all!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Heh, once I escape to the future. you'll never catch me!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "hello from about 1.5 billion years ago date"]
+    },
+    {   "id": "Uma - Gold Ship Date And Then She",
+        "event_name": "AAnd Then She...",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "I can't wait to see what she makes.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Maybe we'll see her in the park again.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Now I want to make something too.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "and then she date"]
+    },
+    {   "id": "Uma - Gold Ship Date A Lovely Place",
+        "event_name": "A Lovely Place",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "Bear with it and walk the distance.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Convince her to ride a different bus back.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "a lovely place date"]
+    },
+    {   "id": "Uma - Gold Ship Date Nighttime Park Visit",
+        "event_name": "Nighttime Park Visit",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "Let's do an all-night stakeout.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let's do a fun dance.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "nighttime park visit date"]
+    },
+    {   "id": "Uma - Gold Ship Secret After the Takarazuka Kinen: Keyword 2",
+        "event_name": "After the Takarazuka Kinen: Keyword 2",
+        "type": "Uma",
+        "subtype": "Secret",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "You're really, really awesome.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "All stats +3",
+                            "Mood +1",
+                            "Skill points +45",
+                            "Yayoi Akikawa bond +4"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Etched-into-history levels of awesome.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "All stats +3",
+                            "Mood +1",
+                            "Skill points +45",
+                            "(random) Get Charming status",
+                            "(random) Obtain Gatekept skill",
+                            "Yayoi Akikawa bond +4"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "Win the Takarazuka Kinen (Year 2) and the Takarazuka Kinen (Year 3)",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "after the takarazuka kinen secret"]
+    },
+    {   "id": "Uma - Gold Ship Generic Summer Camp Year 3",
+        "event_name": "Summer Camp (Year 3) Ends",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "The number of watermelons you split at camp.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "3 random stats +5"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "The number of cicada shells you collected at camp.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "3 random stats +5"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "summer camp year 3"]
+    },
+    {   "id": "Uma - Gold Ship Generic Summer Camp Year 2",
+        "event_name": "At Summer Camp (Year 2)",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "You could smash watermelons together.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "You could go for a long swim together.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "summer camp year 2"]
+    },
+    {   "id": "Uma - Gold Ship Generic Dance Lesson",
+        "event_name": "Dance Lesson",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "Put more heart into it.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Hold it as long as you can.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "dance lesson"]
+    },
+    {   "id": "Uma - Gold Ship Generic New Year's Resolutions",
+        "event_name": "Dance Lesson",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Gold Ship",
+        "options": [
+            {
+                "option_text": "Let's train you up for long-distance races!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let's figure that out together!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy +20"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let's do a world tour!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Skill points +20"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "Year 2 January 1",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
+        "aliases": ["gold ship", "golshi", "dance lesson"]
+    },
+
     {   "id": "Uma - Daiwa Scarlet Original Costume Best Pose",
         "event_name": "The Best Pose",
         "type": "Uma",
@@ -31,7 +714,7 @@
         ],
         "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1009_100901.png",
-        "aliases": ["daiwa scarlet", "best pose costume"]
+        "aliases": ["daiwa scarlet original", "best pose costume"]
     },
     {   "id": "Uma - Daiwa Scarlet Original Costume The Weight of Racewear",
         "event_name": "The Weight of Racewear",
@@ -64,7 +747,7 @@
         ],
         "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1009_100901.png",
-        "aliases": ["daiwa scarlet", "the weight of racewear costume"]
+        "aliases": ["daiwa scarlet original", "the weight of racewear costume"]
     },
     {   "id": "Uma - Daiwa Scarlet Original Costume Looking Good",
         "event_name": "Looking Good",
@@ -101,7 +784,7 @@
         ],
         "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1009_100901.png",
-        "aliases": ["daiwa scarlet", "looking good costume"]
+        "aliases": ["daiwa scarlet original", "looking good costume"]
     },
     {   "id": "Uma - Daiwa Scarlet Random Her",
         "event_name": "Her",
@@ -1383,7 +2066,7 @@
         ],
         "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1024_102401.png",
-        "aliases": ["mayano top gun", "maya's thrilling test of courage costume"]
+        "aliases": ["mayano top gun original", "maya's thrilling test of courage costume"]
     },
     {   "id": "Uma - Mayano Top Gun Original Costume Sweet Feelings for You",
         "event_name": "Sweet Feelings for You ♪",
@@ -1416,7 +2099,7 @@
         ],
         "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1024_102401.png",
-        "aliases": ["mayano top gun", "sweet feelings for you costume"]
+        "aliases": ["mayano top gun original", "sweet feelings for you costume"]
     },
     {   "id": "Uma - Mayano Top Gun Original Costume Mayano Takes Off",
         "event_name": "Mayano Takes Off ☆",
@@ -1451,7 +2134,7 @@
         ],
         "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1024_102401.png",
-        "aliases": ["mayano top gun", "mayano takes off costume"]
+        "aliases": ["mayano top gun original", "mayano takes off costume"]
     }, 
     {   "id": "Uma - Mayano Top Gun Wedding Costume You're My Sunshine",
         "event_name": "You're My Sunshine ☆",
@@ -2022,7 +2705,7 @@
         ],
         "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1020_102001.png",
-        "aliases": ["seiun sky", "sleepy time incense costume"]
+        "aliases": ["seiun sky original", "sleepy time incense costume"]
     },
     {   "id": "Uma - Seiun Sky Original Costume Tactician",
         "event_name": "Tactician vs. King",
@@ -2055,7 +2738,7 @@
         ],
         "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1020_102001.png",
-        "aliases": ["seiun sky", "tactician vs king costume"]
+        "aliases": ["seiun sky original", "tactician vs king costume"]
     },
     {   "id": "Uma - Seiun Sky Original Costume Who Run For",
         "event_name": "Who Do You Run For?",
@@ -2090,7 +2773,7 @@
         ],
         "conditions": "",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1020_102001.png",
-        "aliases": ["seiun sky", "who do you run for costume"]
+        "aliases": ["seiun sky original", "who do you run for costume"]
     },
     {   "id": "Uma - Seiun Sky Random Cat Language",
         "event_name": "Is Cat Language Real?",

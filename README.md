@@ -125,7 +125,8 @@ Here are the features of the bot. Some of them are still a Work in Progress.
 ![Accepts name as a parameter](./assets/readmeimg/tutorial16.png)
 
 ## ⭐ Setting up the sheets
-Work in Progress.  
+Create a copy of this sheet https://docs.google.com/spreadsheets/d/1xyOJpbC-CdmUV1uSgOyEUT68WnxUGMXiNP5RonUuR4Y/
+If your club runs a dynamic quota based on medians, use the first sheet. If your club runs a fixed daily quota, delete the first sheet and rename the "Fixed Quota version" sheet to "Data".
 
 ## ⭐ Changing the emojis
 Work in Progress.  
