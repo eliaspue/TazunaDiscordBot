@@ -1,6 +1,7 @@
 [
     {
         "name": "Taurus Cup 2025",
+        "number": "1",
         "track":
         {
             "racetrack": "Tokyo",
@@ -19,6 +20,7 @@
     },
     {
         "name": "Gemini Cup 2025",
+        "number": "2",
         "track":
         {
             "racetrack": "Kyoto",
@@ -37,6 +39,7 @@
     },
     {
         "name": "Cancer Cup 2025",
+        "number": "3",
         "track":
         {
             "racetrack": "Tokyo",
@@ -55,6 +58,7 @@
     },
     {
         "name": "Leo Cup 2025",
+        "number": "4",
         "track":
         {
             "racetrack": "Hanshin",

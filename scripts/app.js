@@ -384,9 +384,15 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
       const cupQuery = data.options?.find(opt => opt.name === "name")?.value?.toLowerCase();
 
       // Find matches
-      const matches = champsmeets.filter(c =>
-        !cupQuery || c.name.toLowerCase().includes(cupQuery)
-      );
+      const matches = champsmeets.filter(c => {
+        if (!cupQuery) return true;
+
+        return (
+          c.name.toLowerCase().includes(cupQuery) ||
+          c.number.toLowerCase().includes(cupQuery)
+        );
+      });
+
 
       // No matches
       if (matches.length === 0) {
