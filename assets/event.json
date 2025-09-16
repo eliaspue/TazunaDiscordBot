@@ -3972,6 +3972,29 @@
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
         "aliases": ["narita taishin", "dance lesson"]
     },
+    {   "id": "Uma - Narita Taishin Choiceless Don't Say It",
+        "event_name": "Don't Say It",
+        "type": "Uma",
+        "subtype": "Choiceless",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Mood -3",
+                            "Get Practice Poor status"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "dont say it"]
+    },
 
 
     {   "id": "Generic - Failed Training Get Well Soon",
