@@ -693,7 +693,7 @@ export function buildEventEmbed(event, eventList) {
             return `*Chance ${o.chance}%:*\n${effectsText}`;
           } else if (typeof o.chance === "string") {
             // string chance, show without %
-            return `*Chance ${o.chance}:*\n${effectsText}`;
+            return `*${o.chance}:*\n${effectsText}`;
           } else {
             // fallback (no chance provided)
             return effectsText;
