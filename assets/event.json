@@ -3292,6 +3292,687 @@
         "aliases": ["seiun sky", "new years resolution year 2"]
     },
 
+    
+    {   "id": "Uma - Narita Taishin Costume Strong Just the Way I Am",
+        "event_name": "Strong Just the Way I Am",
+        "type": "Uma",
+        "subtype": "Costume",
+        "source_name": "Narita Taishin (Original)",
+        "options": [
+            {
+                "option_text": "Your real journey begins now!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +20"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "You can learn on me, though.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +20"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin original", "strong just the way i am costume"]
+    },
+    {   "id": "Uma - Narita Taishin Costume Taishins SOS",
+        "event_name": "Taishin's SOS",
+        "type": "Uma",
+        "subtype": "Costume",
+        "source_name": "Narita Taishin (Original)",
+        "options": [
+            {
+                "option_text": "Hang on, I'll buy you some shoes.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10",
+                            "Wit +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let me get you to a shoe shop. You can lean on my shoulder.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +20"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin original", "taishin sos costume"]
+    },
+    {   "id": "Uma - Narita Taishin Costume Anxious Survival",
+        "event_name": "Anxious Survival",
+        "type": "Uma",
+        "subtype": "Costume",
+        "source_name": "Narita Taishin (Original)",
+        "options": [
+            {
+                "option_text": "We can still train here!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10",
+                            "(random) Get Charming status"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let's do what we can to be found sooner!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10",
+                            "Wit +10",
+                            "(random) Get Charming status"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin original", "anxious survival costume"]
+    },
+    {   "id": "Uma - Narita Taishin Random Report Submitted",
+        "event_name": "Report Submitted",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "Suggest she take the medicine that hastens digestion.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Suggest she take the medicine that boosts nutrient absorption.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +5",
+                            "Power +5"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "report submitted"]
+    },
+    {   "id": "Uma - Narita Taishin Random Unknown Music",
+        "event_name": "Unknown Music",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "Live R&B.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Sekaikei pop.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "unknown music"]
+    },
+    {   "id": "Uma - Narita Taishin Random Distance",
+        "event_name": "Distance",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "We should go look for her.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Mood +1",
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "You should wait for her.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Standing By hint +1"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "distance"]
+    },
+    {   "id": "Uma - Narita Taishin Random Extra Training to Blow Off Steam",
+        "event_name": "Extra Training to Blow Off Steam",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "I actually think you should call it a day.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Okay, but don't overdo it.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy -10",
+                            "Skill points +25"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Yeah! Go big or go home!",
+                "outcomes": [
+                    {
+                        "chance": "??",
+                        "effects": [
+                            "Energy -15",
+                            "1 random stat +10"
+                        ]
+                    },
+                    {
+                        "chance": "??",
+                        "effects": [
+                            "Energy -15",
+                            "Mood +1",
+                            "2 random stats +15"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "extra training to blow off steam"]
+    },
+    {   "id": "Uma - Narita Taishin Random Extra Training to De-stress",
+        "event_name": "Extra Training to De-stress?",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "Then how about you get some rest instead?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "You can as long as you don't overdo it!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy -10",
+                            "Skill points +25"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Nah, train as much as you want!",
+                "outcomes": [
+                    {
+                        "chance": "??",
+                        "effects": [
+                            "Energy -15",
+                            "1 random stat +10"
+                        ]
+                    },
+                    {
+                        "chance": "??",
+                        "effects": [
+                            "Energy -15",
+                            "Mood +1",
+                            "2 random stats +15"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "extra training to destress"]
+    },
+    {   "id": "Uma - Narita Taishin Random Nutritional Food",
+        "event_name": "Nutritional Food is the Food of Hope?",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "Be careful not to eat too much.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy +10",
+                            "Skill points +5"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "All right! Load up on nutrients!",
+                "outcomes": [
+                    {
+                        "chance": 90,
+                        "effects": [
+                            "Energy +30",
+                            "Skill points +10"
+                        ]
+                    },
+                    {
+                        "chance": 10,
+                        "effects": [
+                            "Energy +30",
+                            "Skill points +10",
+                            "Speed -5",
+                            "Power +5",
+                            "Get Slow Metabolism status"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "nutritional food is the food of hope"]
+    },
+    {   "id": "Uma - Narita Taishin Date Git Gud Noob",
+        "event_name": "git gud noob",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "Let's play the rhyme game!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let's play tag!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "git gud noob date"]
+    },
+    {   "id": "Uma - Narita Taishin Date GGEZ",
+        "event_name": "ggez",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "Please!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Not yet!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "ggez date"]
+    },
+    {   "id": "Uma - Narita Taishin Date GGWP",
+        "event_name": "ggwp",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "Winning Ticket.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Biwa Hayahide.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Super Creek.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "ggwp date"]
+    },
+    {   "id": "Uma - Narita Taishin Date The Taciturn Two",
+        "event_name": "The Taciturn Two",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "I'm sure Hayahide will be thrilled.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "All right.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "the taciturn two date"]
+    },
+    {   "id": "Uma - Narita Taishin Date Cage Door",
+        "event_name": "Open the Cage Door with Your Own Hand",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "Hey, let's head back and have some tea together!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10",
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Hey, let's head back and invite lots of friends to eat it with us!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +5",
+                            "Speed +5"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "open the cage door with your own hands date"]
+    },
+    {   "id": "Uma - Narita Taishin Secret Nikkei After",
+        "event_name": "After the Nikkei Sho: Here Is Fine",
+        "type": "Uma",
+        "subtype": "Secret",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "",
+                "outcomes": [
+                    {
+                        "chance": "Practice Poor was healed",
+                        "effects": [
+                            "Mood +4",
+                            "All stats +20",
+                            "Skill points +70",
+                            "Get Practice Perfect ◎ status"
+                        ]
+                    },
+                    {
+                        "chance": "Practice Poor was not healed",
+                        "effects": [
+                            "Mood +4",
+                            "All stats +15",
+                            "Skill points +70",
+                            "Heal Practice Poor"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "Win the Nikkei Sho",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "after the nikkei sho secret"]
+    },
+    {   "id": "Uma - Narita Taishin Generic Summer Camp",
+        "event_name": "Summer Camp (Year 2)",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "Power training by splitting watermelons.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Guts training by pulling tires.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "summer camp year 2"]
+    },
+    {   "id": "Uma - Narita Taishin Generic New Year",
+        "event_name": "New Year's Resolutions",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "Let's sit under a kotatsu table and play some racing games!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let's take another nap!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy +20"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let's have our usual meeting.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Skill points +20"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "Year 2 January 1",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "new years resolution year 2"]
+    },
+    {   "id": "Uma - Narita Taishin Generic Dance Lesson",
+        "event_name": "Dance Lesson",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "No, that was seriously incredible!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Now I want to dance too!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "dance lesson"]
+    },
+
 
     {   "id": "Generic - Failed Training Get Well Soon",
         "event_name": "Get Well Soon!",

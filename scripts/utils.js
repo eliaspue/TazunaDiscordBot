@@ -684,8 +684,22 @@ export function buildEventEmbed(event, eventList) {
       value: event.options.map((opt, i) => {
         const outcomesText = opt.outcomes.map(o => {
           const effectsText = o.effects.map(e => `🔸 ${e}`).join("\n");
-          return o.chance === 100 ? effectsText : `*Chance ${o.chance}%:*\n${effectsText}`;
+
+          if (o.chance === 100) {
+            // hide chance if it's exactly 100
+            return effectsText;
+          } else if (typeof o.chance === "number") {
+            // numeric chance, show with %
+            return `*Chance ${o.chance}%:*\n${effectsText}`;
+          } else if (typeof o.chance === "string") {
+            // string chance, show without %
+            return `*Chance ${o.chance}:*\n${effectsText}`;
+          } else {
+            // fallback (no chance provided)
+            return effectsText;
+          }
         }).join("\n");
+
         return `__Option ${i + 1}:__ ${opt.option_text}\n${outcomesText}`;
       }).join("\n\n")
     }
