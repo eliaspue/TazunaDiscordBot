@@ -31,6 +31,17 @@ function extractTitle(ocrText) {
   if (!ocrText) return null;
   const text = String(ocrText);
 
+  // --- Hardcoded replacements for known OCR quirks ---
+  const replacements = {
+    "[LOVE#4EVER]": "LOVE☆4EVER"
+  };
+
+  for (const [key, val] of Object.entries(replacements)) {
+    if (text.includes(key)) {
+      return val.toLowerCase(); // or normalize(val) if you want it normalized
+    }
+  }
+
   const normalize = s => s
     .toLowerCase()
     .replace(/[\-:|]/g, " ")   // normalize separators
@@ -92,13 +103,17 @@ function normalizeSkillName(name) {
     "Victoria por plancha #": "Victoria por plancha ☆",
     "Victoria por plancha *": "Victoria por plancha ☆",
     "G00 1st. Foo;": "G00 1st. F∞;",
+    "G0O 1st. Foo;": "G00 1st. F∞;",
+    "GO0 1st. Foo;": "G00 1st. F∞;",
     "..win Q.E.D.": "∴win Q.E.D.",
     "Flashy*Landing": "Flashy☆Landing",
     "Flashy&Landing": "Flashy☆Landing",
     "Flowery*Maneuver": "Flowery☆Maneuver",
     "Flowery&Maneuver": "Flowery☆Maneuver",
+    "Flowery#Maneuver": "Flowery☆Maneuver",
     "SPARKLY*STARDOM": "SPARKLY☆STARDOM",
-    "SPARKLY&STARDOM": "SPARKLY☆STARDOM"
+    "SPARKLY&STARDOM": "SPARKLY☆STARDOM",
+    "SPARKLY#STARDOM": "SPARKLY☆STARDOM",
   };
 
   if (hardcodedFixes[name]) return hardcodedFixes[name];
@@ -461,72 +476,91 @@ function parseSkills(lines) {
 }
 
 function mergeSplitSkills(skills) {
+  const combos = [
+    { cur: "Front Runner", pattern: /^Straightaways [○◎×]?$/ },
+    { cur: "Pace Chaser", pattern: /^Straightaways [○◎×]?$/ },
+    { cur: "Late Surger", pattern: /^Straightaways [○◎×]?$/ },
+    { cur: "End Closer", pattern: /^Straightaways [○◎×]?$/ },
+    { cur: "Medium", pattern: /^Straightaways [○◎×]?$/ },
+    { cur: "Outer Post", pattern: /^Proficiency [○◎×]?$/ },
+    { cur: "Inner Post", pattern: /^Proficiency [○◎×]?$/ },
+    { cur: "Behold Thine Emperor's", exact: "Divine Might" },
+    { cur: "Where There's a Will,", exact: "There's a Way" },
+    { cur: "This Dance Is for", exact: "Vittoria!" },
+    { cur: "Straightaway", exact: "Acceleration" },
+    { cur: "I Can See Right", exact: "Through You" },
+    { cur: "The View from the Lead", exact: "Is Mine!" },
+    { cur: "The Duty of Dignity", exact: "Calls" },
+    { cur: "Non-Standard", exact: "Distance" },
+    { cur: "You and Me!", exact: "One-on-One!" },
+    { cur: "Introduction to", exact: "Physiology" },
+    { cur: "Genius x Bakushin =", exact: "Victory" }
+  ];
+
+  function matchesCombo(base, other) {
+    if (!base || !other) return false;
+    for (const combo of combos) {
+      if (combo.cur === base) {
+        if (combo.exact) {
+          if (combo.exact === other) return true;
+        } else if (combo.pattern) {
+          if (combo.pattern.test(other)) return true;
+        }
+      }
+    }
+    return false;
+  }
+
   const merged = [];
-  for (let i = 0; i < skills.length; i++) {
+  let i = 0;
+  while (i < skills.length) {
     const cur = skills[i];
     const next = skills[i + 1] || "";
+    const next2 = skills[i + 2] || "";
+    const next3 = skills[i + 3] || "";
 
-    if (cur === "Late Surger" && /^Straightaways [○◎×]?$/.test(next)) {
-      merged.push(cur + " " + next);
-      i++;
+    // 1) cur + next
+    if (matchesCombo(cur, next)) {
+      merged.push(`${cur} ${next}`);
+      i += 2;
+      continue;
     }
-    else if (cur === "Pace Chaser" && /^Straightaways [○◎×]?$/.test(next)) {
-      merged.push(cur + " " + next);
-      i++;
+
+    // 2) interleaved case: cur + next2 AND next + next3
+    if (matchesCombo(cur, next2) && matchesCombo(next, next3)) {
+      merged.push(`${cur} ${next2}`);
+      merged.push(`${next} ${next3}`);
+      i += 4; // consumed cur, next, next2, next3
+      continue;
     }
-    else if (cur === "Medium" && /^Straightaways [○◎×]?$/.test(next)) {
-      merged.push(cur + " " + next);
-      i++;
+
+    // 3) cur + next2 (no matching pair for next)
+    if (matchesCombo(cur, next2)) {
+      // push merged cur+next2 then keep next as its own entry
+      merged.push(`${cur} ${next2}`);
+      if (next) merged.push(next);
+      i += 3; // consumed cur, next, next2
+      continue;
     }
-    else if (cur === "Behold Thine Emperor's" && next === "Divine Might") {
-      merged.push(cur + " " + next);
-      i++;
-    }
-    else if (cur === "This Dance Is for" && next === "Vittoria!") {
-      merged.push(cur + " " + next);
-      i++;
-    }
-    else if (cur === "Straightaway" && next === "Acceleration") {
-      merged.push(cur + " " + next);
-      i++;
-    }
-    else if (cur === "I Can See Right" && next === "Through You") {
-      merged.push(cur + " " + next);
-      i++;
-    }
-    else if (cur === "The View from the Lead" && next === "Is Mine!") {
-      merged.push(cur + " " + next);
-      i++;
-    }
-    else if (cur === "The Duty of Dignity" && next === "Calls") {
-      merged.push(cur + " " + next);
-      i++;
-    } 
-    else if (cur === "Non-Standard" && next === "Distance") {
-      merged.push(cur + " " + next);
-      i++;
-    } 
-    else if (cur === "You and Me!" && next === "One-on-One!") {
-      merged.push(cur + " " + next);
-      i++;
-    }
-    else if (cur === "Introduction to" && next === "Physiology") {
-      merged.push(cur + " " + next);
-      i++;
-    }
-    else if (cur === "Genius x Bakushin =" && next === "Victory") {
-      merged.push(cur + " " + next);
-      i++;
-    }
-    else {
+
+    // 4) next + next2 (cur stands alone)
+    if (matchesCombo(next, next2)) {
       merged.push(cur);
+      merged.push(`${next} ${next2}`);
+      i += 3; // consumed cur, next, next2
+      continue;
     }
+
+    // 5) nothing matched — push cur
+    merged.push(cur);
+    i += 1;
   }
+
   return merged;
 }
 
-
 export async function parseUmaProfile(ocrText, ocrLines, imageUrl, rawData, info) {
+  console.log(ocrText);
   const umaInfo = resolveUma(ocrText);
   const lines = ocrText.split("\n");
 
@@ -545,7 +579,6 @@ export async function parseUmaProfile(ocrText, ocrLines, imageUrl, rawData, info
     skills,
     thumbnail: umaInfo.thumbnail
   };
-  console.log(parsed);
 
   return await mapUmaToId(parsed);
 }
