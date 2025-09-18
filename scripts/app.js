@@ -12,7 +12,7 @@ import {
 import { buildSupporterEmbed, buildSkillEmbed, buildSkillComponents, getColor, getCustomEmoji, parseEmojiForDropdown, buildEventEmbed, buildUmaEmbed, buildUmaComponents, buildRaceEmbed, buildCMEmbed, capitalize } from './utils.js';
 import { getSpreadsheetId, getSpreadsheetIdForUser, logPending, syncUsers } from "./sheets.js"; 
 import cache from './githubCache.js';
-import { parseWithOcrSpace, parseUmaProfile, buildUmaParsedEmbed, buildUmaLatorHash } from './parser.js';
+import { parseWithOcrSpace, parseUmaProfile, buildUmaParsedEmbed, generateUmaLatorLink, shortenUrl } from './parser.js';
 
 import path from 'path';
 import { fileURLToPath } from "url";
@@ -755,7 +755,6 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
       return;
     }
 
-
     // "parse" command
     if (name === "parse") {
       const attachmentId = data.options?.find(opt => opt.name === "image")?.value;
@@ -778,13 +777,12 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         try {
           // Step 2: Run OCR
           const ocrResult = await parseWithOcrSpace(attachment.url);
-          console.log("OCR completed, raw text:", ocrResult.text);
 
           const requiredWords = ["Turf", "Dirt", "Sprint", "Mile", "Medium", "Long", "Front", "Pace", "Late", "End"];
           const missingWords = requiredWords.filter(word => !ocrResult.text.includes(word));
           if (missingWords.length > 0) {
             return await sendFollowup(token, {
-              content: `❌ OCR failed: the image is missing these required fields`
+              content: `❌ OCR failed: the image is missing these required fields: ${missingWords.join(', ')}`
             });
           }
 
@@ -794,18 +792,53 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
             ocrResult.overlayLines, 
             attachment.url,
             ocrResult.rawData,
-            ocrResult.info);
-          const umalatorUrl = buildUmaLatorHash(parsed);
-          console.log("UmaLator URL:", umalatorUrl);
+            ocrResult.info
+          );
 
-          // Step 4: Send follow-up
+          // Step 4: Generate Umalator link
+          let umalatorUrl = null;
+          try {
+            umalatorUrl = generateUmaLatorLink(parsed);
+
+            // Shorten the URL for Discord button
+            //if (umalatorUrl) {
+              //umalatorUrl = await shortenUrl(umalatorUrl);
+            //}
+          } catch (umalatorError) {
+            console.warn("Failed to generate or shorten UmaLator URL:", umalatorError.message);
+          }
+
+          // Step 5: Build embed with Umalator link
+          const embed = buildUmaParsedEmbed(parsed, false);
+
+          // Step 6: Add Umalator link button
+          let components = [];
+          if (umalatorUrl) {
+            components = [
+              {
+                type: 1, // Action row
+                components: [
+                  {
+                    type: 2,      // Button
+                    style: 5,     // Link button
+                    label: "Open in Umalator",
+                    url: umalatorUrl
+                  }
+                ]
+              }
+            ];
+          }
+          
           await sendFollowup(token, {
             content: `✅ Parsed Uma data for **${parsed.name || "Unknown"}**`,
-            embeds: [buildUmaParsedEmbed(parsed)]
+            embeds: [embed], components
           });
+
         } catch (err) {
           console.error("OCR Error:", err);
-          await sendFollowup(token, { content: "❌ Error processing image with OCR.space. " + err });
+          await sendFollowup(token, { 
+            content: "❌ Error processing image with OCR.space. " + err.message 
+          });
         }
       })();
 

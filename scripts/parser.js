@@ -1,7 +1,15 @@
 import characters from '../assets/character.json' with { type: "json" };
 import fetch from "node-fetch";
 import sharp from 'sharp';
-import zlib from "zlib";
+
+import { 
+  buildUmaLatorHash as buildAdvancedUmaLatorHash,
+  buildUmaLatorComparisonHash, 
+  generateUmalatorLink,
+  COURSE_IDS, 
+  mapUmaToId
+} from './umalator.js';
+import { log } from 'console';
 
 const gradeColors = {
   S: { r: 219, g: 189, b: 100 },   // yellow
@@ -18,15 +26,55 @@ const gradeColors = {
 // Helpers
 // -----------
 
-// Extract the bracketed title, normalize it
+// Extract outfit title (handles [Title], [Titlel, [Title, etc.])
 function extractTitle(ocrText) {
-  const match = ocrText.match(/\[(.*?)\]/);
-  if (!match) return null;
-  return match[1]
+  if (!ocrText) return null;
+  const text = String(ocrText);
+
+  const normalize = s => s
     .toLowerCase()
-    .replace(/[\-:|]/g, " ")  // turn dashes/colons/pipes into spaces
-    .replace(/\s+/g, " ")     // collapse multiple spaces
+    .replace(/[\-:|]/g, " ")   // normalize separators
+    .replace(/\s+/g, " ")      // collapse multiple spaces
     .trim();
+
+  // 1) Properly bracketed: [Title]
+  let m = text.match(/\[([^\]\r\n]{1,200})\]/);
+  if (m && m[1]) return normalize(m[1]);
+
+  // 2) Open bracket but no closing ] on that line: "[Title" or "[Titlel"
+  m = text.match(/\[([^\]\r\n]{1,200})/);
+  if (m && m[1]) {
+    let t = m[1].trim();
+
+    // Heuristic cleanup for common OCR misreads of closing bracket:
+    // Remove trailing 'l' or 'I' or '|' only if it looks like a stray char
+    // (i.e. single trailing char and there is no real ']' anywhere in text)
+    if (!text.includes(']')) {
+      t = t.replace(/[\|\:]+$/g, "").trim();            // strip trailing pipes/colons
+      if (t.length > 2 && /^[a-z]$/i.test(t.slice(-1)) && t.slice(-1).toLowerCase() === 'l') {
+        // remove trailing 'l' when likely OCR -> ']'
+        t = t.slice(0, -1).trim();
+      }
+      if (t.length > 2 && /^[iI]$/.test(t.slice(-1))) {
+        // sometimes ] -> I
+        t = t.slice(0, -1).trim();
+      }
+    }
+
+    return normalize(t);
+  }
+
+  // 3) Fallback: try any [... start (non-greedy) and strip obvious trailing garbage
+  m = text.match(/\[([^\]\r\n]+?)(?:\]|\b|$)/);
+  if (m && m[1]) {
+    let t = m[1].trim().replace(/[\|\:]+$/g, "");
+    if (!text.includes(']') && t.length > 2 && t.slice(-1).toLowerCase() === 'l') {
+      t = t.slice(0, -1).trim();
+    }
+    return normalize(t);
+  }
+
+  return null;
 }
 
 // Extract numbers from OCR text like "A 813" → "813"
@@ -34,6 +82,17 @@ function extractNumber(text) {
   if (typeof text !== "string") return "?";
   const match = text.match(/\d+/);
   return match ? match[0] : "?";
+}
+
+function normalizeSkillName(name) {
+  if (!name) return "";
+
+  return name
+    .replace(/©/g, "◎")  // OCR often reads ◎ as copyright symbol
+    .replace(/(O|0)$/g, "○") // trailing O or 0 → ○
+    .replace(/x$/i, "×")  // trailing x or X → ×
+    .replace(/\s+/g, " ") // collapse spaces
+    .trim();
 }
 
 // Resize once, return buffer + metadata
@@ -268,12 +327,28 @@ async function parseGroup(defs, ocrLines, rawData, info) {
   return result;
 }
 
+/**
+ * Shorten a URL using TinyURL (no API token needed)
+ * @param {string} longUrl - The original long URL
+ * @returns {Promise<string>} - Shortened URL
+ */
+export async function shortenUrl(longUrl) {
+  try {
+    const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`);
+    const shortUrl = await res.text();
+    return shortUrl;
+  } catch (err) {
+    console.error("Error shortening URL:", err);
+    return longUrl; // fallback
+  }
+}
+
 // -----------
 // Main
 // -----------
 
 // Resolve character by title or fallback to name
-function resolveUma(ocrText) {
+function resolveUma(ocrText) { 
   const title = extractTitle(ocrText);
 
   if (title) {
@@ -346,7 +421,8 @@ function parseSkills(lines) {
     const parts = line
       .split("\t")
       .map(s => s.replace(/Lvl\s*\d+/i, "").trim())
-      .filter(Boolean);
+      .filter(Boolean)
+      .map(normalizeSkillName);
 
     skills.push(...parts);
   }
@@ -361,7 +437,7 @@ export async function parseUmaProfile(ocrText, ocrLines, imageUrl, rawData, info
   const { track, distance, style } = await parseAptitudes(ocrLines, rawData, info);
   const skills = parseSkills(lines);
 
-  return {
+  const parsed = {
     name: umaInfo.character_name || umaInfo.name,
     title: umaInfo.title,
     type: umaInfo.type,
@@ -372,6 +448,8 @@ export async function parseUmaProfile(ocrText, ocrLines, imageUrl, rawData, info
     skills,
     thumbnail: umaInfo.thumbnail
   };
+
+  return await mapUmaToId(parsed);
 }
 // OCR.space call
 export async function parseWithOcrSpace(imageUrl) {
@@ -437,62 +515,21 @@ export function buildUmaParsedEmbed(parsed) {
   };
 }
 
-// ---------
-// Umalator
-// ---------
-
-// Default race data from UmaLator
-const DEFAULT_COURSE_ID = 10606;
-const DEFAULT_NSAMPLES = 500;
-const DEFAULT_USE_POS_KEEP = true;
-const DEFAULT_RACEDEF = {
-  mood: 2,
-  ground: 1,
-  weather: 1,
-  season: 1,
-  time: 2,
-  grade: 100
-};
-
-// Converts parsed Uma to UmaLator hash
-export function buildUmaLatorHash(parsedUma) {
-    // Define uma1 first
-  const uma1 = {
-    name: parsedUma.name,
-    outfitId: "",          
-    speed: parseInt(parsedUma.stats.Speed),
-    stamina: parseInt(parsedUma.stats.Stamina),
-    power: parseInt(parsedUma.stats.Power),
-    guts: parseInt(parsedUma.stats.Guts),
-    wisdom: parseInt(parsedUma.stats.Wit),
-    skills: parsedUma.skills,
-    strategy: "Senkou",
-    distanceAptitude: "S",
-    surfaceAptitude: "A",
-    strategyAptitude: "A"
-  };
-
-  // UmaLator JSON structure expects two runners; we can duplicate if testing one
-  const payload = {
-    courseId: 10606,        // default Tokyo Turf 1600m
-    nsamples: 500,
-    usePosKeep: true,
-    racedef: {
-      mood: 2,
-      ground: 1,
-      weather: 1,
-      season: 1,
-      time: 2,
-      grade: 100
-    },
-    uma1,
-    uma2: {
-      ...uma1 // duplicate for testing; can later use a real second runner
-    }
+export function generateUmaLatorLink(parsedUma, raceOptions = {}) {
+  // Use default race conditions if none provided
+  const defaultOptions = {
+    courseId: COURSE_IDS["Tokyo_Turf_1600"] || 10606,
+    ground: "Good",
+    weather: "Sunny", 
+    season: "Spring",
+    surface: "Turf"
   };
   
-  const jsonStr = JSON.stringify(payload);
-  const compressed = zlib.gzipSync(jsonStr);
-  const hash = encodeURIComponent(compressed.toString("base64"));
-  return `https://alpha123.github.io/uma-tools/umalator-global/#${hash}`;
+  const finalOptions = { ...defaultOptions, ...raceOptions };
+  return buildAdvancedUmaLatorHash(parsedUma, finalOptions);
+}
+
+// Keep this for backwards compatibility if needed elsewhere
+export function buildUmaLatorHash(parsedUma, raceOptions = {}) {
+  return generateUmaLatorLink(parsedUma, raceOptions);
 }
