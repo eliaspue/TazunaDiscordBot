@@ -958,17 +958,5 @@
                 "url": ""
             }
         ]
-    },
-    {
-        "id": "00000000000000000",
-        "name": "Stats",
-        "fans_total": "",
-        "fans_monthly": "",
-        "color": "",
-        "rank_total": "",
-        "rank_monthly": "",
-        "daily_average": "0",
-        "fans_median": "0",
-        "fans_guild_total": "0"
     }
 ]

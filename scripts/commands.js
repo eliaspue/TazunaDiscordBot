@@ -198,6 +198,12 @@ const LEADERBOARD_COMMAND = {
         { "name": "total", "value": "total" }
       ]
     },
+    {
+      type: 3,
+      name: 'clubname',
+      description: 'Filter leaderboard to a specific club',
+      required: false
+    }
   ],
   type: 1,
   integration_types: [0, 1],

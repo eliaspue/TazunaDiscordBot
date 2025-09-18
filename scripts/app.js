@@ -9,11 +9,24 @@ import {
   MessageComponentTypes,
   verifyKeyMiddleware,
 } from 'discord-interactions';
-import { buildSupporterEmbed, buildSkillEmbed, buildSkillComponents, getColor, getCustomEmoji, parseEmojiForDropdown, buildEventEmbed, buildUmaEmbed, buildUmaComponents, buildRaceEmbed, buildCMEmbed } from './utils.js';
-import { logPending, syncUsers } from "./sheets.js"; 
+import { buildSupporterEmbed, buildSkillEmbed, buildSkillComponents, getColor, getCustomEmoji, parseEmojiForDropdown, buildEventEmbed, buildUmaEmbed, buildUmaComponents, buildRaceEmbed, buildCMEmbed, capitalize } from './utils.js';
+import { getSpreadsheetId, getSpreadsheetIdForUser, logPending, syncUsers } from "./sheets.js"; 
 import cache from './githubCache.js';
-import users from '../assets/users.json' with { type: "json" };
 import { parseWithOcrSpace, parseUmaProfile, buildUmaParsedEmbed, buildUmaLatorHash } from './parser.js';
+
+import path from 'path';
+import { fileURLToPath } from "url";
+
+// ESM-friendly __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Resolve paths relative to the current file
+const serversPath = path.join(__dirname, "..", "assets", "servers.json");
+const usersPath   = path.join(__dirname, "..", "assets", "users.json");
+
+const servers = JSON.parse(fs.readFileSync(serversPath, "utf8"));
+const users   = JSON.parse(fs.readFileSync(usersPath, "utf8"));
 
 const characters = cache.characters;
 const supporters = cache.supporters;
@@ -26,6 +39,14 @@ const champsmeets = cache.champsmeets;
 const app = express();
 // Get port, or default to 3000
 const PORT = process.env.PORT || 3000;
+
+function getUsers() {
+  return JSON.parse(fs.readFileSync(usersPath, "utf8"));
+}
+
+function getServers() {
+  return JSON.parse(fs.readFileSync(serversPath, "utf8"));
+}
 
 /**
  * Interactions endpoint URL where Discord will send HTTP requests
@@ -466,55 +487,142 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
 
     // "leaderboard" command
     if (name === 'leaderboard') {
-      const mode = options?.find(opt => opt.name === "mode")?.value || "monthly"; // default = monthly
+      // Defer so we have time to sync
+      res.send({ type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE });
 
-      // Always sync first to make sure data is fresh
-      const userList = await syncUsers();
+      try {
+        const mode = options?.find(opt => opt.name === "mode")?.value || "monthly";
+        const clubArg = options?.find(opt => opt.name === "clubname")?.value; // optional user override
+        const guildId = req.body.guild_id;
+        const userId = req.body.user?.id || req.body.member?.user?.id;
 
-      // Exclude pseudo-user "Stats"
-      const realUsers = userList.filter(u => u.name.toLowerCase() !== "stats");
+        // Always sync first to make sure data is fresh
+        await syncUsers();
 
-      // Sort depending on mode
-      let sorted;
-      if (mode === "total") {
-        sorted = [...realUsers].sort((a, b) => Number(a.rank_total) - Number(b.rank_total));
-      } else {
-        sorted = [...realUsers].sort((a, b) => Number(a.rank_monthly) - Number(b.rank_monthly));
+        // Reload fresh JSON after syncing
+        const usersList = getUsers();
+        const serversList = getServers();
+
+        // Find which servers/clubs we should include
+        let matchedServers = [];
+
+        if (clubArg) {
+          // Exact name match first (case-insensitive)
+          matchedServers = serversList.filter(s => s.name.toLowerCase() === clubArg.toLowerCase());
+
+          // If none, try contains (partial)
+          if (matchedServers.length === 0) {
+            matchedServers = serversList.filter(s => s.name.toLowerCase().includes(clubArg.toLowerCase()));
+          }
+
+          if (matchedServers.length === 0) {
+            await sendFollowup(token, {
+              content: `❌ Club "${clubArg}" not found.`
+            });
+            return;
+          }
+        } else {
+          // No clubname passed — try to resolve from guild or user's club (DM)
+          if (guildId) {
+            matchedServers = serversList.filter(s => s.id === guildId);
+          }
+
+          if (!guildId) {
+            // In DM — resolve from user's club field
+            if (userId) {
+              const user = usersList.find(u => u.id === userId);
+              if (user?.club) {
+                matchedServers = serversList.filter(s => s.name === user.club);
+              }
+            }
+          }
+
+          if (matchedServers.length === 0) {
+            await sendFollowup(token, {
+              content: "❌ Could not determine which club/server to pull leaderboard from. Try `/leaderboard clubname:\"YourClub\"`."
+            });
+            return;
+          }
+        }
+
+        const targetClubs = matchedServers.map(s => s.name);
+
+        // Filter users for these clubs
+        const clubUsers = usersList.filter(u => targetClubs.includes(u.club));
+
+        if (clubUsers.length === 0) {
+          await sendFollowup(token, {
+            content: `❌ No users found for club(s): ${targetClubs.join(", ")}.`
+          });
+          return;
+        }
+
+        // Sort depending on mode (use rank if available; fallback to fans descending)
+        let sorted;
+        if (mode === "total") {
+          sorted = [...clubUsers].sort((a, b) => (Number(a.rank_total) || 1e9) - (Number(b.rank_total) || 1e9));
+        } else {
+          sorted = [...clubUsers].sort((a, b) => (Number(a.rank_monthly) || 1e9) - (Number(b.rank_monthly) || 1e9));
+        }
+
+        const top10 = sorted.slice(0, 10);
+
+        // Build leaderboard description (same format as before)
+        const description = top10.map(u => {
+          const rank = mode === "total" ? u.rank_total : u.rank_monthly;
+          const fans = mode === "total" ? u.fans_total : u.fans_monthly;
+          return `**#${rank}** ${u.name} — ⭐ ${Number(fans).toLocaleString()}`;
+        }).join("\n");
+
+        // Aggregate server stats for footer
+        const parseNum = v => Number(v) || 0;
+
+        const medians = matchedServers.map(s => parseNum(s.fans_median)).filter(n => n > 0);
+        const totalFansSum = matchedServers.reduce((acc, s) => acc + parseNum(s.fans_guild_total), 0);
+        const dailyVals = matchedServers.map(s => parseNum(s.daily_average)).filter(n => n > 0);
+
+        // Median-of-medians (if multiple) — fallback to 0 if empty
+        let aggregatedMedian = 0;
+        if (medians.length > 0) {
+          medians.sort((a, b) => a - b);
+          const mid = Math.floor(medians.length / 2);
+          aggregatedMedian = (medians.length % 2 === 1)
+            ? medians[mid]
+            : Math.round((medians[mid - 1] + medians[mid]) / 2);
+        }
+
+        // Avg daily (rounded)
+        const aggregatedDaily = dailyVals.length > 0
+          ? Math.round(dailyVals.reduce((a, b) => a + b, 0) / dailyVals.length)
+          : 0;
+
+        // Build footer text exactly as you requested
+        const footerText = `Median Fans: ${Number(aggregatedMedian).toLocaleString()}  •  Total Fans: ${Number(totalFansSum).toLocaleString()}  •  Daily Avg: ${Number(aggregatedDaily).toLocaleString()}`;
+
+        // Embed title: single club gets possessive title, multiple clubs aggregated
+        const title = matchedServers.length === 1
+          ? `🏆 ${matchedServers[0].name}'s Leaderboard (${mode === "total" ? "Total Fans" : "Monthly Fans"})`
+          : `🏆 Leaderboard — ${targetClubs.join(", ")} (${mode === "total" ? "Total Fans" : "Monthly Fans"})`;
+
+        const embed = {
+          title,
+          description: description || "No data available.",
+          color: 0xf1c40f,
+          footer: { text: footerText }
+        };
+
+        await sendFollowup(token, { embeds: [embed] });
+
+      } catch (err) {
+        console.error("Leaderboard command error:", err);
+        await sendFollowup(token, { content: "❌ Error fetching leaderboard." });
       }
 
-      // Take top 10
-      const top10 = sorted.slice(0, 10);
-
-      // Build leaderboard text
-      let description = top10.map((u, i) => {
-        const rank = mode === "total" ? u.rank_total : u.rank_monthly;
-        const fans = mode === "total" ? u.fans_total : u.fans_monthly;
-        return `**#${rank}** ${u.name} — ⭐ ${Number(fans).toLocaleString()}`;
-      }).join("\n");
-
-      const stats = users.find(u => u.name === "Stats");
-
-      // Build embed
-      const embed = {
-        title: `🏆 Leaderboard (${mode === "total" ? "Total Fans" : "Monthly Fans"})`,
-        description: description || "No data available.",
-        color: 0xf1c40f,
-        footer: {
-          text: `Median Fans: ${Number(stats.fans_median).toLocaleString()}  •  Total Fans: ${Number(stats.fans_guild_total).toLocaleString()}  •  Daily Avg: ${Number(stats.daily_average).toLocaleString()}`
-        }
-      };
-
-      return res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          embeds: [embed]
-        }
-      });
+      return;
     }
 
     // "trainer" command to lookup yourself or other trainers
     if (name === 'trainer') {
-      // Defer response immediately (gives you more time)
       res.send({
         type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
       });
@@ -522,31 +630,37 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
       try {
         const trainerQuery = data.options?.find(opt => opt.name === "name")?.value;
         const userId = req.body.context === 0 ? req.body.member.user.id : req.body.user.id;
-        const usersList = await syncUsers();
+
+        // Always sync before reading
+        await syncUsers();
+
+        // Load updated users.json
+        const users = JSON.parse(fs.readFileSync(usersPath, "utf8"));
 
         let user;
         if (trainerQuery) {
-          user = usersList.find(u => u.name.toLowerCase() === trainerQuery.toLowerCase());
+          user = users.find(u => u.name.toLowerCase() === trainerQuery.toLowerCase());
         } else {
-          user = usersList.find(u => u.id === userId);
+          user = users.find(u => u.id === userId);
         }
 
         if (!user) {
-          // Only use sendFollowup, no res.send here
           await sendFollowup(token, { content: "❌ Trainer not found." });
-          return; // stop execution
+          return;
         }
 
         const embed = {
           title: `Trainer Profile: ${user.name}`,
           color: getColor(user.color),
-          description: `You have mined **${Number(user.fans_monthly).toLocaleString()}** fans this month for the guild.\n\u200B`,
+          description: `You have mined **${Number(user.fans_monthly).toLocaleString()}** fans this month.\n\u200B`,
           fields: [
             { name: "👥 Total Fans", value: Number(user.fans_total).toLocaleString(), inline: true },
-            { name: "📈 Daily Gains (Avg)", value: Number(user.daily_average).toLocaleString() + "\n\u200B", inline: true },
+            { name: "📈 Daily Gains (Avg)", value: Number(user.daily_average).toLocaleString(), inline: true },
+            { name: "🚦 Zone", value: capitalize(user.color), inline: true },
             { name: "⭐ Current Rank", value: '# ' + Number(user.rank_total).toLocaleString(), inline: true },
             { name: "〽️ Monthly Rank", value: '# ' + Number(user.rank_monthly).toLocaleString(), inline: true },
-          ]
+          ],
+          footer: user.club ? { text: `Club: ${user.club}` } : undefined
         };
 
         const buttons = (user.save_data || [])
@@ -562,75 +676,85 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         });
 
       } catch (err) {
-        console.error(err);
+        console.error("Trainer command error:", err);
         await sendFollowup(token, { content: "❌ Error fetching trainer data." });
       }
 
       return;
     }
 
-    // "banana" command
+    // "banana" command to lookup all users under the banana line (you can replace with a user you want)
     if (name === "banana") {
-
-      // Always sync first to make sure data is fresh
-      const userList = await syncUsers();
-
-      // Find the Banana user's threshold
-      const bananaUser = userList.find(u => u.name.toLowerCase() === "banana");
-      if (!bananaUser) {
-        return res.send({
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: {
-            content: "❌ Could not find banana in the users data.",
-          },
-        });
-      }
-
-      const BANANA_THRESHOLD = Number(bananaUser.daily_average);
-
-      // Filter users below Banana's threshold (keep original order)
-      const bananaUsers = userList.filter(
-        u => Number(u.daily_average) < BANANA_THRESHOLD
-      );
-
-      if (bananaUsers.length === 0) {
-        return res.send({
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: {
-            content: "🍌 Nobody is below Banana’s threshold right now. Keep it up!",
-          },
-        });
-      }
-
-      // Find the max length of the number strings
-      const maxLen = Math.max(
-        ...bananaUsers.map(u => Number(u.daily_average).toLocaleString().length)
-      );
-
-      // Build leaderboard string
-      const desc = "```\n" + bananaUsers
-      .map(
-        (u, i) =>
-          `${String(i + 1).padStart(2, " ")}. ${u.name.padEnd(15, " ")} ${Number(u.daily_average).toLocaleString().padStart(maxLen, " ")}`
-      )
-      .join("\n") + "\n```";
-
-      const embed = {
-        title: "🍌 Banana Line (Daily Average)",
-        description: desc,
-        color: 0xFF0000,
-        footer: {
-          text: `Banana’s threshold: ${BANANA_THRESHOLD.toLocaleString()} fans/day`,
-        },
-      };
-
-      return res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          embeds: [embed],
-        },
+      res.send({
+        type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
       });
+
+      try {
+        // Sync fresh data
+        const userList = await syncUsers();
+
+        // Get current guildId
+        const guildId = req.body.guild_id;
+        const clubName = data.options?.find(opt => opt.name === "clubname")?.value;
+
+        // Resolve target clubs
+        let targetServers = servers.filter(s => s.id === guildId);
+        if (clubName) {
+          targetServers = targetServers.filter(s => s.name.toLowerCase() === clubName.toLowerCase());
+        }
+        const targetClubs = targetServers.map(s => s.name);
+
+        // Filter only users in these clubs
+        const filteredUsers = userList.filter(u => targetClubs.includes(u.club));
+
+        // Find Banana inside these users
+        const bananaUser = filteredUsers.find(u => u.name.toLowerCase() === "banana");
+        if (!bananaUser) {
+          return sendFollowup(token, { content: "❌ Could not find Banana in this server’s data." });
+        }
+
+        const BANANA_THRESHOLD = Number(bananaUser.daily_average);
+
+        // Users below Banana’s daily avg
+        const bananaUsers = filteredUsers.filter(
+          u => Number(u.daily_average) < BANANA_THRESHOLD
+        );
+
+        if (bananaUsers.length === 0) {
+          return sendFollowup(token, { content: "🍌 Nobody is below Banana’s threshold right now. Keep it up!" });
+        }
+
+        // Align columns nicely
+        const maxLen = Math.max(
+          ...bananaUsers.map(u => Number(u.daily_average).toLocaleString().length)
+        );
+
+        const desc = "```\n" + bananaUsers
+          .map(
+            (u, i) =>
+              `${String(i + 1).padStart(2, " ")}. ${u.name.padEnd(15, " ")} ${Number(u.daily_average).toLocaleString().padStart(maxLen, " ")}`
+          )
+          .join("\n") + "\n```";
+
+        const embed = {
+          title: "🍌 Banana Line (Daily Average)",
+          description: desc,
+          color: 0xFFDD00,
+          footer: {
+            text: `Banana’s threshold: ${BANANA_THRESHOLD.toLocaleString()} fans/day`
+          }
+        };
+
+        await sendFollowup(token, { embeds: [embed] });
+
+      } catch (err) {
+        console.error("Banana command error:", err);
+        await sendFollowup(token, { content: "❌ Error fetching Banana data." });
+      }
+
+      return;
     }
+
 
     // "parse" command
     if (name === "parse") {

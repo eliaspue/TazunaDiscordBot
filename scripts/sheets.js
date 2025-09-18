@@ -1,6 +1,18 @@
 import { google } from "googleapis";
 import fs from "fs";
-import userData from "../assets/users.json" with { type: "json" }; 
+import path from 'path';
+import { fileURLToPath } from "url";
+
+// ESM-friendly __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Resolve paths relative to the current file
+const serversPath = path.join(__dirname, "..", "assets", "servers.json");
+const usersPath   = path.join(__dirname, "..", "assets", "users.json");
+
+let servers = JSON.parse(fs.readFileSync(serversPath, "utf8"));
+let users   = JSON.parse(fs.readFileSync(usersPath, "utf8"));
 
 const auth = new google.auth.GoogleAuth({
   keyFile: "./assets/credentials.json",
@@ -9,25 +21,45 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: "v4", auth });
 
-const SPREADSHEET_ID = "1wKRoIy-k90xnd5uUV51YI2fFtZyr9vhstUKQ8PH8W70";
+
 const SHEET_NAME = "Data";
 
 const cleanNumber = str => Number(String(str).replace(/,/g, "")) || 0;
 
+export function getSpreadsheetId(guildId) {
+  const server = servers.find(s => s.id === guildId);
+  return server?.sheetsid || null; // null if not found
+}
+
+export function getSpreadsheetIdForUser(userId) {
+  // Find the user in users.json
+  const user = users.find(u => u.id === userId);
+  if (!user) return null;
+
+  // Get their club
+  const clubName = user.club;
+  if (!clubName) return null;
+
+  // Find matching server in servers.json
+  const server = servers.find(s => s.name === clubName);
+  return server?.sheetsid || null;
+}
+
 // Update pending data for a user
 export async function logPending(discordId, value) {
   try {
-
-    // Find the username from your JSON
-    const user = userData.find(u => u.id === discordId);
+    // Find the username + club from your JSON
+    const user = users.find(u => u.id === discordId);
     if (!user) return "User ID not found in JSON.";
 
     const username = user.name;
+    const SPREADSHEET_ID = getSpreadsheetIdForUser(discordId);
+    if (!SPREADSHEET_ID) return "Could not find a linked spreadsheet for this user.";
 
     // Read the sheet to find the user row
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: `${SHEET_NAME}!A2:J`, // adjust based on your sheet
+      range: `${SHEET_NAME}!A2:J`,
     });
 
     const rows = res.data.values;
@@ -35,7 +67,7 @@ export async function logPending(discordId, value) {
 
     let rowIndex = -1;
     for (let i = 0; i < rows.length; i++) {
-      if (rows[i][1] === username) { // Assuming column A = Name
+      if (rows[i][1] === username) { // Column B assumed = Name
         rowIndex = i + 2; // +2 because sheet starts at A2
         break;
       }
@@ -43,7 +75,7 @@ export async function logPending(discordId, value) {
 
     if (rowIndex === -1) return "User not found.";
 
-    // Update Pending Data column (e.g. J)
+    // Update Pending Data column (J)
     const range = `${SHEET_NAME}!J${rowIndex}`;
     await sheets.spreadsheets.values.update({
       spreadsheetId: SPREADSHEET_ID,
@@ -54,7 +86,7 @@ export async function logPending(discordId, value) {
       },
     });
 
-    return `Updated ${username}'s fancount to ${Number(value).toLocaleString()} in Pending Data. Thank you for your hard work.`;
+    return `✅ Updated ${username}'s fancount to ${Number(value).toLocaleString()} in Pending Data.`;
 
   } catch (err) {
     console.error(err);
@@ -64,95 +96,116 @@ export async function logPending(discordId, value) {
 
 // Sync Google Sheet values into users.json
 export async function syncUsers() {
-  try {
-    // 1. Get player data (rows 2 to 31)
-    const res = await sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
-      range: `${SHEET_NAME}!A2:J31`,
-    });
 
-    const rows = res.data.values || [];
-    if (rows.length === 0) {
-      console.log("No data found in sheet.");
-      return [];
+  // In case you updated users and servers json manually without restarting the bot
+  servers = JSON.parse(fs.readFileSync(serversPath, "utf8"));
+  users   = JSON.parse(fs.readFileSync(usersPath, "utf8"));
+
+  let updatedUsers = [];
+
+  for (const server of servers) {
+    if (!server.sheetsid) {
+      console.warn(`⚠️ No spreadsheet ID for server ${server.name}`);
+      continue;
     }
 
-    // 2. Get thresholds (M21:P21)
-    const threshRes = await sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
-      range: `${SHEET_NAME}!M21:P21`,
-    });
-    const thresholds = (threshRes.data.values?.[0] || []).map(v => cleanNumber(v));
+    try {
+      // 1. Get player data (rows 2 to 31)
+      const res = await sheets.spreadsheets.values.get({
+        spreadsheetId: server.sheetsid,
+        range: `${SHEET_NAME}!A2:J31`,
+      });
 
-    // Update users
-    for (const row of rows) {
-      if (!row || row.length < 9) continue; // skip empty or incomplete rows
-
-      const username = row[1];
-      if (!username) continue; // skip if no username
-
-      const totalFans = cleanNumber(row[4]);
-      const monthlyFans = cleanNumber(row[5]);
-      const rankTotal = cleanNumber(row[7]);
-      const rankMonthly = cleanNumber(row[8]);
-      const growthDailyAvg = cleanNumber(row[6]);
-
-      const user = userData.find(
-        u => u.name && u.name.trim().toLowerCase() === username.trim().toLowerCase()
-      );
-
-      if (!user) {
-        console.log("No match for:", username);
+      const rows = res.data.values || [];
+      if (rows.length === 0) {
+        console.log(`No data found in sheet for ${server.name}`);
         continue;
       }
 
-      // Update user data
-      user.fans_total = totalFans.toString();
-      user.fans_monthly = monthlyFans.toString();
-      user.rank_total = rankTotal.toString();
-      user.rank_monthly = rankMonthly.toString();
-      user.daily_average = growthDailyAvg.toString();
+      // 2. Get thresholds (M21:P21)
+      const threshRes = await sheets.spreadsheets.values.get({
+        spreadsheetId: server.sheetsid,
+        range: `${SHEET_NAME}!M21:P21`,
+      });
+      const thresholds = (threshRes.data.values?.[0] || []).map(v => cleanNumber(v));
 
-      // Assign color based on thresholds
-      let color = "red";
-      if (thresholds.length > 0) {
-        if (monthlyFans >= thresholds[0]) color = "purple";
-        else if (monthlyFans >= thresholds[1]) color = "blue";
-        else if (monthlyFans >= thresholds[2]) color = "green";
-        else if (monthlyFans >= thresholds[3]) color = "yellow";
+      // 3. Map users from this server
+      for (const row of rows) {
+        if (!row || row.length < 9) continue;
+
+        const username = row[1];
+        if (!username) continue;
+
+        const totalFans = cleanNumber(row[4]);
+        const monthlyFans = cleanNumber(row[5]);
+        const rankTotal = cleanNumber(row[7]);
+        const rankMonthly = cleanNumber(row[8]);
+        const growthDailyAvg = cleanNumber(row[6]);
+
+        // Find existing user by name (case-insensitive)
+        let existing = users.find(u => u.name?.toLowerCase() === username.toLowerCase());
+
+        // Start with existing data if found, else create fresh
+        let user = existing ? { ...existing } : { id: row[0], name: username, club: server.name };
+
+        // Overwrite only the synced fields
+        user.fans_total = totalFans.toString();
+        user.fans_monthly = monthlyFans.toString();
+        user.rank_total = rankTotal.toString();
+        user.rank_monthly = rankMonthly.toString();
+        user.daily_average = growthDailyAvg.toString();
+        user.club = server.name;
+
+        // Assign color
+        let color = "red";
+        if (thresholds.length > 0) {
+          if (monthlyFans >= thresholds[0]) color = "purple";
+          else if (monthlyFans >= thresholds[1]) color = "blue";
+          else if (monthlyFans >= thresholds[2]) color = "green";
+          else if (monthlyFans >= thresholds[3]) color = "yellow";
+        }
+        user.color = color;
+
+        updatedUsers.push(user);
       }
-      user.color = color;
+
+      // 4. Update server-wide stats (optional)
+      const statsRes = await sheets.spreadsheets.values.batchGet({
+        spreadsheetId: server.sheetsid,
+        ranges: [`${SHEET_NAME}!M4:N4`, `${SHEET_NAME}!M8`],
+      });
+
+      const stats1 = statsRes.data.valueRanges[0]?.values?.[0] || [];
+      const stats2 = statsRes.data.valueRanges[1]?.values?.[0] || [];
+
+      server.fans_median = cleanNumber(stats1[0]).toString();
+      server.fans_guild_total = cleanNumber(stats1[1]).toString();
+      server.daily_average = cleanNumber(stats2[0]).toString();
+
+    } catch (err) {
+      console.error(`❌ Error syncing server ${server.name}:`, err.message);
     }
-
-    // 3. Get median + total fans (M4 + N4 + daily average M8)
-    const statsRes = await sheets.spreadsheets.values.batchGet({
-      spreadsheetId: SPREADSHEET_ID,
-      ranges: [`${SHEET_NAME}!M4:N4`, `${SHEET_NAME}!M8`],
-    });
-
-    const stats1 = statsRes.data.valueRanges[0]?.values?.[0] || [];
-    const stats2 = statsRes.data.valueRanges[1]?.values?.[0] || [];
-
-    const medianFans = cleanNumber(stats1[0]);
-    const totalFans = cleanNumber(stats1[1]);
-    const dailyAvgMedian = cleanNumber(stats2[0]);
-
-    const statsUser = userData.find(
-      u => u.name && u.name.trim().toLowerCase() === "stats"
-    );
-    if (statsUser) {
-      statsUser.fans_median = medianFans.toString();
-      statsUser.fans_guild_total = totalFans.toString();
-      statsUser.daily_average = dailyAvgMedian.toString();
-    }
-
-    // Save to JSON
-    fs.writeFileSync("./assets/users.json", JSON.stringify(userData, null, 4));
-
-    return userData;
-
-  } catch (err) {
-    console.error("Error syncing users:", err);
-    return [];
   }
+
+  // Replace only synced users, but keep unsynced ones (so nothing is lost)
+  const finalUsers = users.map(u => {
+    const updated = updatedUsers.find(nu => nu.name.toLowerCase() === u.name.toLowerCase());
+    return updated ? updated : u;
+  });
+
+  // Add any brand-new synced users not already in file
+  for (const newUser of updatedUsers) {
+    if (!finalUsers.find(u => u.name.toLowerCase() === newUser.name.toLowerCase())) {
+      finalUsers.push(newUser);
+    }
+  }
+
+  // Save everything back
+  users = finalUsers;
+  
+  fs.writeFileSync(usersPath, JSON.stringify(users, null, 4));
+  fs.writeFileSync(serversPath, JSON.stringify(servers, null, 4));
+
+  console.log(`✅ Synced ${users.length} users from ${servers.length} servers.`);
+  return users;
 }
