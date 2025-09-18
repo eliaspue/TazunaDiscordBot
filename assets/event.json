@@ -679,7 +679,7 @@
         ],
         "conditions": "Year 2 January 1",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100701.png",
-        "aliases": ["gold ship", "golshi", "dance lesson"]
+        "aliases": ["gold ship", "golshi", "new years resolutions year 2"]
     },
 
     {   "id": "Uma - Daiwa Scarlet Original Costume Best Pose",
@@ -1340,9 +1340,588 @@
         ],
         "conditions": "Year 2 January 1",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1009_100901.png",
-        "aliases": ["daiwa scarlet", "new years resolutions"]
+        "aliases": ["daiwa scarlet", "new years resolutions year 2"]
     },
 
+    {   "id": "Uma - Grass Wonder Costume Hidden Meaning",
+        "event_name": "Hidden Meaning",
+        "type": "Uma",
+        "subtype": "Costume",
+        "source_name": "Grass Wonder (Original)",
+        "options": [
+            {
+                "option_text": "There has to be more to it than that.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10",
+                            "Guts +10"
+                            
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "It could mean \"Green Tea\" too, couldn't it?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +20"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder original", "hidden meaning costume"]
+    },
+    {   "id": "Uma - Grass Wonder Costume Principles",
+        "event_name": "Principles",
+        "type": "Uma",
+        "subtype": "Costume",
+        "source_name": "Grass Wonder (Original)",
+        "options": [
+            {
+                "option_text": "Be careful not to provoke them, okay?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +20"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Go get'em!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +20"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder original", "principles costume"]
+    },
+    {   "id": "Uma - Grass Wonder Costume Hate To Lose",
+        "event_name": "Hate to Lose",
+        "type": "Uma",
+        "subtype": "Costume",
+        "source_name": "Grass Wonder (Original)",
+        "options": [
+            {
+                "option_text": "Give her a sneaky sign.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +20",
+                            "(random) Get Fast Learner Status"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Cheer her on.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10",
+                            "Guts +10",
+                            "(random) Get Fast Learner Status"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "hate to lose costume"]
+    },
+    {   "id": "Uma - Grass Wonder Random Errands Have Perks",
+        "event_name": "Errands Have Perks",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "Gotta beat the sale rush!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +5",
+                            "Stamina +5"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let's get the household supplies.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy +5",
+                            "Wit +5"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "errands have perks"]
+    },
+    {   "id": "Uma - Grass Wonder Random Beauteaful",
+        "event_name": "Beauteaful",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "Be careful.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +5",
+                            "Skill points +15"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Make the first move!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "Year 2 January 1",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "beauteaful"]
+    },
+    {   "id": "Uma - Grass Wonder Random Tracen Karuta Queen",
+        "event_name": "But I Hate Losing",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "I'll take you up on that.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10",
+                            "Wit +5"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "I'll take over as game master so you play, Grass.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Competitive Spirit hint +1"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "tracen karuta queen"]
+    },
+    {   "id": "Uma - Grass Wonder Random In Search of Refreshment",
+        "event_name": "In Search of Refreshment",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "If you clear your mind, even fire will feel cool!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Mood -1",
+                            "Guts +25"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "There are traditional ways to beat the heat!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Mood -1",
+                            "Wit +25"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "in search of refreshment"]
+    },
+    {   "id": "Uma - Grass Wonder Random Together for Tea",
+        "event_name": "Together for Tea",
+        "type": "Uma",
+        "subtype": "Random",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "You know, gluttony is considered a sin.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy +10",
+                            "Skill points +5"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "You can't train well on an empty stomach.",
+                "outcomes": [
+                    {
+                        "chance": 90,
+                        "effects": [
+                            "Energy +30",
+                            "Skill points +10"
+                        ]
+                    },
+                    {
+                        "chance": 10,
+                        "effects": [
+                            "Energy +30",
+                            "Speed +5",
+                            "Power +5",
+                            "Skill points +10",
+                            "Get Slacker status"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "together for tea"]
+    },
+    {   "id": "Uma - Grass Wonder Date Yamato Nadeshiko",
+        "event_name": "Yamato Nadeshiko",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "Because of the language barrier?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +5",
+                            "Wit +5"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Was it culture shock?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "yamato nadeshiko date"]
+    },
+    {   "id": "Uma - Grass Wonder Date Childhoods Apart",
+        "event_name": "Childhoods Apart",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "Well, let's get it started!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Tell us more about the United States.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "childhoods apart date"]
+    },
+    {   "id": "Uma - Grass Wonder Date Nadeshiko Gal",
+        "event_name": "Yamato Nadeshiko・Uma Musume?",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "Maybe I'll start calling you that too.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "You bridged a gap between Japan and America.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "\"Nadeshiko gal\" has a nice ring to it.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "nadeshiko gal date"]
+    },
+    {   "id": "Uma - Grass Wonder Date Childhood Dream",
+        "event_name": "Childhood Dream",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "Why don't you two dress up now, then?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +5",
+                            "Guts +5"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "How about we hold a race in kimonos?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +5",
+                            "Wit +5"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "childhood dream"]
+    },
+    {   "id": "Uma - Grass Wonder Date Flower Vase",
+        "event_name": "Flower Vase",
+        "type": "Uma",
+        "subtype": "Date",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "Do you think I can pull it off?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +5",
+                            "Wit +5"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Let's choose some to decorate my office.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Speed +5",
+                            "Stamina +5"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "flower vase date"]
+    },
+    {   "id": "Uma - Grass Wonder Summer Camp Year 2",
+        "event_name": "At Summer Camp (Year 2)",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "How about a game of beach flags?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "How about a battle of endurance?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "at summer camp year 2"]
+    },
+    {   "id": "Uma - Grass Wonder Dance Lesson",
+        "event_name": "Dance Lesson",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "You need more strength.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "What if you were more expressive?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "dance lesson"]
+    },
+    {   "id": "Uma - Grass Wonder Generic New Years Resolution",
+        "event_name": "New Year's Resolutions",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Grass Wonder",
+        "options": [
+            {
+                "option_text": "Passing along my racing knowledge!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Focusing physical conditioning!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Energy +20"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Helping you hone your skills.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Skill points +20"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "Year 2 January 1",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1011_101101.png",
+        "aliases": ["grass wonder", "new years resolutions year 2"]
+    },    
+    
     
     {   "id": "Uma - Mejiro McQueen Original Costume Resolve and Duty",
         "event_name": "Resolve and Duty",
@@ -1923,6 +2502,72 @@
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1013_101301.png",
         "aliases": ["mejiro mcqueen", "three ramen bowls' worth of temptation date"]
     },
+    {   "id": "Uma - Mejiro McQueen At Summer Camp Year 2",
+        "event_name": "At Summer Camp (Year 2)",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Mejiro McQueen",
+        "options": [
+            {
+                "option_text": "From her physical strength, maybe?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Power +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "I think it's her sheer willpower.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1013_101301.png",
+        "aliases": ["mejiro mcqueen", "at summer camp year 2"]
+    },
+    {   "id": "Uma - Mejiro McQueen Dance Lesson",
+        "event_name": "Dance Lesson",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Mejiro McQueen",
+        "options": [
+            {
+                "option_text": "I can help with your practice if you'd like.",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Stamina +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Why don't you start by trying to understand the song?",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1013_101301.png",
+        "aliases": ["mejiro mcqueen", "dance lesson"]
+    },
     {   "id": "Uma - Mejiro McQueen New Year's Resolutions",
         "event_name": "New Year's Resolutions",
         "type": "Uma",
@@ -1965,75 +2610,8 @@
         ],
         "conditions": "Year 2 January 1",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1013_101301.png",
-        "aliases": ["mejiro mcqueen", "new years resolutions"]
+        "aliases": ["mejiro mcqueen", "new years resolutions year 2"]
     },
-    {   "id": "Uma - Mejiro McQueen Dance Lesson",
-        "event_name": "Dance Lesson",
-        "type": "Uma",
-        "subtype": "Generic",
-        "source_name": "Mejiro McQueen",
-        "options": [
-            {
-                "option_text": "I can help with your practice if you'd like.",
-                "outcomes": [
-                    {
-                        "chance": 100,
-                        "effects": [
-                            "Stamina +10"
-                        ]
-                    }
-                ]
-            },
-            {
-                "option_text": "Why don't you start by trying to understand the song?",
-                "outcomes": [
-                    {
-                        "chance": 100,
-                        "effects": [
-                            "Wit +10"
-                        ]
-                    }
-                ]
-            }
-        ],
-        "conditions": "",
-        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1013_101301.png",
-        "aliases": ["mejiro mcqueen", "dance lesson"]
-    },
-    {   "id": "Uma - Mejiro McQueen At Summer Camp Year 2",
-        "event_name": "At Summer Camp (Year 2)",
-        "type": "Uma",
-        "subtype": "Generic",
-        "source_name": "Mejiro McQueen",
-        "options": [
-            {
-                "option_text": "From her physical strength, maybe?",
-                "outcomes": [
-                    {
-                        "chance": 100,
-                        "effects": [
-                            "Power +10"
-                        ]
-                    }
-                ]
-            },
-            {
-                "option_text": "I think it's her sheer willpower.",
-                "outcomes": [
-                    {
-                        "chance": 100,
-                        "effects": [
-                            "Guts +10"
-                        ]
-                    }
-                ]
-            }
-        ],
-        "conditions": "",
-        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1013_101301.png",
-        "aliases": ["mejiro mcqueen", "at summer camp year 2"]
-    },
-
 
     {   "id": "Uma - Mayano Top Gun Original Costume Test of Courage",
         "event_name": "Maya's Thrilling ☆ Test of Courage",
@@ -2671,7 +3249,7 @@
         ],
         "conditions": "Year 2 January 1",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1024_102401.png",
-        "aliases": ["mayano top gun", "new years resolutions"]
+        "aliases": ["mayano top gun", "new years resolutions year 2"]
     },
 
     {   "id": "Uma - Seiun Sky Original Costume Incense",
@@ -3289,7 +3867,7 @@
         ],
         "conditions": "Year 2 January 1",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1020_102001.png",
-        "aliases": ["seiun sky", "new years resolution year 2"]
+        "aliases": ["seiun sky", "new years resolutions year 2"]
     },
 
     
@@ -3895,6 +4473,39 @@
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
         "aliases": ["narita taishin", "summer camp year 2"]
     },
+    {   "id": "Uma - Narita Taishin Generic Dance Lesson",
+        "event_name": "Dance Lesson",
+        "type": "Uma",
+        "subtype": "Generic",
+        "source_name": "Narita Taishin",
+        "options": [
+            {
+                "option_text": "No, that was seriously incredible!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Guts +10"
+                        ]
+                    }
+                ]
+            },
+            {
+                "option_text": "Now I want to dance too!",
+                "outcomes": [
+                    {
+                        "chance": 100,
+                        "effects": [
+                            "Wit +10"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "conditions": "",
+        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
+        "aliases": ["narita taishin", "dance lesson"]
+    },
     {   "id": "Uma - Narita Taishin Generic New Year",
         "event_name": "New Year's Resolutions",
         "type": "Uma",
@@ -3937,41 +4548,8 @@
         ],
         "conditions": "Year 2 January 1",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
-        "aliases": ["narita taishin", "new years resolution year 2"]
-    },
-    {   "id": "Uma - Narita Taishin Generic Dance Lesson",
-        "event_name": "Dance Lesson",
-        "type": "Uma",
-        "subtype": "Generic",
-        "source_name": "Narita Taishin",
-        "options": [
-            {
-                "option_text": "No, that was seriously incredible!",
-                "outcomes": [
-                    {
-                        "chance": 100,
-                        "effects": [
-                            "Guts +10"
-                        ]
-                    }
-                ]
-            },
-            {
-                "option_text": "Now I want to dance too!",
-                "outcomes": [
-                    {
-                        "chance": 100,
-                        "effects": [
-                            "Wit +10"
-                        ]
-                    }
-                ]
-            }
-        ],
-        "conditions": "",
-        "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
-        "aliases": ["narita taishin", "dance lesson"]
-    },
+        "aliases": ["narita taishin", "new years resolutions year 2"]
+    },   
     {   "id": "Uma - Narita Taishin Choiceless Don't Say It",
         "event_name": "Don't Say It",
         "type": "Uma",
@@ -3991,7 +4569,7 @@
                 ]
             }
         ],
-        "conditions": "",
+        "conditions": "Year 2 October 1",
         "thumbnail": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1050_105001.png",
         "aliases": ["narita taishin", "dont say it"]
     },
