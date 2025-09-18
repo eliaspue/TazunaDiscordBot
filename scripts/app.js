@@ -798,7 +798,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
           // Step 4: Generate Umalator link
           let umalatorUrl = null;
           try {
-            umalatorUrl = generateUmaLatorLink(parsed);
+            umalatorUrl = await generateUmaLatorLink(parsed);
 
             // Shorten the URL for Discord button
             //if (umalatorUrl) {

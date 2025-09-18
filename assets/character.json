@@ -2,6 +2,7 @@
     {   "id": "100101 - Special Week",
         "character_name": "Special Week",
         "type": "Original",
+        "costume": "Special Dreamer",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -55,7 +56,7 @@
             "Kokura Junior Stakes september 1 year 1",
             "Hopeful Stakes december 2 year 1"
         ],
-        "aliases": ["spechan", "spe", "special dreamer"],
+        "aliases": ["special week original", "spechan", "spe", "special dreamer"],
         "url": "https://gametora.com/umamusume/characters/100101-special-week",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1001_100101.png",
         "review": "Decent horse for medium and long. Comes with Gourmand for one guaranteed golden recovery. Lackluster parent but affinity is pretty decent."
@@ -63,6 +64,7 @@
     {   "id": "100201 - Silence Suzuka",
         "character_name": "Silence Suzuka",
         "type": "Original",
+        "costume": "Innocent Silence",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -108,7 +110,7 @@
             "Left-Handed",
             "Early Lead"
         ],
-        "aliases": ["silence", "suzuka", "silent innocence"],
+        "aliases": ["silence suzuka original", "innocent silence"],
         "url": "https://gametora.com/umamusume/characters/100201-silence-suzuka",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1002_100201.png",
         "review": "A strong front mile runner, especially later when she gets buffed. Having built-in Concentration helps her do well in Team Trials.",
@@ -122,6 +124,7 @@
     {   "id": "100301 - Tokai Teio",
         "character_name": "Tokai Teio",
         "type": "Original",
+        "costume": "Peak Joy",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -166,7 +169,7 @@
         "event_skills": [
             "Prepared to Pass"
         ],
-        "aliases": ["tokai teio original", "top of joyful"],
+        "aliases": ["tokai teio original", "peak joy"],
         "url": "https://gametora.com/umamusume/characters/100301-tokai-teio",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1003_100301.png",
         "review": "Just an okay medium horse and a so-so long horse. Lacks golden recovery skills. Unique skill maybe useful for inheritance. She will get buffed later on making her a pretty strong uma for CM.",
@@ -184,6 +187,7 @@
     {   "id": "100302 - Tokai Teio Anime",
         "character_name": "Tokai Teio",
         "type": "Anime Collab",
+        "costume": "Beyond the Horizon",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -248,6 +252,7 @@
     {   "id": "100401 - Maruzensky",
         "character_name": "Maruzensky",
         "type": "Original",
+        "costume": "Formula R",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -292,7 +297,7 @@
         "event_skills": [
             "Huge Lead"
         ],
-        "aliases": ["maru", "supercar", "rouge formula"],
+        "aliases": ["maruzenksy original", "maru", "supercar", "formula r"],
         "url": "https://gametora.com/umamusume/characters/100401-maruzensky",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1004_100401.png",
         "review": "Very strong parent horse for certain tracks. Her unique can be inherited on all styles depending on the track layout. The uma herself is somewhat flexible and can even be used in dirt races.",
@@ -306,6 +311,7 @@
     {   "id": "100601 - Oguri Cap",
         "character_name": "Oguri Cap",
         "type": "Original",
+        "costume": "Starlight Beat",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -350,7 +356,7 @@
         "event_skills": [
             "Nakayama Racecourse"
         ],
-        "aliases": ["oguri cap", "starlight beat"],
+        "aliases": ["oguri cap original", "starlight beat"],
         "url": "https://gametora.com/umamusume/characters/100601-oguri-cap",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1006_100601.png",
         "review": "Great all arounder uma that can fill in mile, dirt, medium and long in Team Trials. Inheritable skill is also pretty strong. The goatest of goats, no bias :D",
@@ -368,6 +374,7 @@
     {   "id": "100701 - Gold Ship",
         "character_name": "Gold Ship",
         "type": "Original",
+        "costume": "Red Strife",
         "rarity": "⭐⭐",
         "stat_bonuses": [
             {
@@ -414,7 +421,7 @@
             "Non-Standard Distance",
             "Gatekept"
         ],
-        "aliases": ["gold ship", "golshi", "red strife"],
+        "aliases": ["gold ship original", "golshi", "red strife"],
         "url": "https://gametora.com/umamusume/characters/100701-gold-ship",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1007_100701.png",
         "review": "Generically good End Closer. Comes with a golden recovery that works pretty decently. Usually outclassed by another End Closer for Champion's Meet such as Narita Taishin, but does decently anyways.",
@@ -428,6 +435,7 @@
     {   "id": "100801 - Vodka",
         "character_name": "Vodka",
         "type": "Original",
+        "costume": "Wild Top Gear",
         "rarity": "⭐⭐",
         "stat_bonuses": [
             {
@@ -473,7 +481,7 @@
             "Shifting Gears",
             "Nimble Navigator"
         ],
-        "aliases": ["vodka", "wild top gear"],
+        "aliases": ["vodka original", "wild top gear"],
         "url": "https://gametora.com/umamusume/characters/100801-vodka",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1008_100801.png",
         "review": "Vodka will be buffed in the future making her a decent Champion's Meet uma. For now she just fills for Team Trial Mile races. Having her own built-in golden recovery lets you run power cards, which is also a big plus.",
@@ -491,6 +499,7 @@
     {   "id": "100901 - Daiwa Scarlet",
         "character_name": "Daiwa Scarlet",
         "type": "Original",
+        "costume": "Peak Blue",
         "rarity": "⭐⭐",
         "stat_bonuses": [
             {
@@ -536,7 +545,7 @@
             "Unyielding Spirit",
             "Steadfast"
         ],
-        "aliases": ["daiwa scarlet", "top of blue"],
+        "aliases": ["daiwa scarlet original", "peak blue"],
         "url": "https://gametora.com/umamusume/characters/100901-daiwa-scarlet",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1009_100901.png",
         "review": "Great horse that can slot in Mile and Medium (and even Long if you need, but you probably have other options). Her potential only works on Medium and Pace Chaser, so keep that in mind. In Team Trials, she shines better as a Front.",
@@ -554,6 +563,7 @@
     {   "id": "101001 - Taiki Shuttle",
         "character_name": "Taiki Shuttle",
         "type": "Original",
+        "costume": "Wild Frontier",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -598,7 +608,7 @@
         "event_skills": [
             "Prepared to Pass"
         ],
-        "aliases": ["taiki shuttle", "wild frontier"],
+        "aliases": ["taiki shuttle original", "wild frontier"],
         "url": "https://gametora.com/umamusume/characters/101001-taiki-shuttle",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1010_101001.png",
         "review": "Similar to Maruzensky, Taiki's unique skill is very strong on certain tracks making her an ideal parent. Her gold skills will get buff later making her a strong racer. She is also pretty flexible as she can fill in your Dirt, Mile or Sprint Team Trial slots.",
@@ -612,6 +622,7 @@
     {   "id": "101101 - Grass Wonder",
         "character_name": "Grass Wonder",
         "type": "Original",
+        "costume": "Stone-Piercing Blue",
         "rarity": "⭐⭐",
         "stat_bonuses": [
             {
@@ -656,7 +667,7 @@
         "event_skills": [
             "Competitive Spirit"
         ],
-        "aliases": ["grass wonder original", "rock piercing blue"],
+        "aliases": ["grass wonder original", "stone piercing blue"],
         "url": "https://gametora.com/umamusume/characters/101101-grass-wonder",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1011_101101.png",
         "review": "A decent uma for CM, where she shines as a hybrid debuffer and gambler. She can win with enough luck with On Your Left! and other acceleration skills while debuffing the others."
@@ -664,6 +675,7 @@
     {   "id": "101102 - Grass Wonder Fantasy",
         "character_name": "Grass Wonder",
         "type": "Fantasy",
+        "costume": "Saint Jade Healer",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -717,6 +729,7 @@
     {   "id": "101201 - Hishi Amazon",
         "character_name": "Hishi Amazon",
         "type": "Original",
+        "costume": "Azure Amazon",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -762,7 +775,7 @@
             "Homestretch Haste",
             "Steadfast"
         ],
-        "aliases": ["hishi amazon", "amazoness lapis"],
+        "aliases": ["hishi amazon original", "azure amazon"],
         "url": "https://gametora.com/umamusume/characters/101201-hishi-amazon",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1012_101201.png",
         "review": "Has both corners and straightaways for End Closers in her potential but she's just a mediocre runner.",
@@ -776,6 +789,7 @@
     {   "id": "101301 - Mejiro McQueen",
         "character_name": "Mejiro McQueen",
         "type": "Original",
+         "costume": "Frontline Elegance",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -820,7 +834,7 @@
         "event_skills": [
             "Early Lead"
         ],
-        "aliases": ["mejiro mcqueen original", "elegance line"],
+        "aliases": ["mejiro mcqueen original", "frontline elegance"],
         "url": "https://gametora.com/umamusume/characters/101301-mejiro-mcqueen",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1013_101301.png",
         "review": "Decent horse for Team Trials and gets a buff later on to be somewhat decent in Champion's Meet. Has a strategy with Urara for specific Champion's Meet maps but otherwise so-so.",
@@ -834,6 +848,7 @@
     {   "id": "101302 - Mejiro McQueen Anime",
         "character_name": "Mejiro McQueen",
         "type": "Anime Collab",
+        "costume": "End of the Skies",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -880,7 +895,7 @@
             "Calm in a Crowd",
             "Prudent Positioning"
         ],
-        "aliases": ["mejiro mcqueen anime", "end of sky"],
+        "aliases": ["mejiro mcqueen anime", "end of the skies"],
         "url": "https://gametora.com/umamusume/characters/101302-mejiro-mcqueen",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1013_101302.png",
         "review": "Kinda bad uma, unique skill almost never triggers. Okay enough for Team Trials. Will get a buff later making her much more usable.",
@@ -894,6 +909,7 @@
     {   "id": "101401 - El Condor Pasa",
         "character_name": "El Condor Pasa",
         "type": "Original",
+        "costume": "El☆Número 1",
         "rarity": "⭐⭐",
         "stat_bonuses": [
             {
@@ -947,6 +963,7 @@
     {   "id": "101402 - El Condor Pasa Fantasy",
         "character_name": "El Condor Pasa",
         "type": "Fantasy",
+        "costume": "Kukulkan Monk",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1000,8 +1017,9 @@
         "review": "A Late Surger Mile uma with an okay inheritable. Acceleration skills are good but its a bit of an odd fit on her as she might need some velocity skills in the final corner to be in range of an overtake target as a Late Surger."
     },
     {   "id": "101501 - TM Opera O",
-        "character_name": "TM Opera O",
+        "character_name": "T.M. Opera O",
         "type": "Original",
+        "costume": "O Sole Suo!",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1046,7 +1064,7 @@
         "event_skills": [
             "Non-Standard Distance"
         ],
-        "aliases": ["tm opera o", "o sole so"],
+        "aliases": ["tm opera o original", "o sole so"],
         "url": "https://gametora.com/umamusume/characters/101501-tm-opera-o",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1015_101501.png",
         "review": "A decent uma for Champion's Meet when the last spurt starts after the final corner. A consistent uma for Team Trials.Her unique is a bit hard to trigger, will get buffed later.",
@@ -1060,6 +1078,7 @@
     {   "id": "101601 - Narita Brian",
         "character_name": "Narita Brian",
         "type": "Original",
+        "costume": "Maverick",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1104,7 +1123,7 @@
         "event_skills": [
             "Passing Pro"
         ],
-        "aliases": ["narita brian", "maverick"],
+        "aliases": ["narita brian original", "maverick"],
         "url": "https://gametora.com/umamusume/characters/101601-narita-brian",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1016_101601.png",
         "review": "Decently strong uma, easy to gain stats in. After buffs, her unique will be a good skill to inherit on non-front umas.",
@@ -1126,6 +1145,7 @@
     {   "id": "101701 - Symboli Rudolf",
         "character_name": "Symboli Rudolf",
         "type": "Original",
+        "costume": "Emperor's Path",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1170,7 +1190,7 @@
         "event_skills": [
             "Rainy Days"
         ],
-        "aliases": ["symboli rudolf", "road of emperor"],
+        "aliases": ["symboli rudolf original", "emperors path"],
         "url": "https://gametora.com/umamusume/characters/101701-symboli-rudolf",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1017_101701.png",
         "review": "Strong parent for Late Surgers and End Closers, especially when Mejiro Ryan or Dober isn't good. With buffs later, she becomes a very consistent Team Trial uma. As a debuffer, she isn't good as she can't use her own card. Can work as a hybrid.Decent uma for Champion's Meet too, and is flexible enough to fill other conditions.",
@@ -1188,6 +1208,7 @@
     {   "id": "101801 - Air Groove",
         "character_name": "Air Groove",
         "type": "Original",
+        "costume": "Empress Road",
         "rarity": "⭐⭐",
         "stat_bonuses": [
             {
@@ -1246,6 +1267,7 @@
     {   "id": "101802 - Air Groove Wedding",
         "character_name": "Air Groove",
         "type": "Wedding",
+        "costume": "Quercus Civilis",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1306,6 +1328,7 @@
     {   "id": "102001 - Seiun Sky",
         "character_name": "Seiun Sky",
         "type": "Original",
+        "costume": "Reeling in the Big One",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1357,7 +1380,7 @@
             "Hesitant Late Surgers",
             "Fast-Paced"
         ],
-        "aliases": ["seiun sky original", "reeling in the big one", "blue cloud thumbing"],
+        "aliases": ["seiun sky original", "reeling in the big one"],
         "url": "https://gametora.com/umamusume/characters/102001-seiun-sky",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1020_102001.png",
         "review": "Meta parent for Front Runners. Her unique is good on Medium and Mile tracks and is desired for all Front Runners and Pace Chasers (during a no front track). She herself is not that good of a runner.",
@@ -1371,6 +1394,7 @@
     {   "id": "102301 - Biwa Hayahide",
         "character_name": "Biwa Hayahide",
         "type": "Original",
+        "costume": "pf. Winning Equation...",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1416,7 +1440,7 @@
             "Hanshin Racecourse",
             "Prepared to Pass"
         ],
-        "aliases": ["biwa hayahide", "pf victory formula"],
+        "aliases": ["biwa hayahide original", "pf winning equation"],
         "url": "https://gametora.com/umamusume/characters/102301-biwa-hayahide",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1023_102301.png",
         "review": "An uma with lots of stamina recovery (especially after buffs). Consistent for Team Trials. Nothing spectacular for Champion's Meet.",
@@ -1430,6 +1454,7 @@
     {   "id": "102401 - Mayano Top Gun",
         "character_name": "Mayano Top Gun",
         "type": "Original",
+        "costume": "Scramble☆Zone",
         "rarity": "⭐⭐",
         "stat_bonuses": [
             {
@@ -1482,6 +1507,7 @@
     {   "id": "102402 - Mayano Top Gun Wedding",
         "character_name": "Mayano Top Gun",
         "type": "Wedding",
+        "costume": "Sunlight Bouqeut",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1536,6 +1562,7 @@
     {   "id": "102601 - Mihono Bourbon",
         "character_name": "Mihono Bourbon",
         "type": "Original",
+        "costume": "MB-19890425",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1581,7 +1608,7 @@
             "Wet Conditions",
             "Final Push"
         ],
-        "aliases": ["mihono bourbon", "mb 19890425", "gundam"],
+        "aliases": ["mihono bourbon original", "mb 19890425", "gundam"],
         "url": "https://gametora.com/umamusume/characters/102601-mihono-bourbon",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1026_102601.png",
         "review": "A mediocre uma. Outclassed by other Front Runners for Champion's Meet. Okay for Team Trials.",
@@ -1599,6 +1626,7 @@
     {   "id": "102701 - Mejiro Ryan",
         "character_name": "Mejiro Ryan",
         "type": "Original",
+        "costume": "Down the Line",
         "rarity": "⭐",
         "stat_bonuses": [
             {
@@ -1643,7 +1671,7 @@
         "event_skills": [
             "Wet Conditions"
         ],
-        "aliases": ["mejiro ryan", "straight line"],
+        "aliases": ["mejiro ryan original", "down the line"],
         "url": "https://gametora.com/umamusume/characters/102701-mejiro-ryan",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1027_102701.png",
         "review": "Champion's Meet meta parent for Late Surgers and End Closers. On tracks where the last spurt starts on a corner, her skill will be very very helpful. As a runner, she is mediocre. Her unique is also not that good for Team Trials (needs 8th position)."
@@ -1651,6 +1679,7 @@
     {   "id": "103001 - Rice Shower",
         "character_name": "Rice Shower",
         "type": "Original",
+        "costume": "Rosy Dreams",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1695,7 +1724,7 @@
         "event_skills": [
             "Firm Conditions"
         ],
-        "aliases": ["rice shower", "rose dream"],
+        "aliases": ["rice shower original", "rosy dreams"],
         "url": "https://gametora.com/umamusume/characters/103001-rice-shower",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1030_103001.png",
         "review": "Decent uma for Long Team Trials. Doesn't really have much to write home about."
@@ -1703,6 +1732,7 @@
     {   "id": "103201 - Agnes Tachyon",
         "character_name": "Agnes Tachyon",
         "type": "Original",
+        "costume": "tach-nology",
         "rarity": "⭐",
         "stat_bonuses": [
             {
@@ -1747,7 +1777,7 @@
         "event_skills": [
             "Corner Adept"
         ],
-        "aliases": ["agnes tachyon", "tachnology"],
+        "aliases": ["agnes tachyon original", "tachnology"],
         "url": "https://gametora.com/umamusume/characters/103201-agnes-tachyon",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1032_103201.png",
         "review": "Kind of a mixed bag. Unique isn't good to inherit generally, only usable on Christmas Oguri. Her debuff is better on Late but she is a Pace Chaser. Not a spectactular Champion's Meet uma either.",
@@ -1761,6 +1791,7 @@
     {   "id": "103501 - Winning Ticket",
         "character_name": "Winning Ticket",
         "type": "Original",
+        "costume": "Get to Winning!",
         "rarity": "⭐",
         "stat_bonuses": [
             {
@@ -1806,7 +1837,7 @@
             "Nimble Navigator"
         ],
         "aliases": [
-            "winning ticket", "go to winning"
+            "winning ticket original", "get to winning"
         ],
         "url": "https://gametora.com/umamusume/characters/103501-winning-ticket",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1035_103501.png",
@@ -1815,6 +1846,7 @@
     {   "id": "103801 - Curren Chan",
         "character_name": "Curren Chan",
         "type": "Original",
+        "costume": "Fille Éclair",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -1860,7 +1892,7 @@
             "Frenzied Late Surgers",
             "Sprinting Gear"
         ],
-        "aliases": ["curren chan", "fille eclair"],
+        "aliases": ["curren chan original", "fille eclair"],
         "url": "https://gametora.com/umamusume/characters/103801-curren-chan",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1038_103801.png",
         "review": "A decent consistent uma for Team Trials as a Sprint Pace Chaser. For Champion's Meet, her unique doesn't always trigger at the right moments to bring the acceleration into the spurt.",
@@ -1878,6 +1910,7 @@
     {   "id": "104101 - Sakura Bakushin O",
         "character_name": "Sakura Bakushin O",
         "type": "Original",
+        "costume": "Blossom in Learning",
         "rarity": "⭐",
         "stat_bonuses": [
             {
@@ -1923,7 +1956,7 @@
             "Nakayama Racecourse",
             "Moxie"
         ],
-        "aliases": ["sakura bakushin o", "sakura forward"],
+        "aliases": ["sakura bakushin o original", "blossom in learning"],
         "url": "https://gametora.com/umamusume/characters/104101-sakura-bakushin-o",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1041_104101.png",
         "review": "Good free option for Sprint Team Trials. She is better as a Pace Chaser than Front Runner, but she can do both. Fit appropriately into your Team Trial lineup depending on your available umas.",
@@ -1937,6 +1970,7 @@
     {   "id": "104501 - Super Creek",
         "character_name": "Super Creek",
         "type": "Original",
+        "costume": "Murmuring Stream",
         "rarity": "⭐⭐",
         "stat_bonuses": [
             {
@@ -1981,7 +2015,7 @@
         "event_skills": [
             "Corner Recovery"
         ],
-        "aliases": ["super creek", "murmuring stream"],
+        "aliases": ["super creek original", "murmuring stream"],
         "url": "https://gametora.com/umamusume/characters/104501-super-creek",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1045_104501.png",
         "review": "Has a lot of recovery as a runner. After buffs, she will have an insane amount of recovery but it is inconsistent. Sometimes useful as an inheritance for Pace Chasers who need more stamina recovery.",
@@ -2003,6 +2037,7 @@
     {   "id": "104601 - Smart Falcon",
         "character_name": "Smart Falcon",
         "type": "Original",
+        "costume": "LOVE☆4EVER",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -2048,7 +2083,7 @@
             "Leader's Pride",
             "Top Pick"
         ],
-        "aliases": ["smart falcon", "absolute love"],
+        "aliases": ["smart falcon original", "love 4 ever"],
         "url": "https://gametora.com/umamusume/characters/104601-smart-falcon",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1046_104601.png",
         "review": "Meta uma for Dirt Champion's Meet for a while. With enough work, she can also be a strong Turf Front Runner. Also good for Team Trials.",
@@ -2070,6 +2105,7 @@
     {   "id": "105001 - Narita Taishin",
         "character_name": "Narita Taishin",
         "type": "Original",
+        "costume": "Nevertheless",
         "rarity": "⭐⭐⭐",
         "stat_bonuses": [
             {
@@ -2114,7 +2150,7 @@
         "event_skills": [
             "Standing By"
         ],
-        "aliases": ["narita taishin", "nevertheless"],
+        "aliases": ["narita taishin original", "nevertheless"],
         "url": "https://gametora.com/umamusume/characters/105001-narita-taishin",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1050_105001.png",
         "review": "Very strong End Closer uma as she has easy access to Encroaching Shadow. Training her is a pain though.",
@@ -2128,6 +2164,7 @@
     {   "id": "105201 - Haru Urara",
         "character_name": "Haru Urara",
         "type": "Original",
+        "costume": "Bestest Prize ♪",
         "rarity": "⭐",
         "stat_bonuses": [
             {
@@ -2172,7 +2209,7 @@
         "event_skills": [
             "Long Shot"
         ],
-        "aliases": ["haru urara", "uraran first prize"],
+        "aliases": ["haru urara original", "bestest prize"],
         "url": "https://gametora.com/umamusume/characters/105201-haru-urara",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1052_105201.png",
         "review": "Honestly not a very good uma. For Team Trials, she will most likely be slot into Dirt, but her skills are mainly recoveries, which isn't that needed. She can also be used for weird strategies in Champion's Meet (like Front Urara to set a very slow pace). Even though, she is not very good, she is very cute, so that is a big plus point.",
@@ -2186,6 +2223,7 @@
     {   "id": "105601 - Matikanefukukitaru",
         "character_name": "Matikanefukukitaru",
         "type": "Original",
+        "costume": "Rising☆Fortune",
         "rarity": "⭐",
         "stat_bonuses": [
             {
@@ -2230,7 +2268,7 @@
         "event_skills": [
             "Hesitant Front Runners"
         ],
-        "aliases": ["matikanefukukitaru", "machikane", "rising luck flood of happiness"],
+        "aliases": ["matikanefukukitaru original", "machikane original", "rising fortune"],
         "url": "https://gametora.com/umamusume/characters/105601-matikanefukukitaru",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1056_105601.png",
         "review": "Bad skills in general. Decent uma for Long Team Trials."
@@ -2238,6 +2276,7 @@
     {   "id": "106001 - Nice Nature",
         "character_name": "Nice Nature",
         "type": "Original",
+        "costume": "Poinsettia Ribbon",
         "rarity": "⭐",
         "stat_bonuses": [
             {
@@ -2283,7 +2322,7 @@
             "Studious"
         ],
         "aliases": [
-            "nice nature",
+            "nice nature original",
             "oisuu",
             "poinsettia ribbon"
         ],
@@ -2316,6 +2355,7 @@
     {   "id": "106101 - King Halo",
         "character_name": "King Halo",
         "type": "Original",
+        "costume": "King of Emeralds",
         "rarity": "⭐",
         "stat_bonuses": [
             {
@@ -2360,7 +2400,7 @@
         "event_skills": [
             "Outer Swell"
         ],
-        "aliases": ["king halo", "king of emeralds"],
+        "aliases": ["king halo original", "king of emeralds"],
         "url": "https://gametora.com/umamusume/characters/106101-king-halo",
         "thumbnail": "https://gametora.com/images/umamusume/characters/chara_stand_1061_106101.png",
         "review": "Honestly not a very good uma. Her unique is a walmart Oguri and her other skills don't really do much. Her career is also a bit on the more difficult side if you are new.",

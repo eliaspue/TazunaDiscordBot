@@ -87,13 +87,44 @@ function extractNumber(text) {
 function normalizeSkillName(name) {
   if (!name) return "";
 
-  return name
-    .replace(/©/g, "◎")  // OCR often reads ◎ as copyright symbol
+  const hardcodedFixes = {
+    "Victoria por plancha &": "Victoria por plancha ☆",
+    "Victoria por plancha #": "Victoria por plancha ☆",
+    "Victoria por plancha *": "Victoria por plancha ☆",
+    "G00 1st. Foo;": "G00 1st. F∞;",
+    "..win Q.E.D.": "∴win Q.E.D.",
+    "Flashy*Landing": "Flashy☆Landing",
+    "Flashy&Landing": "Flashy☆Landing",
+    "Flowery*Maneuver": "Flowery☆Maneuver",
+    "Flowery&Maneuver": "Flowery☆Maneuver",
+    "SPARKLY*STARDOM": "SPARKLY☆STARDOM",
+    "SPARKLY&STARDOM": "SPARKLY☆STARDOM"
+  };
+
+  if (hardcodedFixes[name]) return hardcodedFixes[name];
+
+  let clean = name
+    // Normalize OCR mistakes for "Lv1"
+    .replace(/LvI\b/gi, "Lv1")
+    .replace(/Lvi\b/gi, "Lv1")
+    .replace(/Lvll?\b/gi, "Lv1")
+
+    // Remove any level indicators
+    .replace(/Lvl?\s*[0-9IVX]+/gi, "")   // Lv1, Lvl3, LvX, LvII
+    .replace(/\|\s*\d+\s*Skills?/gi, "") // "| 3 Skills"
+    .replace(/\s*\d+\s*$/, "")           // trailing numbers 
+    .trim();
+
+  // Fix suffix symbols
+  clean = clean
+    .replace(/©/g, "◎") // OCR often reads ◎ as copyright symbol
     .replace(/(O|0)$/g, "○") // trailing O or 0 → ○
     .replace(/x$/i, "×")  // trailing x or X → ×
-    .replace(/\s+/g, " ") // collapse spaces
-    .trim();
+
+  return clean || null
+
 }
+
 
 // Resize once, return buffer + metadata
 async function resizeImage(imageUrl, targetWidth = 592) {
@@ -351,13 +382,12 @@ export async function shortenUrl(longUrl) {
 function resolveUma(ocrText) { 
   const title = extractTitle(ocrText);
 
-  if (title) {
-    const byTitle = characters.find(uma =>
-      uma.aliases?.some(alias => alias.toLowerCase() === title.toLowerCase())
-    );
-    if (byTitle) {
-      return { ...byTitle, title };
-    }
+  // Match by exact costume name
+  const byCostume = characters.find(uma =>
+    uma.costume && ocrText.toLowerCase().includes(uma.costume.toLowerCase())
+  );
+  if (byCostume) {
+    return { ...byCostume, title: byCostume.costume };
   }
 
   // Fallback: match by base name in OCR text
@@ -426,8 +456,75 @@ function parseSkills(lines) {
 
     skills.push(...parts);
   }
+
   return skills;
 }
+
+function mergeSplitSkills(skills) {
+  const merged = [];
+  for (let i = 0; i < skills.length; i++) {
+    const cur = skills[i];
+    const next = skills[i + 1] || "";
+
+    if (cur === "Late Surger" && /^Straightaways [○◎×]?$/.test(next)) {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else if (cur === "Pace Chaser" && /^Straightaways [○◎×]?$/.test(next)) {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else if (cur === "Medium" && /^Straightaways [○◎×]?$/.test(next)) {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else if (cur === "Behold Thine Emperor's" && next === "Divine Might") {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else if (cur === "This Dance Is for" && next === "Vittoria!") {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else if (cur === "Straightaway" && next === "Acceleration") {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else if (cur === "I Can See Right" && next === "Through You") {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else if (cur === "The View from the Lead" && next === "Is Mine!") {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else if (cur === "The Duty of Dignity" && next === "Calls") {
+      merged.push(cur + " " + next);
+      i++;
+    } 
+    else if (cur === "Non-Standard" && next === "Distance") {
+      merged.push(cur + " " + next);
+      i++;
+    } 
+    else if (cur === "You and Me!" && next === "One-on-One!") {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else if (cur === "Introduction to" && next === "Physiology") {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else if (cur === "Genius x Bakushin =" && next === "Victory") {
+      merged.push(cur + " " + next);
+      i++;
+    }
+    else {
+      merged.push(cur);
+    }
+  }
+  return merged;
+}
+
 
 export async function parseUmaProfile(ocrText, ocrLines, imageUrl, rawData, info) {
   const umaInfo = resolveUma(ocrText);
@@ -435,7 +532,7 @@ export async function parseUmaProfile(ocrText, ocrLines, imageUrl, rawData, info
 
   const stats = parseStats(lines);
   const { track, distance, style } = await parseAptitudes(ocrLines, rawData, info);
-  const skills = parseSkills(lines);
+  const skills = mergeSplitSkills(parseSkills(lines));
 
   const parsed = {
     name: umaInfo.character_name || umaInfo.name,
@@ -448,6 +545,7 @@ export async function parseUmaProfile(ocrText, ocrLines, imageUrl, rawData, info
     skills,
     thumbnail: umaInfo.thumbnail
   };
+  console.log(parsed);
 
   return await mapUmaToId(parsed);
 }
