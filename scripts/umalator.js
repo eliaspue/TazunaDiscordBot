@@ -154,33 +154,49 @@ function getSurfaceAptitude(trackAptitudes, surface = "Turf") {
 }
 
 /**
- * Maps skill names to Umalator skill IDs
+ * Maps skill names to Umalator skill IDs with unique-skill handling
  * @param {string[]} skillNames - Array of skill names
  * @returns {Promise<string[]>} Array of skill IDs (as strings)
  */
-async function mapSkillsToIds(skillNames = []) {
+export async function mapSkillsToIds(skillNames = []) {
   if (!skillNames.length) return [];
 
-  const skillList = await loadSkilllist(); // { "200511": "Speed Start", ... }
+  const skillList = await loadSkilllist(); 
+  // skillList looks like: { "100101": ["SPARKLY☆STARDOM"], "200511": ["Speed Start"], ... }
 
-  // Build a lowercase lookup map for faster matching
+  // Build a reverse lookup: { "sparkly☆stardom": ["100101"], ... }
   const skillLookup = {};
-  for (const [id, nameArr] of Object.entries(skillList)) {
-  const name = Array.isArray(nameArr) ? nameArr[0] : nameArr; // unwrap first element
-  if (typeof name === "string") {
-    skillLookup[name.toLowerCase()] = id;
+  for (const [id, names] of Object.entries(skillList)) {
+    const arr = Array.isArray(names) ? names : [names];
+    for (const n of arr) {
+      if (typeof n === "string") {
+        const key = n.toLowerCase();
+        if (!skillLookup[key]) skillLookup[key] = [];
+        skillLookup[key].push(id);
+      }
+    }
   }
-}
 
-  // Map the input skill names to IDs
-  const mappedIds = skillNames.map(skill => {
+  // Now resolve skills with unique/non-unique preference
+  return skillNames.map((skill, idx) => {
     if (!skill) return null;
-    const id = skillLookup[skill.toLowerCase()];
-    if (!id) console.warn(`[mapSkillsToIds] ❌ Skill not found: "${skill}"`);
-    return id || null;
-  }).filter(Boolean); // remove nulls
+    const candidates = skillLookup[skill.toLowerCase()] || [];
 
-  return mappedIds;
+    if (!candidates.length) {
+      console.warn(`[mapSkillsToIds] ❌ Skill not found: "${skill}"`);
+      return null;
+    }
+
+    if (idx === 0) {
+      // First skill → prefer unique (100xxx)
+      const unique = candidates.find(id => id.startsWith("100"));
+      return unique || candidates[0];
+    } else {
+      // Other skills → prefer non-unique
+      const nonUnique = candidates.find(id => !id.startsWith("100"));
+      return nonUnique || candidates[0];
+    }
+  }).filter(Boolean);
 }
 
 /**
