@@ -15,20 +15,20 @@
   "goldenrecovery": "<:SkillRecoveryGolden:1416882093467893911>",
   "rainbowrecovery": "<:SkillRainbowRecovery:1416882250967941272>",
   "recoverynegative": "<:SkillRecoveryNegative:1410386734176272460>",
-  "recoveryspecial": "<:SkillRecovery:1416882214880149594>", // new one needed
-  "goldenrecoveryspecial": "<:SkillRecoveryGolden:1416882093467893911>", // new one needed
+  "recoveryspecial": "<:SkillRecovery:1416882214880149594>", 
+  "goldenrecoveryspecial": "<:SkillRecoveryGolden:1416882093467893911>", 
   "velocity": "<:SkillVelocity:1416882167845359656>",
   "goldenvelocity": "<:SkillGoldenVelocity:1416882302071472261>",
   "rainbowvelocity": "<:SkillRainbowVelocity:1416882238997528706>",
   "velocitynegative": "<:SkillVelocityNegative:1410390388249858169>",
-  "velocityspecial": "<:SkillVelocity:1416882167845359656>", // new one needed
-  "goldenvelocityspecial": "<:SkillGoldenVelocity:1416882302071472261>", // new one needed
+  "velocityspecial": "<:SkillVelocity:1416882167845359656>", 
+  "goldenvelocityspecial": "<:SkillGoldenVelocity:1416882302071472261>",
   "accel": "<:SkillAccel:1416881814689157360>",
   "goldenaccel": "<:SkillGoldenAccel:1416881856506495126>",
   "rainbowaccel": "<:SkillRainbowAccel:1416882262716452915>",
   "accelnegative": "<:SkillAccelNegative:1410390629085769731>",
-  "accelspecial": "<:SkillAccel:1416881814689157360>", // new one needed
-  "goldenaccelspecial": "<:SkillGoldenAccel:1416881856506495126>", // new one neede
+  "accelspecial": "<:SkillAccel:1416881814689157360>", 
+  "goldenaccelspecial": "<:SkillGoldenAccel:1416881856506495126>", 
   "flow": "<:SkillFlow:1416867145253388489>",
   "goldenflow": "<:SkillGoldenFlow:1412668565416575118>",
   "wisdom": "<:SkillWisdom:1409317127567052925>",
@@ -41,5 +41,5 @@
   "visiondebuff": "<:SkillDebuff:1416881827414675507>",
   "goldenvisiondebuff": "<:SkillGoldenDebuff:1416881875892305920>",
   "frenzy": "<:SkillDebuff:1416881827414675507>",
-  "default": "✨" // fallback
+  "default": "✨"
 }
